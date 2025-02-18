@@ -64,7 +64,7 @@ function [sts, dcm] = pspm_dcm_inv(model, options)
 %                     and aSCR amplitude are in SN units such that an
 %                     eSCR SN pulse with 1 unit amplitude causes an eSCR
 %                     with 1 mcS amplitude (unless model.norm = 1).
-% ● Developer Notes
+% ● Developer
 %   There are two event types: flexible and fixed. The terminology is to call
 %   flexible responses aSCR (anticipatory) and fixed responses eSCR (evoked
 %   SCR).

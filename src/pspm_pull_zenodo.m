@@ -1,7 +1,16 @@
 function sts = pspm_pull_zenodo(ID, datapath)
 % ● Description
 %   pspm_pull_zenodo pulls data from zenodo.org
-
+% ● Format
+%   sts = pspm_pull_zenodo(ID, datapath)
+% ● Arguments
+%   * ID: ID of the dataset on Zenodo (numeric)
+%   * datapath: directory where the downloaded files will be stored (string)
+% ● Outputs
+%   * sts: status flag
+% ● Developer
+%   dsgd
+%   edsrgd
 fprintf('Pulling data set %i from zenodo.org\n', ID);
 mkdir(datapath);
 
