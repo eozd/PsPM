@@ -6,7 +6,7 @@ function [bs, x] = pspm_bf_hprf_fc(varargin)
 %   [bs, x] = pspm_bf_hprf_fc([TD, D, soa])
 % ● Arguments
 %   *    td : time resolution in second.
-%   *     d : number of derivatives. Default as 0.
+%   *     d : number of derivatives. Default is 1.
 % ● History
 %   Introduced in PsPM 3.0
 %   Written in 2015 by Tobias Moser (University of Zurich)
@@ -21,7 +21,7 @@ if nargin==0
 end
 td = varargin{1}(1);
 if numel(varargin{1}) == 1 && nargin == 1
-  d = 0;
+  d = 1;
   soa = 3.5;
 else
   if numel(varargin) > 1
@@ -32,7 +32,7 @@ else
   if numel(va) > 1
     d = va(2);
   else
-    d = 0;
+    d = 1;
   end
   if numel(va) > 2
     soa = va(3);

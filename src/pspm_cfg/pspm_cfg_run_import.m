@@ -1,4 +1,4 @@
-function [out,datafile, datatype, import, options] = pspm_cfg_run_import(job)
+function out = pspm_cfg_run_import(job)
 % Updated on 08-01-2024 by Teddy
 global settings
 if isempty(settings), pspm_init; end
@@ -32,8 +32,7 @@ for i = 1:n
     import{i}.sr = job.datatype.(datatype).importtype{i}.(type{1}).sample_rate;
   end
   % Check if flank option is available
-  if isfield(job.datatype.(datatype).importtype{i}.(type{1}), 'flank_option') && ...
-      ~strcmp(job.datatype.(datatype).importtype{i}.(type{1}).flank_option, 'default')
+  if isfield(job.datatype.(datatype).importtype{i}.(type{1}), 'flank_option') 
     import{i}.flank = job.datatype.(datatype).importtype{i}.(type{1}).flank_option;
   end
   % Check if transfer function available
@@ -91,3 +90,4 @@ end
 options = struct();
 options = pspm_update_struct(options, job, 'overwrite');
 [sts, out] = pspm_import(datafile, datatype, import, options);
+out = {out}; % convert to cell for dependency handling of file names

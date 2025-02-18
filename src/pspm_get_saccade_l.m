@@ -7,8 +7,8 @@ function [sts, data] = pspm_get_saccade_l(import)
 % ● Arguments
 %   ┌import
 %   ├─.data : column vector of left saccade data
-%   ├───.sr : sample rate
-%   └.units : unit of left saccade data
+%   ├.units : unit of left saccade data
+%   └───.sr : sample rate
 % ● History
 %   Introduced in PsPM 4.0.2
 %   Written in 2018 by Laure Ciernik

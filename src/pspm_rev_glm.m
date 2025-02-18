@@ -13,6 +13,7 @@ function [sts, fig] = pspm_rev_glm(modelfile, plotNr)
 %                 3 - predicted & observed
 %                 4 - print regressor names
 %                 5 - reconstructed responses
+%                 6 - plot mean responses of all segments 
 % ● Outputs
 %   *       sts : status variable indicating whether the function run successfully
 %   *       fig : returns the figure handles
@@ -20,6 +21,7 @@ function [sts, fig] = pspm_rev_glm(modelfile, plotNr)
 %   Introduced In PsPM 3.0
 %   Written in 2008-2015 by Dominik R Bach (Wellcome Trust Centre for Neuroimaging)
 %   Maintained in 2022 by Teddy
+%   Maintained in 2024 by Bernhard Agoué von Raußendorf
 
 % initialise
 global settings
@@ -226,8 +228,11 @@ for i=1:length(plotNr)
         XLim = cellfun(@(x){num2str(x)}, XLim);
         set(fig(5).ax(1).h, 'XTickLabel',XLim);
         set(fig(5).title, 'String', sprintf('Estimated responses per condition: %s', filename), 'FontWeight', 'Bold', 'FontSize', 14, 'Interpreter', 'none');
+      case 6
 
-    end
+        options = struct('plot', 1);
+        [ssts, segments] = pspm_extract_segments('model', glm, options);
+     end
   end
 end
 sts = 1;

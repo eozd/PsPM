@@ -7,7 +7,9 @@ function [sts, data] = pspm_get_gaze_y_r(import)
 % ● Arguments
 %   ┌import
 %   ├─.data : column vector of right gaze y data
-%   └───.sr : sample rate
+%   ├─.units: measurement units 
+%   ├───.sr : sample rate
+%   └─.range: range of the gaze data 
 % ● History
 %   Introduced in PsPM 3.1
 %   Written in 2015 by Tobias Moser (University of Zurich)

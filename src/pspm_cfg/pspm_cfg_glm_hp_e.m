@@ -67,14 +67,9 @@ hprf_e.tag    = 'hprf_e';
 hprf_e.val    = {n_bf};
 hprf_e.help   = {''};
 
-bf        = cfg_choice;
-bf.name   = 'Basis Function';
-bf.tag    = 'bf';
-bf.val    = {hprf_e};
-bf.values = {hprf_e, fir};
-bf.help   = {['Basis functions. Standard is to use a canonical evoked heart period response function ' ...
-    '(HPRF_E) with time derivative for later reconstruction of the response peak.']};
-
 % look for bf and replace
 b = cellfun(@(f) strcmpi(f.tag, 'bf'), glm_hp_e.val);
-glm_hp_e.val{b} = bf;
+glm_hp_e.val{b}.values = [{hprf_e}, glm_hp_e.val{b}.values];
+glm_hp_e.val{b}.val = {hprf_e};
+glm_hp_e.val{b}.help = {['Basis functions. Standard is to use a canonical evoked heart period response function ' ...
+    '(HPRF_E) with time derivative for later reconstruction of the response peak.']};

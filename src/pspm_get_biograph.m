@@ -41,7 +41,7 @@ if strcmpi(settings.channeltypes(import{1}.typeno).data, 'events')
     fprintf('\n');
     warning('Please use ''Interval Data Export'' for channels of type ''%s''', ...
       import{1}.type); return
-  end;
+  end
   import{1}.marker = 'timestamps';
   import{1}.sr = 1; % time stamps are in seconds
   import{1}.data = bio.data{1};
@@ -50,7 +50,7 @@ else
     fprintf('\n');
     warning('Please use ''Export Channel Data'' for channels of type ''%s''', ...
       import{1}.type); return
-  end;
+  end
   import{1}.sr = str2num(cell2mat(regexp(bio.header{1}{1}, '\d', 'match')));
   import{1}.data = bio.data{2};
   % check sample rate --
@@ -70,8 +70,8 @@ else
   % --> abs(1-diff(timestamps)) < threshold, with threshold = sr * abs(error)
   if any(abs(1-import{1}.sr*diff(bio.data{1})) > threshold)
     warning('Sample rate in header line and timestamps in first column do not match.'); return;
-  end;
-end;
+  end
+end
 %% Return values
 sts = 1;
 return

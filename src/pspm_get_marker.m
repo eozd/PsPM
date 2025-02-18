@@ -11,9 +11,12 @@ function [sts, data] = pspm_get_marker(import)
 %   ├────────.sr: mandatory, double
 %   │             timestamps: timeunits in seconds
 %   │             continuous: sample rate in 1/seconds)
-%   ├─────.flank: optional, string, applicable for continuous channels only
-%   │             accepted values: 'ascending', 'descending', 'both'
-%   │             default: 'both'
+%   ├────.flank : [optional, string] Only used for importing continuous
+%   │             event channels. This specifies which flank of the event 
+%   │             marker to use. 'both' (default, specifies the event at 
+%   │             the middle between the ascending and descending flank), 
+%   │             'ascending', 'descending',  'all' (imports ascending and 
+%   │             descending flank as separate events).
 %   └.markerinfo: optional, struct, returns marker timestamps in seconds.
 %                 It has two fields, name and value.
 % ● History

@@ -22,7 +22,7 @@ function [sts, outchannel, outinfos] = pspm_find_sounds(fn, options)
 %   │                  the last one will be processed. If you want to preprocess several
 %   │                  sound in a PsPM file, call this function multiple times with the
 %   │                  index of each channel. In this case, set the option
-%   │                  'channel_action' to 'add',  to store each resulting channel
+%   │                  'channel_action' to 'add', to store each resulting channel
 %   │                  separately.
 %   ├.channel_action : ['add'/'replace'] sound events are written as marker channel to the
 %   │                  specified pspm file. Onset times then correspond to marker events
@@ -31,25 +31,25 @@ function [sts, outchannel, outinfos] = pspm_find_sounds(fn, options)
 %   │                  replaced (last found marker channel will be overwritten) or
 %   │                  whether the new channel should be added at the end of the data
 %   │                  file. Default is 'add'.
-%   ├.channel_output : ['all'/'corrected'; 'corrected' requires enabled 
-%   │                  diagnostics, but does not force it (the option will 
-%   │                  otherwise not work).] Defines whether all sound
-%   │                  events or only sound events which were related to an 
-%   │                  existing marker should be written into the output 
-%   │                  marker channel. Default is all sound events.
-%   ├───.diagnostics : [TRUE/false] Computes the delay between marker and detected sound, displays the
-%   │                  mean delay and standard deviation, and removes sounds which could
-%   │                  not be assigned to an existing marker.
+%   ├───.diagnostics : [0 (default) or 1] 
+%   │                  Computes the delay between marker and detected sound, displays the
+%   │                  mean delay and standard deviation.
 %   ├──────.maxdelay : [number] Upper limit (in seconds) of the window in which
 %   │                  pspm_find_sounds will accept sounds as relating to a marker.
 %   │                  Default as 3 s.
 %   ├──────.mindelay : [number] Lower limit (in seconds) of the window in which
 %   │                  pspm_find_sounds will accept sounds as relating to a marker.
 %   │                  Default is 0 s.
-%   ├──────────.plot : [true/FALSE] Display a histogramm of the delays found and a plot
+%   ├──────────.plot : [0(default) or 1] Display a histogramm of the delays found and a plot
 %   │                  with the detected sound, the trigger and the onset of the sound
 %   │                  events. These are color coded for delay, from green (smallest
 %   │                  delay) to red (longest). Forces the 'diagnostics' option to true.
+%   ├.channel_output : ['all'/'corrected'; 'corrected' requires enabled 
+%   │                  diagnostics, but does not force it (the option will 
+%   │                  otherwise not work).] Defines whether all sound
+%   │                  events or only sound events which were related to an 
+%   │                  existing marker should be written into the output 
+%   │                  marker channel. Default is all sound events.
 %   ├──────.resample : [integer] Spline interpolates the sound by the factor specified.
 %   │                  (1 for no interpolation, by default). Caution must be used when
 %   │                  using this option. It should only be used when following
@@ -333,8 +333,21 @@ if options.plot
   else
     histogram(delays*1000, 10)
   end
-  title('Trigger to sound delays')
-  xlabel('t [ms]')
+  set(get(gca, 'title'), ...
+      'String', 'Sound onset delay wrt marker', ...
+      'FontSize', 18, ...
+      'FontWeight', 'Bold');
+  set(get(gca, 'xlabel'), ...
+      'String', 'Time [ms]', ...
+      'FontSize', 15, ...
+      'FontWeight', 'Bold');
+  set(get(gca, 'ylabel'), ...
+      'String', 'Frequency', ...
+      'FontSize', 15, ...
+      'FontWeight', 'Bold');
+  set(gca, ...
+      'FontSize', 12, ...
+      'FontWeight', 'Bold');
   if options.resample
     % downsample for plot
     t = t(1:options.resample:end);
@@ -351,12 +364,26 @@ if options.plot
   plot(t,snd_pres)
   hold on
   scatter(mkr.data,ones(size(mkr.data))*.1,'k')
+  colormap jet
   for i = 1:length(delays)
-    scatter(snd_re(i),.2,500,[(delays(i)-min(delays))/range(delays),1-(delays(i)-min(delays))/range(delays),0],'.')
+    clr = (delays(i)-min(delays))/range(delays);
+    scatter(snd_re(i),.2,500,clr,'.')
   end
-  xlabel('t [s]')
-  legend('Detected sound','Trigger','Sound onset')
-  hold off
+  set(get(gca, 'xlabel'), ...
+      'String', 'Time [s]', ...
+      'FontSize', 15, ...
+      'FontWeight', 'Bold');
+  set(get(gca, 'title'), ...
+      'String', 'Markers and sound onsets', ...
+      'FontSize', 18, ...
+      'FontWeight', 'Bold');
+  legend('Detected sound','Marker','Sound onset (color-coded delay)');
+  colorbar('Ticks', [0, 1], 'TickLabels', {'Min delay', 'Max delay'});
+    set(gca, ...
+      'YTick', [], ...  
+      'FontSize', 12, ...
+      'FontWeight', 'Bold');
+hold off
 end
 
 %% Return values

@@ -33,6 +33,7 @@ function [sts, data, mdltype] = pspm_load1(fn, action, savedata, options)
 %                        'stats', 'recon', 'cond')
 %                        - con structure (for 'con')
 %                        - full first level structure (for 'all')
+%  *  mdltype : model type e.g. 'glm', 'sf', 'dcm', 'tam'
 % ● Developer's Notes
 %   General structure of PsPM 1st level model files
 %   Each file contains one struct variable with the model
@@ -289,6 +290,7 @@ switch action
       end
     else
       warning('ID:invalid_input', '%s. ''recon'' option only defined for GLM files', errmsg);
+      return;
     end
   case 'con'
     if conflag

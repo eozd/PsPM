@@ -16,7 +16,7 @@ timingfile.name    = 'Timing File';
 timingfile.tag     = 'timingfile';
 timingfile.num     = [1 1];
 timingfile.filter  = '.*\.(mat|MAT)$';
-timingfile.help    = {'See general help for this item for more information on how to specify timings'};
+timingfile.help    = {'See general DCM help for more information on how to specify timings'};
 
 
 name         = cfg_entry;
@@ -44,7 +44,7 @@ timing_man_rep.name   = 'Enter Timing Manually (discouraged, will be removed in 
 timing_man_rep.tag    = 'timing_man_rep';
 timing_man_rep.values = {timing_man};
 timing_man_rep.num   = [1 Inf];
-timing_man_rep.help   = {'See general help for this item for more information on how to specify timings'};
+timing_man_rep.help   = {'See general DCM help for more information on how to specify timings'};
 
 
 timing        = cfg_choice;

@@ -1,9 +1,11 @@
 function [ sts, outchannel ] = pspm_convert_ppg2hb( fn , options )
 % ● Description
 %   pspm_convert_ppg2hb converts a pulse oxymeter channel to heartbeats.
-%   First a template is generated from non-ambiguous heartbeats. The ppg
-%   signal is then cross-correlated with the template and maxima are
-%   identified as heartbeats.
+%   Two methods are available: (1) Template-matching algorithm (method 
+%   "classic"): First a template is generated from non-ambiguous 
+%   heartbeats. The ppg signal is then cross-correlated with the template 
+%   and maxima are identified as heartbeats. (2) HeartPy (see reference
+%   [1], requires Python installation. 
 % ● Format
 %   [sts, channel_index] = pspm_convert_ppg2hb( fn, options )
 % ● Arguments
@@ -42,6 +44,11 @@ function [ sts, outchannel ] = pspm_convert_ppg2hb( fn , options )
 %                     python environment is not yet set up
 % ● Output
 %   *  channel_index: index of channel containing the processed data
+% ● References
+%   [1] van Gent, P, Farah, H, van Nes, N, & van Arem, B. (2019) Heartpy: 
+%   A novel heart rate algorithm for the analysis of noisy signals. 
+%   Transportation Research Part F: Traffic Psychology and Behaviour 66, 
+%   368–378. 
 % ● History
 %   Introduced in PsPM 3.1
 %   Written in 2016 by Samuel Gerster (University of Zurich)

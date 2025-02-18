@@ -35,14 +35,14 @@ elseif nargin < 2
   warning('No events specified'); return;
 elseif nargin < 3
   outfile = '';
-end;
+end
 if isempty(outfile) || ~ischar(outfile)
   [pth infn ext] = fileparts(fn);
   outfile = fullfile(pth, ['RF_', infn, ext]);
-end;
+end
 if nargin < 4
   channel = 'scr';
-end;
+end
 
 %% call DCM
 options = pspm_options(options, 'get_rf');
@@ -56,7 +56,7 @@ if numel(dcm{1}.prior.posterior) == 2
 else
   % based on aSCR (i. e. updated RF)
   theta = dcm{1}.prior.posterior(3).muTheta(1:7)';
-end;
+end
 
 %% write response function to file
 if ~isempty(outfile)
@@ -85,6 +85,6 @@ if ~isempty(outfile)
   job = strvcat(job');
   outfile = fullfile(pth, [fn, '.m']);
   dlmwrite(outfile, job, 'delimiter', '');
-end;
+end
 sts = 1;
 return

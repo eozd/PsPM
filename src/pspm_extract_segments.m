@@ -104,7 +104,8 @@ if strcmpi(method, 'file') % in this case use pspm_check_model to verify
     if isfield(options, 'missing')
         model.missing = options.missing;
     end
-    model = pspm_check_model(model, 'glm');
+    % set overwrite = 1 to override test of existing model file
+    model = pspm_check_model(model, struct('overwrite', 1), 'glm'); 
     if model.invalid, return; end
     timing = model.timing;
     datafile = model.datafile;
@@ -186,14 +187,30 @@ for i_sn = 1:numel(data_raw)
 end
 
 if strcmpi(method, 'model') && strcmpi(data.modeltype, 'dcm')
-    % DCM has no condition information
-    onsets{1} = cellfun(@(x, y) pspm_time2index(x, sr , y), ...
+    temponsets = cellfun(@(x, y) pspm_time2index(x, sr , y), ...
     data.input.trlstart(:), ...
     num2cell(session_duration), ...
     'UniformOutput', false);
-    names{1} = 'all';
-    n_cond = 1;
-    options.timeunits = 'seconds';
+    trlnum = cellfun(@(x) numel(x), temponsets);
+    trlnum = trlnum(:);
+    % if DCM has condition information
+    if isfield(data, 'trlnames') && numel(data.trlnames) == sum(trlnum)
+        names = unique(data.trlnames);
+        n_cond = numel(names);
+        prevtrlnum = [0; cumsum(trlnum(1:(end-1)))];
+        for i_cond = 1:numel(names)
+            for i_sn = 1:numel(temponsets)
+                snindx = prevtrlnum(i_sn) + (1:trlnum(i_sn));
+                onsets{i_cond}{i_sn} = temponsets{i_sn}(strcmpi(data.trlnames(snindx), names{i_cond}));
+            end
+        end
+    else
+    % if DCM has no condition information
+        names{1} = 'all';
+        n_cond = 1;
+        options.timeunits = 'seconds';
+        onsets{1} = temponsets;
+    end
 else
     [lsts, multi] = pspm_get_timing('onsets', timing, options.timeunits);
      [msts, onsets] = pspm_multi2index(options.timeunits, multi, sr, session_duration, events);
@@ -233,7 +250,7 @@ for i_cond = 1:numel(onsets)
 end
 
 if options.plot
-  fg = figure('Name', 'Condition mean per subject', 'Visible', 'off');
+  fg = figure('Name', 'Condition means and SEM', 'Visible', 'off');
   ax = axes('NextPlot', 'add');
   set(fg, 'CurrentAxes', ax);
 
@@ -268,9 +285,18 @@ for c=1:numel(onsets)
     set(p(2), 'Color', color);
     set(p(3), 'Color', color);
 
-    legend_lb{(c-1)*3 + 1} = [names{c} ' AVG'];
-    legend_lb{(c-1)*3 + 2} = [names{c} ' SEM+'];
-    legend_lb{(c-1)*3 + 3} = [names{c} ' SEM-'];
+    legend_lb{(c-1)*3 + 1} = [names{c} ' condition mean'];
+    legend_lb{(c-1)*3 + 2} = [names{c} ' mean+SEM'];
+    legend_lb{(c-1)*3 + 3} = [names{c} ' mean-SEM'];
+
+    f.lg = legend('String', legend_lb, 'Interpreter', 'none', 'Location', 'best');
+    legend boxoff
+
+    set(ax, 'FontSize', 12, 'FontWeight', 'Bold');
+    set(get(ax, 'xlabel'), 'String', 'Time (seconds)', 'FontSize', 15, 'FontWeight', 'Bold');
+    set(get(ax, 'ylabel'), 'String', 'Mean Response (data units)', 'FontSize', 15, 'FontWeight', 'Bold');
+    set(get(ax, 'title'), 'String', 'Mean Responses for All Segments', 'FontSize', 18, 'FontWeight', 'Bold');
+
   end
 end
 
@@ -332,30 +358,18 @@ if ~isempty(options.outputfile)
   % ensure correct file suffix
   [pt, fn, ~] = fileparts(options.outputfile);
   outfile = [pt filesep fn '.mat'];
-  write_ok = 0;
-  if exist(outfile, 'file')
-    if options.overwrite
-      write_ok = 1;
-    else
-      button = questdlg(sprintf('File (%s) already exists. Replace file?', ...
-        outfile), 'Replace file?', 'Yes', 'No', 'No');
-
-      write_ok = strcmpi(button, 'Yes');
-    end
-  else
-    write_ok = 1;
-  end
-
-  if write_ok
+  
+  if pspm_overwrite(options.outputfile, options.overwrite)
     save(outfile, 'segments');
-    out.outputfile = outfile;
+    out.outputfile = outfile;   
   end
+
+
 end
 
 if options.plot
   % show plot
   set(fg, 'Visible', 'on');
-  legend(legend_lb);
 end
 
 %% Return values

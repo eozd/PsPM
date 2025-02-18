@@ -37,7 +37,7 @@ if isfield(import{1}, 'bit') && import{1}.bit == 32
   headerformat = 'ns_cnt32';
 else
   headerformat = 'ns_cnt16';
-end;
+end
 
 hdr = ft_read_header(datafile, 'headerformat', headerformat);
 indata = ft_read_data(datafile, 'headerformat', headerformat, 'dataformat', headerformat);
@@ -51,8 +51,8 @@ for k = 1:numel(import)
       channel = import{k}.channel;
     else
       channel = pspm_find_channel(hdr.label, import{k}.type);
-      if channel < 1, return; end;
-    end;
+      if channel < 1, return; end
+    end
 
     sourceinfo.channel{k, 1} = sprintf('Channel %02.0f: %s', channel, hdr.label{channel});
 
@@ -74,10 +74,10 @@ for k = 1:numel(import)
       import{k}.data = [];
       import{k}.markerinfo.value = [];
       import{k}.markerinfo.name = [];
-    end;
-  end;
+    end
+  end
 
-end;
+end
 
 % clear path and return
 % -------------------------------------------------------------------------

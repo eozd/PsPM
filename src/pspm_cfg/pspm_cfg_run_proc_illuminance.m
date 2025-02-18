@@ -8,7 +8,6 @@ options.fn = out_file;
 options.overwrite = job.output.overwrite;
 %% basis function
 options.bf = struct();
-options.bf = pspm_update_struct(options.bf, job.bf, {'duration','offset'});
 dil_f = fields(job.bf.dilation);
 % only check first field
 switch dil_f{1}

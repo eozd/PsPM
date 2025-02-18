@@ -42,20 +42,16 @@ soa.val       = {3.5};
 % SPS
 % bf = boxfunction
 spsrf_box       = cfg_const;
-spsrf_box.name  = 'Average scanpath speed';
+spsrf_box.name  = 'Average scanpath speed (2 s pre-US)';
 spsrf_box.tag   = 'spsrf_box';
 spsrf_box.val   = {'spsrf_box'};
-spsrf_box.help  = {['This option implements a boxcar function over the SOA, and yields the average ',...
- 'scan path speed over that interval (i.e.', ...
- 'the scan path length over that interval, divided by the SOA).', ...
- '(default).']};
+spsrf_box.help  = pspm_cfg_help_format('pspm_bf_spsrf_box');
 % bf = gammafunction
 spsrf_gamma = cfg_const;
-spsrf_gamma.name = 'SPSRF_FC';
+spsrf_gamma.name = 'Gamma function';
 spsrf_gamma.tag = 'spsrf_gamma';
 spsrf_gamma.val = {'spsrf_gamma'};
-spsrf_gamma.help = {['This option implements a gamma function for fear-conditioned scan path speed', ...
- 'responses, time-locked to the end of the CS-US interval.']};
+spsrf_gamma.help = pspm_cfg_help_format('pspm_bf_spsrf_gamma');
 % rf function
 rf        = cfg_choice;
 rf.name   = 'Function';

@@ -7,6 +7,7 @@ function [sts, data] = pspm_get_blink_r(import)
 % ● Arguments
 %   ┌────import
 %   ├─────.data : column vector of waveform data
+%   ├────.units : units of waveform data
 %   └───────.sr : sample rate
 % ● History
 %   Introduced in PsPM 4.0.2

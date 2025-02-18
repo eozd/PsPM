@@ -10,8 +10,7 @@ function [bs, x] = pspm_bf_ldrf_gm(varargin)
 % ● Arguments
 %   *     td : Time resolution in second.
 %   *      n : Duration of the function in second. Default as 20 s.
-%   * offset : Offset in s. tells the function where to start with
-%              the response function. Default as 0.2 s.
+%   * offset : Offset of the response (in s).
 %   *      a : Shape of the function.
 %   *      b : Scale of the function.
 %   *      A : Quantifier or amplitude of the function.

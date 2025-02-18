@@ -2,10 +2,10 @@
 This file contains the steps required for finalising a PsPM release. Many items at the beginning don't have to be followed sequentially. However, it is important that there aren't any revisions (commits) that implement/fix something new in the release branch, because we don't merge these branches back to trunk. Therefore, it is sensible to create the release branch after making absolutely sure that no new stuff will be implemented.
 
 - [ ] Update version number & date in
-	 - [ ] `pspm_msg`
+	 - [ ] `pspm_msg.txt`
 	 - [ ] `pspm_quit`
 	 - [ ] `pspm_ui`
-	 - [ ] `pspm.fig`: Load `pspm.fig` into MATLAB using `openfig`, update `fig.Children(9).String` and save back to `pspm.fig`
+	 - [ ] `pspm_ui_app`
 - [ ] Manual and Developers Guide: front pages
 - [ ] Make sure both manuals are updated
 - [ ] Add release notes section of the new version to manual (at the end) and release\_notes.tex
@@ -23,3 +23,5 @@ This file contains the steps required for finalising a PsPM release. Many items 
 - [ ] Add release message to GitHub
 - [ ] Change release number on lab webpage (gh-pages branch)
 - [ ] Add release message to lab webpage (gh-pages branch)
+- [ ] Update `PsPM_installer` in `/src/helper` with the new version number and download link, and merge this pull request on the official release date.
+

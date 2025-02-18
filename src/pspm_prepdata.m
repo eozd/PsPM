@@ -151,33 +151,8 @@ if ~ischar(filt.down) && filt.sr > filt.down
     warning('ID:freq_change', ...
       'Sampling rate was changed to %01.2f Hz to prevent aliasing', filt.down)
   end
-  freqratio = filt.sr/filt.down;
-  if freqratio == ceil(freqratio) % NB isinteger might not work for some values
-    % to avoid toolbox use, but only works for integer sr ratios
-    [lsts, data] = pspm_downsample(data, freqratio);
-    if lsts == -1, errmsg = 'for an unknown reason in pspm_downsample.'; end
-    newsr = filt.down;
-  elseif settings.signal
-    % this filts the data on the way, which does not really matter
-    % for us anyway, but allows real sr ratios
-    if filt.sr == floor(filt.sr) && filt.down == floor(filt.down)
-      data = resample(data, filt.down, filt.sr);
-      newsr = filt.down;
-    else
-      % use a crude but very general way of getting to integer
-      % numbers
-      altsr = floor(filt.sr);
-      altdownsr = floor(filt.down);
-      data = resample(data, altdownsr, altsr);
-      newsr = filt.sr * altdownsr/altsr;
-      warning('ID:nonint_sr', 'Note that the new sampling rate is a non-integer number.');
-    end
-  else
-    lsts = -1;
-    errmsg = 'because signal processing toolbox is not installed and downsampling ratio is non-integer.';
-  end
-  if ~lsts
-    warning('ID:downsampling_failed', ['\nDownsampling failed %s', errmsg]);
+  [lsts, data, newsr] = pspm_downsample(data, filt.sr, filt.down);
+  if lsts == -1
     return
   end
 else

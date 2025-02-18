@@ -5,7 +5,7 @@ function [sts, channel_index] = pspm_multi_channel(fhandle, channels, varargin)
 %   function multiple times and so does accelerate processing time. It
 %   creates the required loop and handles any processing errors.
 % ● Format
-%   [sts, channel_index] = pspm_multi_channel(function, channels, argument1, argument2, ..., options)
+%   [sts, channel_index] = pspm_multi_channel(fhandle, channels, argument1, argument2, ..., options)
 % ● Arguments
 %   *       fhandle : [char or function handle] Preprocessing function
 %   *      channels : [char, vector, cell array] Channel specifications:

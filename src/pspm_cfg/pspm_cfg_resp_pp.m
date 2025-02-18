@@ -1,13 +1,13 @@
 function resp_pp = pspm_cfg_resp_pp
 % Coversion of continuous respiration data various respiration data types
 
+
 %% Standard items
 datafile         = pspm_cfg_selector_datafile;
 channel          = pspm_cfg_selector_channel('respiration');
 channel_action   = pspm_cfg_selector_channel_action;
 
 %% Specific items
-
 sr         = cfg_entry;
 sr.name    = 'Sample Rate';
 sr.tag     = 'sr';

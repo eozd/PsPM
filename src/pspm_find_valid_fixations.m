@@ -31,10 +31,8 @@ function [sts, pos_of_channel, fn] = pspm_find_valid_fixations(fn, varargin)
 % ● Arguments
 %   *             fn : The actual data file containing the eyelink recording with gaze
 %                      data converted to cm.
-%   *         bitmap : A nxm matrix representing the display window and holding for each
-%                      poisition a one, where a gaze value is valid. If there exists
-%                      gaze data at a point with a zero value in the bitmap the
-%                      corresponding data is set to NaN. IMPORTANT: the bitmap has to
+%   *         bitmap : A nxm matrix of the same size as the display, with 1 
+%                      for valid and 0 for invalid gaze points. IMPORTANT: the bitmap has to
 %                      be defined in terms of the eyetracker coordinate system, i.e.
 %                      bitmap(1,1) must correpond to the origin of the eyetracker
 %                      coordinate system, and must be of the same size as
@@ -47,13 +45,13 @@ function [sts, pos_of_channel, fn] = pspm_find_valid_fixations(fn, varargin)
 %   │                  to the given resolution, and in the eyetracker coordinate system).
 %   │                  n should equal either 1 (constant fixation point) or the length
 %   │                  of the actual data. If resolution is not defined the values are
-%   │                  given in percent. Therefore [0.5 0.5] would correspond to the
-%   │                  middle of the screen. Default is [0.5 0.5]. Only taken into account
+%   │                  given in percent. Therefore (0.5 0.5) would correspond to the
+%   │                  middle of the screen. Default is (0.5 0.5). Only taken into account
 %   │                  if there is no bitmap.
 %   ├────.resolution : Resolution with which the fixation point is defined (Maximum value
 %   │                  of the x and y coordinates). This can be the screen resolution in
-%   │                  pixels (e.g. [1280 1024]) or the width and height of the screen
-%   │                  in cm (e.g. [50 30]). Default is [1 1]. Only taken into account
+%   │                  pixels (e.g. (1280 1024)) or the width and height of the screen
+%   │                  in cm (e.g. (50 30)). Default is (1 1). Only taken into account
 %   │                  if there is no bitmap.
 %   ├.plot_gaze_coords: Define whether to plot the gaze coordinates for visual
 %   │                 inspection of the validation process. Default is false.
@@ -258,7 +256,7 @@ if ~strcmpi(options.channel, 'both')
 
             % check plotting
             if options.plot_gaze_coords
-              fg = figure;
+              fg = figure('Name', 'Fixation plot');
               ax = axes('NextPlot', 'add');
               set(ax, 'Parent', handle(fg));
 

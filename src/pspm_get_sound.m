@@ -6,6 +6,7 @@ function [sts, data] = pspm_get_sound(import)
 % ● Arguments
 %   ┌─import
 %   ├──.data : column vector of waveform data.
+%   ├─.units : units of data.
 %   └────.sr : sample rate.
 % ● History
 %   Introduced in PsPM 3.0

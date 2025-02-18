@@ -9,7 +9,12 @@ if nargin < 1
 elseif strcmpi(outtype, 'run')
     job = varargin{1};
     [pth, fn, ext] = fileparts(job.output.file);
-    output = fullfile(job.output.dir{1}, [fn, '.mat']);
+    if nargin >= 3
+        ext = varargin{2};
+    else
+        ext = 'mat';
+    end
+    output = fullfile(job.output.dir{1}, [fn, '.', ext]);
     return
 end
 

@@ -33,9 +33,9 @@ for k = 1:n
         v(k) = S(k).(field);
     elseif numel(S(k).(field)) > 1
         v(k) = S(k).(field)(1);
-        warning('%s #%01.0f contained more than one entry. Only the first one will be retained.\n', warningstr, k);
+        warning('pspm_struct2vec:MultiField','%s #%01.0f contained more than one entry. Only the first one will be retained.\n', warningstr, k);
     else
-        warning('%s #%01.0f contained no entry and will be assigned NaN.\n', warningstr, k);
+        warning('pspm_struct2vec:EmptyField','%s #%01.0f contained no entry and will be assigned NaN.\n', warningstr, k);
     end
 end
 

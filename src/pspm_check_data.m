@@ -8,6 +8,9 @@ function [sts, data] = pspm_check_data(data, infos)
 %   [sts, data] = pspm_check_data(data, infos)
 % ● Developer's notes
 %   This code is taken from pspm_load_data; it could be improved using cellfun.
+% ● History
+%   Introducted in Version 7.0
+%   Written by Dominik R Bach (Bonn)
 
 global settings
 if isempty(settings)

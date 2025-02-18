@@ -20,5 +20,4 @@ else
   error('Reference invalid');
 end
 [sts, out] = pspm_trim(job.datafile{1}, from, to, ref, options);
-out = {out};
-
+out = {out}; % convert to cell for dependency handling of file names

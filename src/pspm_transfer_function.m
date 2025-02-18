@@ -1,29 +1,36 @@
 function [sts, scr] = pspm_transfer_function(data, c, Rs, offset, recsys)
 % ● Description
 %   pspm_transfer_function converts input data into SCR in microsiemens
-%   assuming a linear transfer from total conductance to measured data
+%   using the following transfer function: G = 1/((c/data-offset)^recsys - Rs),
+%   where G is conductance, data is the recorded data, c/offset/Rs are 
+%   specified by the user, and recsys is 1 for conductunce measurements 
+%   and -1 for resistance measurements. If the measurement system already
+%   outputs the conductance G, then the following settings should be used:
+%   c = 1, offset = 0, Rs = 0. If the transfer function is not specified,
+%   then the imported data will be assigned "arbitrary units".
 % ● Format
 %   scr = pspm_transfer_function(data, c, Rs, offset, recsys)
 %   scr = pspm_transfer_function(data, c, [Rs, offset, recsys])
 % ● Arguments
 %   * data : the input data into SCR in microsiemens
-%   *    c : the transfer constant. Depending on the recording setting
-%            data = c * (measured total conductance in mcS)
-%            or
+%   *    c : Transfer constant c. Depending on the recording system:
+%            data = c * (measured total conductance in mcS) 
+%            - or - 
 %            data = c * (measured total resistance in MOhm) = c / (total conductance in mcS)
 %   *   Rs : [optional]
 %            Series resistors (Rs) are often used as current limiters in MRI and will
-%            render the function non-linear. They can be taken into account (in Ohm)
+%            render the function non-linear. This should be taken into
+%            account. Specify Rs in Ohm. Note that some MRI recording
+%            systems use resistive wires.
 %            default: Rs=0.
 %   * offset : [optional, default as 0]
 %            Some systems have an offset (e.g. when using fiber optics in MRI, a minimum
 %            pulsrate), which can also be taken into account. Offset must be stated in
 %            data units.
 %   * recsys : [optional]
-%            There are two different recording settings which have an influence on the
-%            transfer function. Recsys defines in which setting the data (given in
-%            voltage) has been generated. Either the system is a 'conductance' based
-%            system (which is the default) or it is a 'resistance' based system.
+%            Most SCR measurement systems record a conductance (or a linear 
+%            transformation). Some systems record resistance. Specify 
+%            'conductance' (default) or 'resistance'.
 % ● History
 %   Introduced in PsPM 3.0
 %   Written in 2008-2015 by Dominik R Bach (Wellcome Trust Centre for Neuroimaging)

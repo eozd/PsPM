@@ -23,37 +23,49 @@ end
 M = [];
 % 3.1 Add title
 Title       = pspm_doc_get_title(func_name);
-M = [M, '# ', Title, newline];
+M = [M, '---', newline];
+M = [M, 'layout: post', newline];
+M = [M, 'title: ', func_name, newline];
+M = [M, 'permalink: /ref/', func_name, newline];
+M = [M, '---', newline];
+M = [M, ' ', newline];
+M = [M, '[Back to index](/PsPM/ref/)', newline];
 % 3.2 Add description
 if isfield(S, 'Description')
   Description = pspm_doc_get_description(S.Description);
-  M = [M, '## ', 'Description',  newline, Description, newline];
+  M = [M, newline, '## ', 'Description',  newline, newline, Description, newline, newline];
 end
 % 3.3 Add format
 if isfield(S, 'Format')
   Format      = pspm_doc_get_format(S.Format);
-  M = [M, '## ', 'Format',       newline, Format,      newline];
+  M = [M, '## ', 'Format',       newline, newline, Format,      newline, newline];
 end
 % 3.4 Add arguments
 if isfield(S, 'Arguments')
   Arguments   = pspm_doc_get_struct_fields(S.Arguments);
-  M = [M, '## ', 'Arguments',    newline, Arguments,   newline];
+  M = [M, '## ', 'Arguments',    newline, newline, Arguments,   newline, newline];
 end
 % 3.5 Add outputs
 if isfield(S, 'Outputs')
   Outputs   = pspm_doc_get_struct_fields(S.Outputs);
-  M = [M, '## ', 'Outputs',    newline, Outputs,   newline];
+  M = [M, '## ', 'Outputs',      newline, newline, Outputs,     newline, newline];
 end
 % 3.6 Add references
 if isfield(S, 'References')
   References  = pspm_doc_get_references(S.References);
-  M = [M, '## ', 'References',   newline, References,  newline];
+  M = [M, '## ', 'References',   newline, newline, References,  newline, newline];
 end
+M = [M, '[Back to index](/PsPM/ref/)', newline];
 %% 4 Write to file
-if isfield(options, 'path')
-  writelines(M, [options.path, '/', Title,'.md']);
+if isfield(options, 'post') && options.post == 1
+  PrefTitle = ['2024-01-01-',Title];
 else
-  writelines(M, [Title,'.md']);
+  PrefTitle = Title;
+end
+if isfield(options, 'path')
+  writelines(M, [options.path, '/', PrefTitle,'.md']);
+else
+  writelines(M, [PrefTitle,'.md']);
 end
 sts = 1;
 end
@@ -85,7 +97,6 @@ for iLocStar = 1:length(LocStar)
 end
 Y(LocRm) = [];
 Y = [Y, newline];
-
 end
 function Y = pspm_doc_get_description(X)
 X = insertAfter(X, newline, newline);
@@ -99,7 +110,7 @@ for i_arg = 1:length(list_arg)
     case 'char'
       Y = [Y, '| ', list_arg{i_arg}, ' | ', X.(list_arg{i_arg}), ' |', newline];
     case 'struct'
-      Y = [Y, '| ', list_arg{i_arg}, ' | ', 'See following fields.'                , ' |', newline];
+      Y = [Y, '| ', list_arg{i_arg}, ' | ', 'See following fields.', ' |', newline];
       list_arg2 = fieldnames(X.(list_arg{i_arg}));
       for i_arg2 = 1:length(list_arg2)
         switch class(X.(list_arg{i_arg}).(list_arg2{i_arg2}))
@@ -112,13 +123,19 @@ for i_arg = 1:length(list_arg)
             for i_arg3 = 1:length(list_arg3)
               Y = [Y, '| ', list_arg{i_arg}, '.', list_arg2{i_arg2}, '.', list_arg3{i_arg3}, ' | ', ...
                 X.(list_arg{i_arg}).(list_arg2{i_arg2}).(list_arg3{i_arg3}), ' |'];
-              Y = [Y, newline];
+              if i_arg3 < length(list_arg3)
+                Y = [Y, newline];
+              end
             end
         end
         if i_arg2 < length(list_arg2)
           Y = [Y, newline];
         end
+        if i_arg2 == length(list_arg2) && isstruct(X.(list_arg{i_arg}).(list_arg2{i_arg2}))
+          Y = [Y, newline];
+        end
       end
+      Y = [Y, newline];
   end
 end
 end

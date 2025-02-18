@@ -28,9 +28,13 @@ model.timing = epochs;
 if ~isfield(job.filter,'def')
   model.filter = pspm_cfg_selector_filter('run', job.filter);
 end
+% channel number
 if isfield(job.chan, 'chan_nr')
   model.channel = job.chan.chan_nr;
 end
+% missing
+model.missing = pspm_cfg_selector_missing_epochs('run', job);
+% options
 if strcmp(timeunits, 'markers')
   options.marker_chan_num = pspm_cfg_selector_channel('run', job.timeunits.markers.chan);
 end
@@ -40,15 +44,10 @@ end
 if ~isempty(job.fresp)
   options.fresp = job.fresp;
 end
-if ~isempty(job.missing) && isfield(job.missing, 'missingepoch_include')
-  if ischar(job.missing.missingepoch_include.missingepoch_file{1})
-    model.missing = job.missing.missingepoch_include.missingepoch_file{1};
-  end
-end
 options = pspm_update_struct(options, job, {'dispwin', ...
                                             'dispsmallwin', ...
-                                            'overwrite', ...
                                             'threshold'});
+options = pspm_update_struct(options, job.output, {'overwrite'});
 pspm_sf(model, options);
 out = {model.modelfile};
 

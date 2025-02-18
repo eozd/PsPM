@@ -7,8 +7,8 @@ function [bs, x] = pspm_bf_rarf_fc(varargin)
 % ● Arguments
 %   *      td:  The time the response function should have.
 %   * bf_type:  Which type of response function should be generated. Can be either 1 or 2.
-%               If 1, first type response function is generated, (default) = gamma_early + gamma_late.
-%               If 2, second type response function is generated, (default) = gamma_early + gamma_early'.
+%               If 1, first type response function is generated (default)                     : gamma_early + gamma_late.
+%               If 2, second type response function is generated (recommended for longer SOAs): gamma_early + gamma_early'.
 % ● History
 %   Introduced in PsPM 3.1
 %   Written in 2016 by G Castegnetti, Tobias Moser (University of Zurich)

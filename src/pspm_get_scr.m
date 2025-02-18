@@ -1,6 +1,6 @@
 function [sts, data] = pspm_get_scr(import)
 % ● Description
-%   pspm_get_scr is a common function for importing scr data
+%   pspm_get_scr is a common function for importing scr data. 
 % ● Format
 %   [sts, data] = pspm_get_scr(import)
 % ● Arguments
@@ -9,7 +9,8 @@ function [sts, data] = pspm_get_scr(import)
 %   ├──────.sr : sampling rate
 %   └.transfer : transfer parameters, either a struct with fields .Rs, .c,
 %                .offset, .recsys, or a file containing variables 'Rs' 'c',
-%                'offset', 'recsys'.
+%                'offset', 'recsys'. See pspm_transfer_function for more
+%                details.
 % ● History
 %   Introduced in PsPM 3.0
 %   Written in 2008-2015 by Dominik R Bach (Wellcome Trust Centre for Neuroimaging)

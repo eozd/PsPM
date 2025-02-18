@@ -34,7 +34,7 @@ for i=1:2
     rarf_fc{i}.val    = {i};
 end
 rarf_fc{1}.help   = {'RARF_FC early and late response (default).'};
-rarf_fc{2}.help   = {'RARF_FC early response with derivative.'};
+rarf_fc{2}.help   = {'RARF_FC early response with derivative (recommended for longer SOAs).'};
 
 
 bf        = cfg_choice;

@@ -57,6 +57,9 @@ channeltype_list = cellfun(@(x) x.header.chantype, data, 'uni', false);
 channelunits_list = cellfun(@(x) x.header.units, data, 'uni', false);
 if strcmp(units, 'any')
     units = channelunits_list;
+    unitflag = 0; % required for error handling
+else
+    unitflag = 1;
 end
 % To facilitate identification of eyetracker channels we use 'startsWith'
 % rather than 'strcmpi' - therefore we need to catch cases where channel
@@ -75,9 +78,13 @@ else
     pos_of_channels = channel;
 end
 
-if isempty(pos_of_channels)
+if isempty(pos_of_channels) && ~unitflag
   warning('ID:non_existing_chantype',...
       'There are no channels of type ''%s'' in the data file', channel);
+    return
+elseif isempty(pos_of_channels)
+  warning('ID:non_existing_chantype',...
+      'There are no channels of type ''%s'' with the correct units in the data file', channel);
     return
 elseif any(pos_of_channels > numel(data))
       warning('ID:invalid_input',...

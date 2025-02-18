@@ -5,7 +5,7 @@ model = struct();
 options = struct();
 
 % set modality
-model.modality = 'sebr';
+model.modality = 'emg_pp';
 model.modelspec = 'sebr';
 
 % basis function

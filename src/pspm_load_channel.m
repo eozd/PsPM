@@ -13,7 +13,7 @@ function [sts, data_struct, infos, pos_of_channel, chantype_sts] = ...
 %   * channel : [numeric] / [char] / [struct]
 %               ▶ numeric: returns this channel (or the first of a vector)
 %               ▶ char
-%                 'marker'  returns the first maker channel
+%                 'marker'  returns the first marker channel
 %                           (see settings for permissible channel types)
 %                 any other channel type (e.g. 'scr')
 %                           returns the last channel of the respective type

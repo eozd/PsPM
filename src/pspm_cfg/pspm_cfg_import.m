@@ -29,8 +29,7 @@ sample_rate.tag     = 'sample_rate';
 sample_rate.strtype = 'r';
 sample_rate.num     = [1 1];
 sample_rate.help    = pspm_cfg_help_format('pspm_import', 'import.sr');
-% arguments(contains(arguments(:,1),'import.sr'),2);
-% will restore when it is finished.
+
 
 % Transfer function
 scr_file         = cfg_files;
@@ -38,42 +37,28 @@ scr_file.name    = 'File';
 scr_file.tag     = 'file';
 scr_file.num     = [1 1];
 scr_file.filter  = '.*\.(mat|MAT)$';
-scr_file.help    = {['Enter the name of the .mat file that contains the ', ...
-  'transfer function constants. This file needs to contain the ', ...
-  'following variables: ''c'' is the transfer constant: ', ...
-  'data = c * (measured total conductance in mcS or total resistance ', ...
-  'in MOhm); ''Rs'' is the series resistance in Ohm (usually 0), ', ...
-  'and ''offset'' any offset in the data (stated in data units, ', ...
-  'usually 0) and optionally, a variable ''recsys'' to whether the ', ...
-  'recorded signal is proportional to measured ''resistance'' ', ...
-  '(R, data=R*c=c/G) or from ''conductance'' (G, data=G*c=c/R).']};
+scr_file.help    = {};
 
 scr_transf_const         = cfg_entry;
 scr_transf_const.name    = 'Transfer Constant';
 scr_transf_const.tag     = 'transfer_const';
 scr_transf_const.strtype = 'r';
 scr_transf_const.num     = [1 1];
-scr_transf_const.help    = {['Constant by which the measured conductance or ', ...
-  'resistance is multiplied to give the recorded signal ', ...
-  '(and by which the signal needs to be divided to give the original ', ...
-  'conductance/resistance): data = c * (measured total conductance ', ...
-  'in mcS or total resistance in MOhm).']};
+scr_transf_const.help    = pspm_cfg_help_format('pspm_transfer_function', 'c');
 
 scr_offset         = cfg_entry;
 scr_offset.name    = 'Offset';
 scr_offset.tag     = 'offset';
 scr_offset.strtype = 'r';
 scr_offset.num     = [1 1];
-scr_offset.help    = {'Fixed offset in data units (i. e. measured signal when ', ...
-  'true conductance is zero, i.e. when the measurement circuit is open).'};
+scr_offset.help    = pspm_cfg_help_format('pspm_transfer_function', 'offset');
 
 scr_resistor         = cfg_entry;
 scr_resistor.name    = 'Series Resistor';
 scr_resistor.tag     = 'resistor';
 scr_resistor.strtype = 'r';
 scr_resistor.num     = [1 1];
-scr_resistor.help    = {'Resistance of any resistors in series with the ', ...
-  'subject, given in Ohm.'};
+scr_resistor.help    = pspm_cfg_help_format('pspm_transfer_function', 'Rs');
 
 scr_recsys           = cfg_menu;
 scr_recsys.name      = 'Recording System';
@@ -81,9 +66,7 @@ scr_recsys.tag       = 'recsys';
 scr_recsys.values    = {'conductance', 'resistance'};
 scr_recsys.labels    = {'conductance', 'resistance'};
 scr_recsys.val       = {'conductance'};
-scr_recsys.help      = {['Choose whether the recorded signal is proportional ', ...
-  'to measured ''resistance'' (R, data=R*c=c/G) or from ''conductance'' ', ...
-  '(G, data=G*c=c/R).']};
+scr_recsys.help      = pspm_cfg_help_format('pspm_transfer_function', 'recsys');
 
 scr_input       = cfg_branch;
 scr_input.name  = 'Input';
@@ -95,15 +78,13 @@ none      = cfg_const;
 none.name = 'None';
 none.tag  = 'none';
 none.val  = {true};
-none.help = {['No transfer function. Use this only if you are not interested in ' ...
-  'absolute values, and if the recording settings were the same for all subjects.']};
+none.help = {};
 
 scr_transfer         = cfg_choice;
 scr_transfer.name    = 'Transfer Function';
 scr_transfer.tag     = 'scr_transfer';
 scr_transfer.values  = {scr_file,scr_input,none};
-scr_transfer.help    = {['Enter the conversion from recorded data to ', ...
-  'Microsiemens or Megaohm.']};
+scr_transfer.help    = pspm_cfg_help_format('pspm_transfer_function');
 
 eyelink_trackdist         = cfg_entry;
 eyelink_trackdist.name    = 'Eyetracker distance';
@@ -112,9 +93,8 @@ eyelink_trackdist.val     = {-1};
 eyelink_trackdist.num     = [1 1];
 eyelink_trackdist.strtype = 'r';
 eyelink_trackdist.help    = {['Distance between eyetracker camera and ', ...
-  'recorded eyes. Disabled if 0 or less (use only if you are interested ', ...
-  'in relative values), then pupil data will remain unchanged. If ', ...
-  'enabled (> 0) the data will be converted from arbitrary units to ', ...
+  'recorded eyes. Not used if 0 or less. If ', ...
+  'spedified (> 0) the data will be converted from arbitrary units to ', ...
   'length units.']};
 
 distance_unit           = cfg_menu;
@@ -227,13 +207,12 @@ for datatype_i=1:length(fileoptions)
 
   %% Flank option for 'event' channel types
   flank_option        = cfg_menu;
-  flank_option.name   = 'Flank of the event impulses to import';
+  flank_option.name   = 'Marker flank (for continuous marker data only)';
   flank_option.tag    = 'flank_option';
-  flank_option.values = {'ascending', 'descending', 'all', 'both', 'default'};
-  flank_option.labels = {'ascending', 'descending', 'both', 'middle', 'default'};
-  flank_option.val    = {'default'};
-  flank_option.help   = {''};%arguments(contains(arguments(:,1),'import.flank'),2);
-  % will restore when this is finished
+  flank_option.values = {'both', 'ascending', 'descending', 'all'};
+  flank_option.labels = {'both', 'ascending', 'descending', 'all'};
+  flank_option.val    = {'both'};
+  flank_option.help   = pspm_cfg_help_format('pspm_get_events', 'import.flank');
 
   %% Channel/Column Type Items
   importtype_item = cell(1,length(channeltypes));

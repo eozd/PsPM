@@ -116,9 +116,9 @@ classdef pspm_prepdata_test < matlab.unittest.TestCase
       filt.hporder = 1;
       filt.direction = 'uni';
       data = rand(filt.sr * 10,1);
-      [sts, outdata, newsr] = this.verifyWarning(@()pspm_prepdata(data, filt), 'ID:nonint_sr');
-      this.verifyTrue(sts == 1, 'sts is negativ');
-      this.verifyTrue(newsr == floor(filt.down), 'newsr != filt.sr');
+      [sts, outdata, newsr] = this.verifyWarning(@()pspm_prepdata(data, filt), 'ID:freq_change');
+      this.verifyTrue(sts == 1, 'sts is negative');
+      this.verifyTrue(newsr == round(filt.down), 'newsr != filt.sr');
       this.verifyTrue(~isempty(outdata), 'outdata is empty');
     end
     function below_nyquist_downsample_test(this)

@@ -91,6 +91,4 @@ review.name = 'Review First-Level Model';
 review.tag  = 'review';
 review.val  = {modelfile, modeltype};
 review.prog = @pspm_cfg_run_review1;
-review.help = {['This module allows you to look at the first-level (within-subject) model to investigate ' ...
-    'model fit and potential estimation problems. This is not necessary for standard analyses. Further ' ...
-    'processing can be performed directly on the second level after first-level model estimation.']};
+review.help = {};

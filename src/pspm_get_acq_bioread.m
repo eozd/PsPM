@@ -12,7 +12,9 @@ function [sts, import, sourceinfo] = pspm_get_acq_bioread(datafile, import)
 % ● Arguments
 %   * datafile : the path of the BIOPAC/AcqKnowledge file to be imported
 %   ┌───import
+%   ├─.channel : channel.
 %   ├──────.sr : sampling rate.
+%   ├────.type : channel type.
 %   ├────.data : The data read from the acq file.
 %   ├───.units : the unit of data.
 %   └──.marker : The type of marker, such as 'continuous'.
@@ -38,8 +40,8 @@ for k = 1:numel(import)
     channel = import{k}.channel;
   else
     channel = pspm_find_channel(channel_labels, import{k}.type);
-    if channel < 1, return; end;
-  end;
+    if channel < 1, return; end
+  end
   if channel > size(channel_labels, 1)
     warning('ID:channel_not_contained_in_file', ...
     'Channel %02.0f not contained in file %s.\n', channel, datafile);
@@ -54,8 +56,8 @@ for k = 1:numel(import)
   import{k}.units = inputdata.channels{channel}.units;
   if strcmpi(settings.channeltypes(import{k}.typeno).data, 'events')
     import{k}.marker = 'continuous';
-  end;
-end;
+  end
+end
 %% Return values
 sts = 1;
 return

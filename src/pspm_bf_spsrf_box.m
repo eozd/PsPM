@@ -1,18 +1,17 @@
 function [bs, x] = pspm_bf_spsrf_box(varargin)
 % ● Description
 %   pspm_bf_spsrf_box constructs a boxcar function to produce the averaged
-%   scanpath speed over a 2-s time window in the end of SOA, which equals
-%   to scanpath length over a 2-s time window divided by 2/s
+%   scanpath speed over a 2-s time window in the end of SOA. This equals
+%   to scanpath length over a 2-s time window divided by 2.
 % ● Format
 %   [bs, x] = pspm_bf_spsrf_box(td, soa)
 %   [bs, x] = pspm_bf_spsrf_box([td, soa])
 % ● Arguments
 %   *    td : time resolution in second.
 % ● References
-%   Xia Y, Melinscak F, Bach DR (2020)
-%   Saccadic Scanpath Length: An Index for Human Threat Conditioning
-%   Behavioral Research Methods 53, pages 1426–1439 (2021)
-%   doi: 10.3758/s13428-020-01490-5
+%   Xia Y, Melinščak F, Bach DR (2020). Saccadic scanpath length: an
+%   index for human threat conditioning. Behavior Research Methods, 53,
+%   1426-1439.
 % ● History
 %   Introduced in PsPM 4.0
 

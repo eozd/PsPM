@@ -57,7 +57,6 @@ options = pspm_options(options, 'exp');
 if options.invalid
   return
 end
-
 target = options.target;
 statstype = options.statstype;
 delim = options.delim;
@@ -73,24 +72,25 @@ end;
 
 % check target --
 if ~ischar(target)
-  warning('ID:invalid_input', 'Target must be a char');
-  return;
+    warning('ID:invalid_input', 'Target must be a char');
+    return;
 elseif strcmp(target, 'screen')
-  fid = 1;
+    fid = 1;
 else
-  % check file extension
-  [pth, filename, ext]=fileparts(target);
-  if isempty(ext)
-    target=fullfile(pth, [filename, '.txt']);
-  end;
-  % check whether file exists
-  if exist(target, 'file') == 2
-    overwrite=menu(sprintf('Output file (%s) already exists. Overwrite?', target), 'yes', 'no');
-    if overwrite == 2, warning('Nothing written to file.'); return; end;
-  end;
-  % open or create file for reading and writing, discard contents
-  fid = fopen(target, 'w+');
-  if fid == -1, warning('Output file (%s) could not be opened.', target); return; end;
+    % check file extension
+    [pth, filename, ext]=fileparts(target);
+    if isempty(ext)
+        target=fullfile(pth, [filename, '.tsv']);
+    end
+    options.overwrite = pspm_overwrite(target, options);
+    if ~options.overwrite
+        warning('ID:invalid_input', 'Output file exists, and overwriting not allowed by user.');
+        return
+    end
+
+    % open or create file for reading and writing, discard contents
+    fid = fopen(target, 'w+');
+    if fid == -1, warning('Output file (%s) could not be opened.', target); return; end;
 end;
 
 % check statstype --
@@ -122,7 +122,7 @@ usenames = 1;
 excl_stats_contained = false(numel(modelfile),1);
 for iFile = 1:numel(modelfile)
   [lsts, data(iFile), modeltype{iFile}] = pspm_load1(modelfile{iFile}, statstype);
-  if lsts == -1, return; end;
+  if lsts < 1, return; end;
   % set flag to indicate if exclude statistics are contained
   if isfield(data(iFile),'stats_exclude') && isfield(data(iFile),'stats_missing')
     excl_stats_contained(iFile) = true;

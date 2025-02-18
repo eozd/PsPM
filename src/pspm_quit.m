@@ -34,6 +34,6 @@ clear settings
 disp(' ');
 disp('Thanks for using PsPM.');
 disp(repelem('-',20));
-disp('PsPM 6.1.1 (c) 2008-2024 The PsPM development team');
+disp('PsPM 7.0 (c) 2008-2025 The PsPM development team');
 disp('Developed at: Uni Bonn, DE | UCL, UK | UZH, CH');
 return

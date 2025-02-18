@@ -22,8 +22,9 @@ classdef pspm_pupil_pp_test < pspm_testcase
       import{end + 1}.type = 'gaze_x_l';
       import{end + 1}.type = 'gaze_y_l';
       import{end + 1}.type = 'marker';
+      options.overwrite = 1;
       [sts, this.pspm_input_filename] = pspm_import(...
-        this.raw_input_filename, 'eyelink', import, struct());
+        this.raw_input_filename, 'eyelink', import, options);
       this.pspm_input_filename = this.pspm_input_filename;
     end
   end

@@ -12,12 +12,12 @@ chan             = pspm_cfg_selector_channel('pupil_both');
 ChanAct          = pspm_cfg_selector_channel_action;
 
 %% Visual angle
-box_degree              = cfg_entry;
-box_degree.name         = 'Visual angle';
-box_degree.tag          = 'box_degree';
-box_degree.strtype      = 'i';
-box_degree.num          = [1 1];
-box_degree.help         = pspm_cfg_help_format('pspm_find_valid_fixations', 'circle_degree');
+circle_degree              = cfg_entry;
+circle_degree.name         = 'Visual angle';
+circle_degree.tag          = 'circle_degree';
+circle_degree.strtype      = 'i';
+circle_degree.num          = [1 1];
+circle_degree.help         = pspm_cfg_help_format('pspm_find_valid_fixations', 'circle_degree');
 
 %% Distance
 distance                = cfg_entry;
@@ -41,7 +41,7 @@ Resol.name              = 'Resolution';
 Resol.tag               = 'resolution';
 Resol.strtype           = 'i';
 Resol.num               = [1 2];
-Resol.val               = {[1280 1024]};
+Resol.val               = {[1 1]};
 Resol.help              = pspm_cfg_help_format('pspm_find_valid_fixations', 'options.resolution');
 %% Fixation point default
 FixPtDefault            = cfg_const;
@@ -55,18 +55,16 @@ FixPtFile               = cfg_files;
 FixPtFile.name          = 'File';
 FixPtFile.tag           = 'fixpoint_file';
 FixPtFile.num           = [1 1];
-FixPtFile.help          = {['.mat file containing a variable F with an ', ...
-                            'n x 2 matrix. N should have the length of ', ...
-                            'the recorded data and each row should ', ...
-                            'define the fixation point for the ', ...
-                            'respective recorded data row.']};
+temphelp                = pspm_cfg_help_format('pspm_find_valid_fixations', 'options.fixation_point');
+FixPtFile.help          = {['Specify a .mat file containing a variable ''F'': ', ...
+                           temphelp{1}]};
 %% Fixation point value
 FixPtVal                = cfg_entry;
 FixPtVal.name           = 'Point';
 FixPtVal.tag            = 'fixpoint';
 FixPtVal.strtype        = 'r';
 FixPtVal.num            = [1 2];
-FixPtVal.help           = {['x/y coordinates of constant fixation point.']};
+FixPtVal.help           = {'x/y coordinates of constant fixation point.'};
 
 %% Fixation point
 FixPt                   = cfg_choice;
@@ -79,7 +77,7 @@ FixPt.help              = pspm_cfg_help_format('pspm_find_valid_fixations', 'opt
 ValidSet                = cfg_branch;
 ValidSet.name           = 'Fixation point';
 ValidSet.tag            = 'validation_settings';
-ValidSet.val            = {box_degree, distance, unit, Resol, FixPt};
+ValidSet.val            = {circle_degree, distance, unit, Resol, FixPt};
 ValidSet.help           = {};
 
 %% Validate on bitmap
@@ -87,7 +85,9 @@ bitmap                  = cfg_files;
 bitmap.name             = 'Bitmap file';
 bitmap.tag              = 'bitmap_file';
 bitmap.num              = [1 1];
-bitmap.help             = pspm_cfg_help_format('pspm_find_valid_fixations', 'bitmap');
+temphelp                = pspm_cfg_help_format('pspm_find_valid_fixations', 'bitmap');
+bitmap.help          = {['Specify a .mat file containing a variable ''bitmap'': ', ...
+                           temphelp{1}]};
 %% Validation method
 val_method              = cfg_choice;
 val_method.name         = 'Validation method';
@@ -96,8 +96,8 @@ val_method.values       = {ValidSet,bitmap};
 val_method.help         = {};
 %% Missing
 missing                 = cfg_menu;
-missing.name            = 'Add channel with information invalid data points';
-missing.tag             = 'missing';
+missing.name            = 'Add channel with information on invalid data points';
+missing.tag             = 'add_invalid';
 missing.labels          = {'Yes', 'No'};
 missing.values          = {1, 0};
 missing.val             = {0};

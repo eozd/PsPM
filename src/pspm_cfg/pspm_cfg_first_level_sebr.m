@@ -1,4 +1,4 @@
-function cfg = pspm_cfg_first_level_seb
+function cfg = pspm_cfg_first_level_sebr
 
 % $Id$
 % $Rev$

@@ -5,7 +5,7 @@ model = struct();
 options = struct();
 
 % set modality
-model.modality = 'ps';
+model.modality = 'pupil';
 model.modelspec = 'ps_fc';
 
 % basis function

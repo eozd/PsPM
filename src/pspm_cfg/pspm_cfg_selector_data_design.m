@@ -17,11 +17,7 @@ if strcmpi(modeltype, 'run')
         % datafile
         model.datafile{iSession,1} = job.session(iSession).datafile{1};
         % missing epochs
-        if isfield(job.session(iSession).missing,'epochfile')
-            model.missing{1,iSession} = job.session(iSession).missing.epochfile{1};
-        elseif isfield(job.session(iSession).missing,'epochentry')
-            model.missing{1,iSession} = job.session(iSession).missing.epochentry;
-        end
+        model.missing{1,iSession} = pspm_cfg_selector_missing_epochs('run', job.session(iSession));
         % data & design
         if isfield(job.session(iSession).data_design,'no_condition')
             model.timing = {};
@@ -74,7 +70,7 @@ if strcmpi(modeltype, 'run')
     end
     % marker channel
     if isfield(job.timeunits, 'markers')
-        options.marker_chan_num = pspm_cfg_channel_selector('run', job.timeunits.markers.chan);
+        options.marker_chan_num = pspm_cfg_selector_channel('run', job.timeunits.markers.chan);
     end
     out1 = model;
     out2 = options;
@@ -91,34 +87,7 @@ end
 
 % standard items
 datafile         = pspm_cfg_selector_datafile();
-epochfile        = pspm_cfg_selector_datafile('epochs');
-
-% Missing epochs
-no_epochs         = cfg_const;
-no_epochs.name    = 'No Missing Epochs';
-no_epochs.tag     = 'no_epochs';
-no_epochs.val     = {0};
-no_epochs.help    = {'The whole time series will be analyzed.'};
-
-epochentry         = cfg_entry;
-epochentry.name    = 'Enter Missing Epochs Manually';
-epochentry.tag     = 'epochentry';
-epochentry.strtype = 'i';
-epochentry.num     = [Inf 2];
-epochentry.help    = {'Enter the start and end points of missing epochs (m) manually.', ...
-    ['Specify an m x 2 array, where m is the number of missing epochs. The first column marks the ' ...
-    'start points of the epochs that are excluded from the analysis and the second column the end points.']};
-
-missing        = cfg_choice;
-missing.name   = 'Missing Epochs';
-missing.tag    = 'missing';
-missing.val    = {no_epochs};
-missing.values = {no_epochs, epochfile, epochentry};
-missing.help   = {['Indicate epochs in your data in which the ', ...
-    ' signal is missing or corrupted (e.g., due to artifacts). Specified missing epochs, as well as NaN values ', ...
-    'in the signal, will be interpolated for filtering and downsampling ', ...
-    'and later automatically removed from data and design matrix. Epoch start and end points ' ...
-    'have to be defined in seconds with respect to the beginning of the session.']};
+missing          = pspm_cfg_selector_missing_epochs;
 
 % Condition file
 condfile         = cfg_files;

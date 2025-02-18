@@ -1,18 +1,17 @@
-function model = pspm_check_model(model, modeltype)
+function [model, options] = pspm_check_model(model, options, modeltype)
 % ● Definition
 %   pspm_check_model automatically determine the fields of the struct model
-%   for the corresponding function.
+%   for the corresponding function. It also checks the options structure
+%   and uses it to determine whether overwriting of the model file is
+%   allowed
 % ● Format
 %   model = pspm_check_model(model, modeltype)
 % ● Arguments
 %   ┌─────model
 %   ├─.datafile : Values (any of the following).
 %   │             A file name (single session);
-%   │             A cell array of file names (multiple sessions).
-%   ├.modelfile : A file name for the model output, can be any of the following.
-%   │             [for GLM, DCM, TAM] A file name.
-%   │             [for SF] A file name (single data file) or a cell array of file names
-%   │                      (multiple data files).
+%   │             A cell array of file names (multiple sessions, not allowed for SF).
+%   ├.modelfile : A file name for the model output.
 %   ├.timeunits : A string.
 %   │             [for GLM, TAM] can be either 'seconds', 'samples', 'markers', or
 %   │                            'markervalues'.
@@ -56,7 +55,7 @@ function model = pspm_check_model(model, modeltype)
 %   │                     or cell array of any of these, for multiple files.
 %   ├──.missing : [optional] allows to specify missing (e. g. artefact) epochs in the
 %   │             data file. See pspm_get_timing for epoch definition; specify a cell
-%   │             array for multiple input files. This must always be specified in SECONDS.
+%   │             array for multiple input files (not allowed for SF). This must always be specified in SECONDS.
 %   │             Default: no missing values
 %   ├──.channel : [optional] channel number (or, for GLM, channel type). If a channel type
 %   │             is specified the LAST channel matching the given type will be used.
@@ -118,27 +117,29 @@ function model = pspm_check_model(model, modeltype)
 %   └────method : [optional, SF (modeltype) only] [string/cell_array]
 %                   [string] either 'auc', 'scl', 'dcm' (default), or 'mp'.
 %                   [cell_array] a cell array of methods mentioned above.
+%   options: see calling functions and pspm_options
 % ● History
 %   Introduced in PsPM 6.1.1
 %   Written in 2023 by Dominik Bach (UCL and Bonn)
 
-%% 0. Initialise
+%% 0. Initialise & check options
 global settings
 if isempty(settings)
   pspm_init;
 end
 
 %% 1. General checks  ------------------------------------------------------
-if ~isstruct(model)
-  warning('ID:invalid_input', 'Model must be a struct.');
+if ~isstruct(model) || isempty(model)
+  warning('ID:invalid_input', 'Model must be a non-empty struct.');
   model = struct('invalid', 1);
   return
 else
-  model.invalid = 1;
-  if isempty(model)
-    warning('ID:invalid_input', 'Model is empty.');
+    model.invalid = 1;
+end
+
+options = pspm_options(options, modeltype);
+if options.invalid
     return
-  end
 end
 
 %% 2. Reject missing mandatory fields common to all models -----------------
@@ -154,10 +155,8 @@ nFile = numel(model.datafile);
 % 3. Reject wrong type of mandatory fields --------------------------------
 if ~iscell(model.datafile) && ~ischar(model.datafile)
   warning('ID:invalid_input', 'Input data must be a cell or string.'); return;
-elseif ~ischar(model.modelfile) && ~strcmpi (modeltype, 'sf')
+elseif ~ischar(model.modelfile) 
   warning('ID:invalid_input', 'Output model must be a string.'); return;
-elseif ischar(model.modelfile) && strcmpi (modeltype, 'sf')
-    model.modelfile = {model.modelfile};
 end
 
 % NOTE we need to separate the case of DCM timing being
@@ -168,17 +167,13 @@ end
 %% 3. Fill missing fields common to all models, and accept only allowed values
 if ~isfield(model, 'timing')
     model.timing = cell(nFile, 1);
-else
-  if ~isempty(model.timing)
-    if ~iscell(model.timing) || ...
-      (strcmpi(modeltype, 'dcm') && ~iscell(model.timing{1}) && ~ischar(model.timing{1}))
-      % for DCM, model.timing is either a file name or a cell array of
-      % events, or a cell array of file names or cell arrays, so we need to
-      % take care of cases where model.timing is a cell array but not a cell
-      % array of cell arrays or a cell array of char
-      model.timing = {model.timing};
-    end
-  end
+elseif ~iscell(model.timing) || ...
+  (strcmpi(modeltype, 'dcm') && ~isempty(model.timing) && ~iscell(model.timing{1})  && ~ischar(model.timing{1}))
+  % for DCM, model.timing is either a file name or a cell array of
+  % events, or a cell array of file names or cell arrays, so we need to
+  % take care of cases where model.timing is a cell array but not a cell
+  % array of cell arrays or a cell array of char
+  model.timing = {model.timing};
 end
 if ~isfield(model, 'missing')
   model.missing = cell(nFile, 1);
@@ -195,8 +190,20 @@ elseif ~any(ismember(model.norm, [0, 1]))
   warning('ID:invalid_input', 'Normalisation must be specified as 0 or 1.'); return;
 end
 
+% make sure file extension is '.mat'
+[pth, fn, ext] = fileparts(model.modelfile);
+model.modelfile = fullfile(pth, [fn, '.mat']);
+
+% check that overwriting output is allowed
+options.overwrite = pspm_overwrite(model.modelfile, options);
+if ~options.overwrite
+  warning('ID:invalid_input', 'Model file exists, and overwriting not allowed by user.');
+  return
+end
+
 %% 4. Check that session-related field entries have compatible size
-if (nFile ~= numel(model.timing)) && ~(numel(model.timing) == 0 && isfield(model, 'nuisance'))
+if (nFile ~= numel(model.timing)) && ...
+    ~(numel(model.timing) == 0 && (isfield(model, 'nuisance') || (isfield(model, 'timeunits') && strcmpi(model.timeunits, 'whole'))))
   warning('ID:number_of_elements_dont_match',...
     'Session numbers of data files and event definitions do not match.');
   return
@@ -258,7 +265,7 @@ if strcmpi(modeltype, 'glm')
       model = rmfield(model, 'window');
     end
 
-    if strcmpi(model.latency, 'free') && diff(model.window < 0)
+    if strcmpi(model.latency, 'free') && diff(model.window) < 0
         warning('ID:invalid_input', 'model.window invalid');
     end
 
@@ -335,12 +342,11 @@ if strcmpi(modeltype, 'sf')
         warning('ID:invalid_input', 'No timeunits specified.'); return;
     elseif ~ischar(model.timeunits) || ~ismember(model.timeunits, {'seconds', 'markers', 'samples','whole'})
         warning('ID:invalid_input', 'Timeunits (%s) not recognised; only ''seconds'', ''markers'', ''samples'' and ''whole'' are supported', model.timeunits); return;
+    elseif nFile > 1
+        warning('ID:invalid_input', 'Only one data file allowed for SF.'); return;
     elseif ~strcmpi(model.timeunits, 'whole') && sum(cellfun(@(f) isempty(f), model.timing)) > 0
         warning('ID:number_of_elements_dont_match',...
             'Number of data files and epoch definitions does not match.'); return;
-    elseif numel(model.modelfile) ~= nFile
-        warning('ID:number_of_elements_dont_match',...
-            'Number of data files and model files does not match.'); return;
     end
 
     % Check optional fields, set default values and reject invalid values

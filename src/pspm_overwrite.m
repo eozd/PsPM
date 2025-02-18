@@ -33,7 +33,9 @@ global settings
 if isempty(settings)
   pspm_init;
 end
+
 overwrite_final = 0;   
+
 
 %% 2 Check inputs
 switch numel(varargin)
@@ -78,7 +80,7 @@ elseif overwrite_final == 2
   if settings.developmode
       error('Overwrite not correctly defined for testing.')
   else
-   msg = ['Model file already exists. Overwrite?', ...
+   msg = ['This file already exists. Overwrite?', ...
      newline, 'Existing file: ', fn];
    overwrite = questdlg(msg, ...
      'File already exists', 'Yes', 'No', 'Yes');

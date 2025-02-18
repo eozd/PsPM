@@ -203,16 +203,10 @@ warnings = {};
 if nargin < 1; errmsg = 'Nothing to do.'; warning('ID:invalid_input', errmsg); return
 elseif nargin < 2; options = struct(); end
 
-% 2.2 check model
-model = pspm_check_model(model, 'dcm');
-if model.invalid
+% 2.2 check model and options
+[model, options] = pspm_check_model(model, options, 'dcm');
+if model.invalid || options.invalid
     return
-end
-
-% 2.3 check options
-options = pspm_options(options, 'dcm');
-if options.invalid
-  return
 end
 
 % all the below should be re-factored into pspm_options -------------------
@@ -401,8 +395,12 @@ for vs = 1:numel(valid_subsessions)
   end
   [sts, sbs_data{isbSn, 1}, model.sr] = pspm_prepdata(sbSn_data, model.filter);
   % define missing epochs for inversion in final sampling rate
-  sbs_missing{isbSn, 1} = downsample(sbs_miss, model.filter.sr/model.sr);
-  if sts == -1, return; end
+  [stsl, tempvec, ~] = pspm_downsample(double(sbs_miss), model.sr, model.filter.sr);
+  if sts == -1||stsl == -1  
+      return; 
+  end
+  sbs_missing{isbSn, 1} = logical(tempvec);
+  clear tempvec
   foo{vs, 1} = (sbs_data{isbSn}(:) - mean(sbs_data{isbSn}));
 end
 

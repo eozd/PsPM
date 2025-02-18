@@ -6,7 +6,6 @@ function tam = pspm_tam(model, options)
 %   an LTI model.
 % ● Arguments
 %   ┌───────model
-%   │ ▶︎ mandatory
 %   ├──.modelfile:  a file name for the model output
 %   ├───.datafile:  a file name (single session) OR
 %   │               a cell array of file names
@@ -24,49 +23,42 @@ function tam = pspm_tam(model, options)
 %   │               in model.timing) the model should be evaluated.
 %   │               For model.timeunits == 'markers', the unit of the window
 %   │               should be specified in 'seconds'.
-%   │ ▶︎ optional
-%   ├.modelspec:  'dilation' (default); specify the model to be used.
-%   │             See pspm_init, defaults.tam() which modelspecs are possible
-%   │             with glm.
-%   ├─.modality:  specify the data modality to be processed. By
-%   │             default, this is determined automatically from "modelspec"
-%   ├─────────.bf:  basis function/basis set with required subfields:
-%   │          ├────.fhandle: function handle or string
-%   │          └───────.args: arguments; the first two arguments
-%   │                          (time resolution and duration)
-%   │                          will be added by pspm_pupil_model.
-%   │               DEFAULT: specified by the modality
-%   ├─────────.if:  input function (function which will be fitted) with required
-%   │          │    subfields:
-%   │          ├────.fhandle: function handle or string
-%   │          ├────────.arg: initial arguments, numeric array
-%   │          ├─────────.lb: lower bounds, numeric array of the same size as
-%   │          │              .arg
-%   │          └─────────.ub: upper bounds, numeric array of the same size as
-%   │                         .arg
-%   │               If an argument should not be fitted, set the corresponding
-%   │               value of .lb and .ub to the same value as .arg.
-%   │               For unbounded parameters set -Inf or/and Inf respectively.
-%   │               DEFAULT: specified by the modality
-%   ├────.channel:  allows to specify channel number or channel type.
+%   ├──.modelspec:  [optional] 'dilation' (default); specify the model to be used.
+%   │               See pspm_init, defaults.tam() which modelspecs are possible
+%   │               with glm.
+%   ├───.modality:  [optional] specify the data modality to be processed. By
+%   │               default, this is determined automatically from "modelspec"
+%   ├─────────.bf:  [optional] basis function/basis set with required subfields (see below)
+%   ├─────────.if:  [optional, struct] input function (function which will be fitted)
+%   ├────.channel:  [optional] allows to specify channel number or channel type.
 %   │               If there is only one element specified, this element
 %   │               will be applied to each datafile.
 %   │               DEFAULT: last channel of 'pupil' data type
-%   ├─────.norm:  allows to specify whether data should be zscored or not
+%   ├───────.norm:  [optional] allows to specify whether data should be zscored or not
 %   │               DEFAULT: 1
-%   ├─────.filter:  filter settings; modality specific default
-%   ├───.baseline:  allows to specify a baseline in 'seconds' which is
+%   ├─────.filter:  [optional] filter settings; modality specific default
+%   ├───.baseline:  [optional] allows to specify a baseline in 'seconds' which is
 %   │               applied to the data before fitting the model. It has to
 %   │               be positive and smaller than model.window. If no baseline
 %   │               specified, data will be baselined wrt. the first datapoint.
 %   │               DEFAULT: 0
-%   ├.std_exp_cond: allows to specify the standard experimental condition
+%   ├.std_exp_cond: [optional] allows to specify the standard experimental condition
 %   │               as a string or an index in timing.names.
 %   │               if specified this experimental condition will be
 %   │               substracted from all the other conditions.
 %   │               DEFAULT: 'none'
-%   └───────.norm_max:  set the first peak at 1 before model fitting.
+%   └───.norm_max:  [optional] set the first peak at 1 before model fitting.
 %                   DEFAULT: 0 (not normalize)
+%   ┌────model.bf
+%   ├────.fhandle:  function handle or string
+%   └───────.args:  arguments; the first two arguments (time resolution and duration)
+%                   will be added by pspm_pupil_model.
+%                   DEFAULT: specified by the modality
+%   ┌────model.if
+%   ├────.fhandle:  function handle or string
+%   ├────────.arg:  initial arguments, numeric array
+%   ├─────────.lb:  lower bounds, numeric array of the same size as .arg
+%   └─────────.ub:  upper bounds, numeric array of the same size as .arg
 %   ┌─────options
 %   ├.marker_chan:  marker channel number
 %   │               DEFAULT: 'marker' (i.e. last marker channel)
@@ -128,23 +120,10 @@ tam = struct();
 if nargin < 1; errmsg = 'Nothing to do.'; warning('ID:invalid_input', errmsg); return
 elseif nargin < 2; options = struct(); end
 
-% 2.2 check model
-model = pspm_check_model(model, 'tam');
-if model.invalid
+% 2.2 check model and options
+[model, options] = pspm_check_model(model, options, 'tam');
+if model.invalid || options.invalid
     return
-end
-
-% 2.3 check options
-options = pspm_options(options, 'tam');
-if options.invalid
-  return
-end
-
-% 2.4 check files
-% stop the script if files are not allowed to overwrite
-if ~pspm_overwrite(model.modelfile, options)
-  warning('ID:invalid_input', 'Model file exists, and overwriting not allowed by user.');
-  return
 end
 
 %% Loading files

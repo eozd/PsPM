@@ -20,7 +20,7 @@ if nargin < 2
         ['This GUI item calls the function %s. You can also call this function ', ...
          'directly. Type ''help %s'' in the command window for more information.'], funcname, funcname), ...
         '------------------------------------------------------------------------------------------------'};
-    
+
     if isfield(settings.help, funcname)
         if isfield(settings.help.(funcname), 'Description')
             A = settings.help.(funcname).Description;
@@ -34,6 +34,8 @@ if nargin < 2
             'References:'; ...
             settings.help.(funcname).References(:)];
         end
+         helptext = [ helptext(:); ''; ...
+         '------------------------------------------------------------------------------------------------'];
     end
 elseif strcmpi(funcname, 'import')
     A = strrep(argname, newline, [newline, newline]);

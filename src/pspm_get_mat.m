@@ -5,14 +5,15 @@ function [sts, import, sourceinfo] = pspm_get_mat(datafile, import)
 %   array of column vectors, or a time points x channels matrix. The 
 %   import of event markers is supported. Marker channels are assumed to be 
 %   continuous if the input data is a matrix or if the input data is a cell 
-%   and the given sample rate is larger than 1 Hz. A sample rate has to
-%   in the import structure in both cases.
+%   and the given sample rate is larger than 1 Hz. A sample rate has to be
+%   included in the import structure in both cases.
 % ● Format
 %   [sts, import, sourceinfo] = pspm_get_mat(datafile, import);
 % ● Arguments
 %   * datafile : a .mat file that contains a variable 'data' that is either
 %                [1] a cell array of channel data vectors;
 %                [2] a datapoints x channel matrix
+%   *   import : import structure as defined by pspm_import
 % ● History
 %   Introduced in PsPM 3.0
 %   Written in 2008-2015 by Dominik R Bach (Wellcome Trust Centre for Neuroimaging)

@@ -122,7 +122,7 @@ classdef pspm_find_valid_fixations_test < matlab.unittest.TestCase
             % this is to generate channel_l and channel_r, not channel_lr!
             options = struct();
             d = vertcat(degs{:});
-            box_degree = d(strcmpi({d.name}, 'some')).deg;
+            circle_degree = d(strcmpi({d.name}, 'some')).deg;
             dist = this.distance{1};
             dist_unit = this.unit{1};
             options.resolution = [1280 1024];
@@ -131,7 +131,7 @@ classdef pspm_find_valid_fixations_test < matlab.unittest.TestCase
             [~,~, o_data] = pspm_load_data(fn);
             options.channel = work_chans;
             [sts, ~] = this.verifyWarningFree(@() ...
-                pspm_find_valid_fixations(fn, box_degree, dist,dist_unit,options));
+                pspm_find_valid_fixations(fn, circle_degree, dist,dist_unit,options));
             this.verifyEqual(sts, 1);
             [~,~, n_data] = pspm_load_data(fn);
             n_new_chans = numel(n_data);
@@ -153,7 +153,7 @@ classdef pspm_find_valid_fixations_test < matlab.unittest.TestCase
             [degs,~] = this.generate_fixation_data(fn, this.distance{1}, 'lr');
             options = struct();
             d = vertcat(degs{:});
-            box_degree = d(strcmpi({d.name}, 'some')).deg;
+            circle_degree = d(strcmpi({d.name}, 'some')).deg;
             dist = this.distance{1};
             dist_unit = this.unit{1};
             options.resolution = [1280 1024];
@@ -161,7 +161,7 @@ classdef pspm_find_valid_fixations_test < matlab.unittest.TestCase
             options.add_invalid = missing;
             options.channel_action = 'add';
             [sts, ~] = this.verifyWarningFree(@() ...
-                pspm_find_valid_fixations(fn, box_degree, dist,dist_unit,options));
+                pspm_find_valid_fixations(fn, circle_degree, dist,dist_unit,options));
             this.verifyEqual(sts, 1);
             [~, ~, n_data] = pspm_load_data(fn);
             % look for channels with 'missing' in chantype
@@ -181,7 +181,7 @@ classdef pspm_find_valid_fixations_test < matlab.unittest.TestCase
             [degs,~] = this.generate_fixation_data(fn, this.distance{1},  'lr');
             options = struct();
             d = vertcat(degs{:});
-            box_degree = d(strcmpi({d.name}, 'some')).deg;
+            circle_degree = d(strcmpi({d.name}, 'some')).deg;
             dist = this.distance{1};
             dist_unit = this.unit{1};
             options.resolution = [1280 1024];
@@ -190,7 +190,7 @@ classdef pspm_find_valid_fixations_test < matlab.unittest.TestCase
             options.channel_action = channel_action;
             [~, ~, o_data] = pspm_load_data(fn);
             [sts, ~] = this.verifyWarningFree(@() ...
-                pspm_find_valid_fixations(fn, box_degree, dist, dist_unit,options));
+                pspm_find_valid_fixations(fn, circle_degree, dist, dist_unit,options));
             this.verifyEqual(sts, 1);
             [~, ~, n_data] = pspm_load_data(fn);
             switch channel_action
@@ -212,7 +212,7 @@ classdef pspm_find_valid_fixations_test < matlab.unittest.TestCase
                 copyfile(fn, testfn); 
                 this.datafiles{end+1} = testfn;
                 d = degs{i};
-                box_degree = d.deg;
+                circle_degree = d.deg;
                 dist = distance;
                 dist_unit = this.unit{1};
                 options.resolution = resolution;
@@ -225,11 +225,11 @@ classdef pspm_find_valid_fixations_test < matlab.unittest.TestCase
                 end
                 if d.expect == 1
                     [~, outfile] = this.verifyWarning(@() ...
-                        pspm_find_valid_fixations(testfn, box_degree, dist, dist_unit, options), ...
+                        pspm_find_valid_fixations(testfn, circle_degree, dist, dist_unit, options), ...
                         'ID:invalid_input');
                 else
                     [sts, ~] = this.verifyWarningFree(@() ...
-                        pspm_find_valid_fixations(testfn, box_degree, dist, dist_unit, options));
+                        pspm_find_valid_fixations(testfn, circle_degree, dist, dist_unit, options));
                     this.verifyEqual(sts, 1);
                 end
                 [~, ~, data] = pspm_load_data(testfn);
@@ -307,55 +307,55 @@ classdef pspm_find_valid_fixations_test < matlab.unittest.TestCase
             % generate data
             fn = pspm_find_free_fn(this.testfile_prefix, '.mat');
             this.generate_fixation_data(fn, 500, 'lr');
-            box_degree = 'a';
+            circle_degree = 'a';
             dist = '1';
             options = [];
-            this.verifyWarning(@() pspm_find_valid_fixations(fn, box_degree, ...
+            this.verifyWarning(@() pspm_find_valid_fixations(fn, circle_degree, ...
                 dist, options), 'ID:invalid_input');
-            box_degree = 1;
+            circle_degree = 1;
             dist = 'a';
-            this.verifyWarning(@() pspm_find_valid_fixations(fn, box_degree, ...
+            this.verifyWarning(@() pspm_find_valid_fixations(fn, circle_degree, ...
                 dist, options), 'ID:invalid_input');
             dist = 1;
             dist_unit = 5;
-            this.verifyWarning(@() pspm_find_valid_fixations(fn, box_degree, ...
+            this.verifyWarning(@() pspm_find_valid_fixations(fn, circle_degree, ...
                 dist,dist_unit,options), 'ID:invalid_input');
             dist_unit = 'cm';
             options2 = [1,2];
-            this.verifyWarning(@() pspm_find_valid_fixations(fn, box_degree, ...
+            this.verifyWarning(@() pspm_find_valid_fixations(fn, circle_degree, ...
                 dist,dist_unit,options2), 'ID:invalid_input');
             % check bitmap option
             bitmap = 'Hello World!';
             this.verifyWarning(@() pspm_find_valid_fixations(fn, bitmap, ...
                 options), 'ID:invalid_input');
             options.resolution = 1;
-            this.verifyWarning(@() pspm_find_valid_fixations(fn, box_degree, ...
+            this.verifyWarning(@() pspm_find_valid_fixations(fn, circle_degree, ...
                 dist, dist_unit,options), 'ID:invalid_input');
             options.screen_settings.resolution = [1280 1024];
             options.fixation_point = 'a';
-            this.verifyWarning(@() pspm_find_valid_fixations(fn, box_degree, ...
+            this.verifyWarning(@() pspm_find_valid_fixations(fn, circle_degree, ...
                 dist, dist_unit, options), 'ID:invalid_input');
             options.fixation_point = [100 500];
             options.channel_action = 'bla';
-            this.verifyWarning(@() pspm_find_valid_fixations(fn, box_degree, ...
+            this.verifyWarning(@() pspm_find_valid_fixations(fn, circle_degree, ...
                 dist, dist_unit, options), 'ID:invalid_input');
             options.channel_action = 'add';
             options.newfile = 0;
-            this.verifyWarning(@() pspm_find_valid_fixations(fn, box_degree, ...
+            this.verifyWarning(@() pspm_find_valid_fixations(fn, circle_degree, ...
                 dist, dist_unit, options), 'ID:invalid_input');
             options.newfile = 'abc';
-            this.verifyWarning(@() pspm_find_valid_fixations(fn, box_degree, ...
+            this.verifyWarning(@() pspm_find_valid_fixations(fn, circle_degree, ...
                 dist, dist_unit, options), 'ID:invalid_input');
             options.invalid = 'abc';
-            this.verifyWarning(@() pspm_find_valid_fixations(fn, box_degree, ...
+            this.verifyWarning(@() pspm_find_valid_fixations(fn, circle_degree, ...
                 dist, dist_unit, options), 'ID:invalid_input');
             options.add_invalid = 0;
             options.eyes = 'abc';
-            this.verifyWarning(@() pspm_find_valid_fixations(fn, box_degree, ...
+            this.verifyWarning(@() pspm_find_valid_fixations(fn, circle_degree, ...
                 dist, dist_unit, options), 'ID:invalid_input');
             options.eyes = 'combined';
             options.channel = 'abc';
-            this.verifyWarning(@() pspm_find_valid_fixations(fn, box_degree, ...
+            this.verifyWarning(@() pspm_find_valid_fixations(fn, circle_degree, ...
                 dist, dist_unit, options), 'ID:invalid_input');
         end
     end

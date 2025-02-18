@@ -22,7 +22,7 @@ if isfield(job.val_method,'bitmap_file')
   bitmap = indata.bitmap;
 else
   % ValidSet
-  box_degree = job.val_method.validation_settings.box_degree;
+  circle_degree = job.val_method.validation_settings.circle_degree;
   distance = job.val_method.validation_settings.distance;
   unit = job.val_method.validation_settings.unit;
   options = pspm_update_struct(options, job.val_method.validation_settings, 'resolution');
@@ -36,12 +36,12 @@ end
 %% options
 options.channel = pspm_cfg_selector_channel('run', job.chan); 
 options.channel_action = job.channel_action;
-options = pspm_update_struct(options, job.output_settings, {'missing', ...
+options = pspm_update_struct(options, job.output_settings, {'add_invalid', ...
                                                             'plot_gaze_coords'});
 %% run
 if isfield(job.val_method,'bitmap_file')
   [~, out] = pspm_find_valid_fixations(fn, bitmap, options);
 else
-  [~, out] = pspm_find_valid_fixations(fn, box_degree, ...
+  [~, out] = pspm_find_valid_fixations(fn, circle_degree, ...
     distance, unit, options);
 end

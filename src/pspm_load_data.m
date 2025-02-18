@@ -1,38 +1,41 @@
 function [sts, infos, data, filestruct] = pspm_load_data(fn, channel)
 % ● Description
-%   pspm_load_data checks and returns the structure of PsPM 3-5.x and
+%   pspm_load_data checks and returns the structure of PsPM 3-7.x and
 %   SCRalyze 2.x data files - SCRalyze 1.x is not supported
 % ● Format
 %   [sts, infos, data, filestruct] = pspm_load_data(fn, channel)
+%   [sts, infos, data, filestruct] = pspm_load_data(fn)
 % ● Arguments
-%   ┌─────fn:   [char] filename / [struct] with fields
-%   ├─.infos:
-%   └──.data:
-%   * channel:   [numeric vector] / [char] / [struct]
-%               ▶ vector
-%                 0 or empty: returns all channels
-%                 vector of channels: returns only these channels
-%               ▶ char
-%                 'wave'    returns all waveform channels
-%                 'events'  returns all event channels
-%                 'pupil', 'sps', 'gaze_x', 'gaze_y', 'blink', 'saccade',
-%                 'pupil_missing' (eyetracker channels)
+%        * fn: [char] filename / [struct] with fields
+%   ┌──────fn
+%   ├──.infos: infos
+%   └───.data: data
+%   * channel: [numeric vector] / [char] / [struct]
+%              ▶ vector
+%                0 or empty: returns all channels
+%                vector of channels: returns only these channels
+%              ▶ char
+%                'wave'    returns all waveform channels
+%                'events'  returns all event channels
+%                'pupil', 'sps', 'gaze_x', 'gaze_y', 'blink', 'saccade',
+%                'pupil_missing' (eyetracker channels)
 %                           returns all channels of the respective type
 %                           (i.e., 'pupil' returns all of 'pupil', 'pupil_l',
 %                            'pupil_r', 'pupil_c')
-%                 'channel type' (e.g. 'scr')
+%                'channel type' (e.g. 'scr')
 %                           returns the respective channels (see settings for
 %                           permissible channel types)
-%                 'none'    just checks the file
-%               ▶ struct  check and save file
-%                 ├───.infos (mandatory)
-%                 ├────.data (mandatory)
-%                 └─.options (mandatory)
+%                'none'    just checks the file
+%              ▶ struct  check and save file 
+%   ┌────channel
+%   ├───.infos: (mandatory)
+%   ├────.data: (mandatory)
+%   └─.options: (mandatory)
 % ● Outputs
 %   *            sts: [logical] 1 as default, -1 if check is unsuccessful
 %   *          infos: [struct] variable from data file
 %   *           data: cell array of channels as specified
-%   ┌─────filestruct: [struct]
+%   ┌─────filestruct
 %   ├─────.numofchan: number of channels
 %   ├─.numofwavechan: number of wave channels
 %   ├.numofeventchan: number of event channels
@@ -151,7 +154,7 @@ if isstruct(channel)
       channel.options = [];
     end
     % add default values
-    if ~isfield(channel.options, 'overwrite')
+    if ~isfield(channel.options, 'overwrite') ||  channel.options.overwrite == 2
       channel.options.overwrite = pspm_overwrite(fn);
     end
 end

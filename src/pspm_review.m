@@ -5,6 +5,7 @@ function varargout = pspm_review(varargin)
 %   Introduced in PsPM 3.0
 %   Written in 2008-2015 by Gabriel Graeni (University of Zurich)
 %   Maintained in 2022 by Teddy
+%   Maintained in 2024 by Bernhard Agoué von Raußendorf
 
 %% Initialise
 global settings
@@ -47,10 +48,11 @@ set(handles.textPlot3,'HorizontalAlignment','left')
 set(handles.textPlot4,'HorizontalAlignment','left')
 set(handles.textPlot5,'HorizontalAlignment','left')
 set(handles.textPlot6,'HorizontalAlignment','left')
+set(handles.textPlot7,'HorizontalAlignment','left')
 set(handles.textStatus,'HorizontalAlignment','left')
 set(handles.textStatus,'String','Select a model...');
 
-handles.nrPlot = 6;
+handles.nrPlot = 7;
 %handles.figCnt = 0;
 handles.modelCnt = 0;
 handles.currentModel = 1;
@@ -135,14 +137,14 @@ for iFile = 1:size(modelfileArray, 1)
 end
 setButtonEnable(handles)
 
-if handles.modelCnt > 1
-  set(handles.buttonRemoveModel2, 'Enable', 'on');
+if handles.modelCnt > 1 
+  set(handles.buttonRemoveModel, 'Enable', 'on');
 end
 guidata(hObject, handles);
 
-% --- Executes on button press in buttonRemoveModel2.
+% --- Executes on button press in buttonRemoveModel.
 function buttonRemoveModel_Callback(hObject, ~, handles)
-% hObject    handle to buttonRemoveModel2 (see GCBO)
+% hObject    handle to buttonRemoveModel (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 handles.modelData{handles.currentModel} = [];
@@ -155,8 +157,8 @@ if handles.currentModel > handles.modelCnt
   handles.currentModel = handles.modelCnt;
 end
 set(handles.listModel, 'Value', handles.currentModel);
-if handles.modelCnt < 2
-  set(handles.buttonRemoveModel2, 'Enable', 'off');
+if handles.modelCnt < 2 
+  set(handles.buttonRemoveModel, 'Enable', 'off');
 end
 showModel(handles);
 
@@ -199,7 +201,7 @@ switch handles.modelData{handles.currentModel}.modeltype
   case 'dcm'
     sessionNr = checkSessionNr(handles);
     if sessionNr
-      pspm_rev_dcm(handles.modelData{handles.currentModel}.model, 'sum', sessionNr, [])
+      pspm_rev_dcm(handles.modelData{handles.currentModel}.model, 'sum', sessionNr, []);
     end
 
   case 'sf'
@@ -292,20 +294,46 @@ function buttonPlot5_Callback(hObject, ~, handles)
 tmpStatusString = get(handles.textStatus,'String');
 set(handles.textStatus,'String','Plotting is in progress. Please wait...');
 switch handles.modelData{handles.currentModel}.modeltype
+
   case 'glm'
     [~, handles.modelData{handles.currentModel}.fig] = ...
       pspm_rev_glm(handles.modelData{handles.currentModel}.modelfile, 5);
+    
   case 'dcm'
-    [~, handles.modelData{handles.currentModel}.fig] = ...
-      pspm_rev_con(handles.modelData{handles.currentModel}.model);
+      pspm_rev_dcm(handles.modelData{handles.currentModel}.modelfile, 'seg', [], []);
 
 end
 set(handles.textStatus,'String',tmpStatusString);
 guidata(hObject, handles);
 
+
 % --- Executes on button press in buttonPlot6.
 function buttonPlot6_Callback(hObject, ~, handles)
 % hObject    handle to buttonPlot6 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+tmpStatusString = get(handles.textStatus,'String');
+set(handles.textStatus,'String','Plotting is in progress. Please wait...');
+switch handles.modelData{handles.currentModel}.modeltype
+    case 'glm'
+       modelfile = handles.modelData{handles.currentModel}.modelfile;
+       [~, handles.modelData{handles.currentModel}.fig] = pspm_rev_glm(modelfile, 6);
+
+
+  % contrast in comand window     
+  case 'dcm'
+    [~, handles.modelData{handles.currentModel}.fig] = ...
+      pspm_rev_con(handles.modelData{handles.currentModel}.model);
+
+end
+
+set(handles.textStatus,'String',tmpStatusString);
+guidata(hObject, handles);
+
+
+% --- Executes on button press in buttonPlot7.
+function buttonPlot7_Callback(hObject, ~, handles)
+% hObject    handle to buttonPlot7 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 tmpStatusString = get(handles.textStatus,'String');
@@ -463,16 +491,18 @@ switch handles.modelData{handles.currentModel}.modeltype
       'Plot', ...
       'Plot', ...
       'Show', ...
+      'Plot', ...
       'Plot'};
     textPlotString = {'Design matrix in SPM style', ...
       'Orthogonality in SPM style', ...
       'Predicted & observed', ...
       'Regressors in command window', ...
-      'Reconstructed responses'};
+      'Reconstructed responses', ...
+      'Plot data per condition'};
     % detect contrasts
     if isfield(handles.modelData{handles.currentModel}.model, 'con')
-      buttonPlotString{6} = 'Show';
-      textPlotString{6} = 'Contrast names in command window';
+      buttonPlotString{7} = 'Show';
+      textPlotString{7} = 'Contrast names in command window';
     end
     setInvisble(handles);
     setButtonPlotString(handles, buttonPlotString);
@@ -484,15 +514,17 @@ switch handles.modelData{handles.currentModel}.modeltype
     buttonPlotString = {'Display', ...
       'Display', ...
       'Display', ...
-      'Show'};
+      'Show', ...
+      'Plot'};
     textPlotString = {'All trials for one session', ...
       'Diagnostics for trial nr.', ...
       'Skin conductance response function (SCR)', ...
-      'Trial and condition names in command window'};
+      'Trial and condition names in command window', ...
+      'Plot data per condition'};
     % detect contrasts
     if isfield(handles.modelData{handles.currentModel}.model, 'con')
-      buttonPlotString{5} = 'Show';
-      textPlotString{5} = 'Contrast names in command window';
+      buttonPlotString{6} = 'Show';
+      textPlotString{6} = 'Contrast names in command window';
     end
     setInvisble(handles);
     setButtonPlotString(handles, buttonPlotString);

@@ -1,5 +1,5 @@
-#LyX 2.3 created this file. For more info see http://www.lyx.org/
-\lyxformat 544
+#LyX 2.4 created this file. For more info see https://www.lyx.org/
+\lyxformat 620
 \begin_document
 \begin_header
 \save_transient_properties true
@@ -19,11 +19,11 @@
 \setlist[itemize]{noitemsep}
 \end_preamble
 \use_default_options true
-\maintain_unincluded_children false
+\maintain_unincluded_children no
 \language english
 \language_package default
 \inputencoding utf8
-\fontencoding global
+\fontencoding auto
 \font_roman "default" "default"
 \font_sans "default" "default"
 \font_typewriter "default" "default"
@@ -31,7 +31,9 @@
 \font_default_family default
 \use_non_tex_fonts false
 \font_sc false
-\font_osf false
+\font_roman_osf false
+\font_sans_osf false
+\font_typewriter_osf false
 \font_sf_scale 100 100
 \font_tt_scale 100 100
 \use_microtype false
@@ -65,7 +67,9 @@
 \suppress_date false
 \justification true
 \use_refstyle 1
+\use_formatted_ref 0
 \use_minted 0
+\use_lineno 0
 \index Index
 \shortcut idx
 \color #008000
@@ -82,23 +86,29 @@
 \papercolumns 1
 \papersides 1
 \paperpagestyle default
+\tablestyle default
 \listings_params "language=Matlab,float=hbp,basicstyle={\footnotesize\ttfamily},identifierstyle={\color{colIdentifier}},keywordstyle={\color{colKeys}},stringstyle={\color{colString}},commentstyle={\itshape\color{colComments}},columns=fixed,tabsize=2,extendedchars=true,showspaces=false,showstringspaces=false,captionpos=t,backgroundcolor={\color{white}},framexleftmargin=1pt,frame=l"
 \tracking_changes false
 \output_changes false
+\change_bars false
+\postpone_fragile_content false
 \html_math_output 0
 \html_css_as_file 0
 \html_be_strict false
+\docbook_table_output 0
+\docbook_mathml_prefix 1
 \end_header
 
 \begin_body
 
 \begin_layout Title
-PsPM: Option References
+PsPM:
+ Options documentation
 \end_layout
 
 \begin_layout Standard
 \align center
-Version 6.1.2
+Version 7.0
 \end_layout
 
 \begin_layout Standard
@@ -116,8 +126,9 @@ status open
 
 \begin_layout Plain Layout
 \noindent
-If you have comments on or error corrections to this documentation, please
- send them to the PsPM team or post them on: 
+If you have comments on or error corrections to this documentation,
+ please send them to the PsPM team or post them on:
+ 
 \begin_inset CommandInset href
 LatexCommand href
 name "bachlab.org/pspm"
@@ -138,9 +149,23 @@ literal "false"
 
 \begin_layout Standard
 \align center
-Dominik R Bach, Giuseppe Castegnetti, Laure Ciernik, Samuel Gerster, Saurabh
- Khemka, Christoph Korn, Samuel Maxwell, Tobias Moser, Philipp C Paulus,
- Ivan Rojkov, Matthias Staib, Eshref Yozdemir, Teddy Zhao and collaborators
+Dominik R Bach,
+ Giuseppe Castegnetti,
+ Laure Ciernik,
+ Samuel Gerster,
+ Uzay Gökay,
+ Saurabh Khemka,
+ Christoph Korn,
+ Samuel Maxwell,
+ Tobias Moser,
+ Philipp C Paulus,
+ Ivan Rojkov,
+ Matthias Staib,
+ Bernhard Agoué von Raußendorf,
+ Yanfang Xia,
+ Eshref Yozdemir,
+ Teddy Zhao,
+ and collaborators
 \end_layout
 
 \begin_layout Standard
@@ -176,7 +201,8 @@ Introduction
 \end_layout
 
 \begin_layout Standard
-Since version 6.1, PsPM has started using 
+Since version 6.1,
+ PsPM has started using 
 \family typewriter
 pspm_options
 \family default
@@ -186,13 +212,9 @@ pspm_options
 pspm_options
 \family default
  and described in this document with their explanations wherever available.
- The values of option fields have their own specification requirements and
- should be set carefully if non-standard values are used.
- Please check this document carefully about how to set values for the option
- fields.
- The errors which may appear when such variables have been set according
- to this guideline should be sent to PsPM developer team for getting further
- support.
+ The values of option fields have their own specification requirements and should be set carefully if non-standard values are used.
+ Please check this document carefully about how to set values for the option fields.
+ The errors which may appear when such variables have been set according to this guideline should be sent to PsPM developer team for getting further support.
 \end_layout
 
 \begin_layout Section
@@ -209,7 +231,8 @@ A word written in bold means the name of a variable.
 
 \begin_deeper
 \begin_layout Itemize
-Example: 
+Example:
+ 
 \series bold
 channel
 \end_layout
@@ -220,12 +243,13 @@ Data type
 \end_layout
 
 \begin_layout Standard
-There are five basic kinds of data types used for the values of the fields
- in PsPM, which are namely 
+There are five basic kinds of data types used for the values of the fields in PsPM,
+ which are namely 
 \shape italic
 cell
 \shape default
-, 
+,
+ 
 \shape italic
 character
 \shape default
@@ -233,15 +257,18 @@ character
 \shape italic
 char
 \shape default
-), 
+),
+ 
 \shape italic
 double
 \shape default
-, 
+,
+ 
 \shape italic
 logical
 \shape default
-, and 
+,
+ and 
 \shape italic
 struct
 \shape default
@@ -250,7 +277,8 @@ struct
 \shape italic
 double
 \shape default
-, there are some values required to be 
+,
+ there are some values required to be 
 \shape italic
 integers
 \shape default
@@ -259,7 +287,8 @@ integers
 \begin_inset Formula $1\times1$
 \end_inset
 
- size, and there are therefore denoted as 
+ size,
+ and there are therefore denoted as 
 \shape italic
 double (vector)
 \shape default
@@ -268,7 +297,8 @@ double (vector)
 double (matrix)
 \shape default
 .
- If unspecified, 
+ If unspecified,
+ 
 \shape italic
 double (vector)
 \shape default
@@ -281,7 +311,8 @@ double (vector)
 \shape italic
 integers
 \shape default
-, they will be specified as
+,
+ they will be specified as
 \shape italic
  integer (vector)
 \shape default
@@ -297,10 +328,8 @@ Unit
 \end_layout
 
 \begin_layout Standard
-Content in this column demonstrates the unit of default and acceptable values
- of this field.
- This column will not be available for the tables when there are no variables
- with physical meaning and units.
+Content in this column demonstrates the unit of default and acceptable values of this field.
+ This column will not be available for the tables when there are no variables with physical meaning and units.
 \end_layout
 
 \begin_layout Subsection
@@ -312,26 +341,28 @@ Default values are used if users have not customised the fields.
 \end_layout
 
 \begin_layout Itemize
-A word written in typewritter format means a string that is used in the
- code, typically the value of a variable.
+A word written in typewritter format means a string that is used in the code,
+ typically the value of a variable.
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
-Example: 
+Example:
+ 
 \family typewriter
 add
 \end_layout
 
 \end_deeper
 \begin_layout Itemize
-A number written in typewritter denotes a number used in the code, typically
- the value of a variable.
+A number written in typewritter denotes a number used in the code,
+ typically the value of a variable.
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
-Example: 
+Example:
+ 
 \family typewriter
 1
 \end_layout
@@ -342,8 +373,10 @@ Acceptable values
 \end_layout
 
 \begin_layout Standard
-Apart from the notations described above for the default values, two additional
- terms, Any and Subset, are also used:
+Apart from the notations described above for the default values,
+ two additional terms,
+ Any and Subset,
+ are also used:
 \end_layout
 
 \begin_layout Labeling
@@ -552,8 +585,8 @@ add
 replace
 \family default
  The results will replace the old data in the corresponding channel.
- If no corresponding channel is available, the results will be added as
- a new channel.
+ If no corresponding channel is available,
+ the results will be added as a new channel.
 \end_layout
 
 \end_deeper
@@ -1907,7 +1940,8 @@ Any
 \end_layout
 
 \begin_layout Subsection
-Convert Electrocardiogram To Heart Beat, Advanced MRI
+Convert Electrocardiogram To Heart Beat,
+ Advanced MRI
 \end_layout
 
 \begin_layout Standard
@@ -2132,7 +2166,8 @@ bpm
 \begin_layout Plain Layout
 
 \family typewriter
-[0.5, 40]
+[0.5,
+ 40]
 \end_layout
 
 \end_inset
@@ -2143,17 +2178,21 @@ bpm
 \begin_layout Plain Layout
 
 \family typewriter
-[m, n]
+[m,
+ n]
 \family default
-: 
+:
+ 
 \family typewriter
 m>0
 \family default
-, 
+,
+ 
 \family typewriter
 n>0
 \family default
-, 
+,
+ 
 \family typewriter
 n>m
 \end_layout
@@ -2198,7 +2237,8 @@ bpm
 \begin_layout Plain Layout
 
 \family typewriter
-[20, 200]
+[20,
+ 200]
 \end_layout
 
 \end_inset
@@ -2209,17 +2249,21 @@ bpm
 \begin_layout Plain Layout
 
 \family typewriter
-[m, n]
+[m,
+ n]
 \family default
-: 
+:
+ 
 \family typewriter
 m>0
 \family default
-, 
+,
+ 
 \family typewriter
 n>0
 \family default
-, 
+,
+ 
 \family typewriter
 n>m
 \end_layout
@@ -2379,7 +2423,8 @@ auto
 \begin_layout Plain Layout
 
 \family typewriter
-ecg, teo
+ecg,
+ teo
 \end_layout
 
 \end_inset
@@ -2422,7 +2467,8 @@ Hz
 \begin_layout Plain Layout
 
 \family typewriter
-[8, 40]
+[8,
+ 40]
 \end_layout
 
 \end_inset
@@ -3323,7 +3369,8 @@ settings.lateral.char.b
 \begin_layout Plain Layout
 
 \family typewriter
-settings.lateral.char.l, settings.lateral.char.r
+settings.lateral.char.l,
+ settings.lateral.char.r
 \end_layout
 
 \end_inset
@@ -5174,7 +5221,8 @@ param
 \begin_layout Plain Layout
 
 \family typewriter
-cond, recon
+cond,
+ recon
 \end_layout
 
 \end_inset
@@ -5428,7 +5476,8 @@ none
 \begin_layout Plain Layout
 
 \family typewriter
-screen, file output
+screen,
+ file output
 \end_layout
 
 \end_inset
@@ -5651,7 +5700,8 @@ seconds
 \begin_layout Plain Layout
 
 \family typewriter
-samples, markers
+samples,
+ markers
 \end_layout
 
 \end_inset
@@ -5774,7 +5824,8 @@ none
 \begin_layout Plain Layout
 
 \family typewriter
-add, replace
+add,
+ replace
 \end_layout
 
 \end_inset
@@ -6134,7 +6185,9 @@ double (vector)
 \begin_layout Plain Layout
 
 \family typewriter
-[a, b]; a,b∈R
+[a,
+ b];
+ a,b∈R
 \end_layout
 
 \end_inset
@@ -6435,7 +6488,8 @@ combined
 \begin_layout Plain Layout
 
 \family typewriter
-left, right
+left,
+ right
 \end_layout
 
 \end_inset
@@ -6469,7 +6523,8 @@ double (vector)
 \begin_layout Plain Layout
 
 \family typewriter
-[0.5, 0.5]
+[0.5,
+ 0.5]
 \end_layout
 
 \end_inset
@@ -6690,7 +6745,8 @@ double (vector)
 \begin_layout Plain Layout
 
 \family typewriter
-[1, 1]
+[1,
+ 1]
 \end_layout
 
 \end_inset
@@ -6701,7 +6757,9 @@ double (vector)
 \begin_layout Plain Layout
 
 \family typewriter
-[a, b]; a,b∈R
+[a,
+ b];
+ a,b∈R
 \end_layout
 
 \end_inset
@@ -6824,7 +6882,9 @@ gaze_x_l
 \begin_layout Plain Layout
 
 \family typewriter
-gaze_x_r, gaze_y_l, gaze_y_r
+gaze_x_r,
+ gaze_y_l,
+ gaze_y_r
 \end_layout
 
 \end_inset
@@ -6914,7 +6974,10 @@ none
 \begin_layout Plain Layout
 
 \family typewriter
-gaze_x_l, gaze_x_r, gaze_y_l, gaze_y_r
+gaze_x_l,
+ gaze_x_r,
+ gaze_y_l,
+ gaze_y_r
 \end_layout
 
 \end_inset
@@ -8212,7 +8275,12 @@ NS
 \begin_layout Plain Layout
 
 \family typewriter
-struct('segment_length', m, 'cutoff', n), m, n > 0
+struct('segment_length',
+ m,
+ 'cutoff',
+ n),
+ m,
+ n > 0
 \end_layout
 
 \end_inset
@@ -8726,7 +8794,11 @@ linear
 \begin_layout Plain Layout
 
 \family typewriter
-pchip, nearest, spline, previous, next
+pchip,
+ nearest,
+ spline,
+ previous,
+ next
 \end_layout
 
 \end_inset
@@ -9096,7 +9168,8 @@ integer (vector)
 \begin_layout Plain Layout
 
 \family typewriter
-[0, 0]
+[0,
+ 0]
 \end_layout
 
 \end_inset
@@ -9653,7 +9726,12 @@ double (vector)
 \begin_layout Plain Layout
 
 \family typewriter
-[a, b, c]: a, b, c>0
+[a,
+ b,
+ c]:
+ a,
+ b,
+ c>0
 \end_layout
 
 \end_inset
@@ -10332,7 +10410,8 @@ double (vector)
 \begin_layout Plain Layout
 
 \family typewriter
-[43.5, 29.9]
+[43.5,
+ 29.9]
 \end_layout
 
 \end_inset
@@ -10343,7 +10422,10 @@ double (vector)
 \begin_layout Plain Layout
 
 \family typewriter
-[a, b]: a, b>0
+[a,
+ b]:
+ a,
+ b>0
 \end_layout
 
 \end_inset
@@ -10377,7 +10459,8 @@ double (vector)
 \begin_layout Plain Layout
 
 \family typewriter
-[1920, 1080]
+[1920,
+ 1080]
 \end_layout
 
 \end_inset
@@ -10388,7 +10471,10 @@ double (vector)
 \begin_layout Plain Layout
 
 \family typewriter
-[a, b]: a, b>0
+[a,
+ b]:
+ a,
+ b>0
 \end_layout
 
 \end_inset
@@ -10511,7 +10597,8 @@ pupil
 \begin_layout Plain Layout
 
 \family typewriter
-pupil_l, pupil_r
+pupil_l,
+ pupil_r
 \end_layout
 
 \end_inset
@@ -10556,7 +10643,8 @@ none
 \begin_layout Plain Layout
 
 \family typewriter
-pupil_l, pupil_r
+pupil_l,
+ pupil_r
 \end_layout
 
 \end_inset
@@ -10924,7 +11012,11 @@ cell
 \begin_layout Plain Layout
 
 \family typewriter
-{rp, ra, rfr, rs, all}
+{rp,
+ ra,
+ rfr,
+ rs,
+ all}
 \end_layout
 
 \end_inset
@@ -11236,7 +11328,8 @@ add
 \begin_layout Plain Layout
 
 \family typewriter
-replace, withdraw
+replace,
+ withdraw
 \end_layout
 
 \end_inset
@@ -11797,7 +11890,8 @@ none
 \begin_layout Plain Layout
 
 \family typewriter
-downsample, interpolate
+downsample,
+ interpolate
 \end_layout
 
 \end_inset
@@ -12266,7 +12360,11 @@ double (vector)
 \begin_layout Plain Layout
 
 \family typewriter
-[0.92, 3.92, 2.16, 1.53, 1.64]
+[0.92,
+ 3.92,
+ 2.16,
+ 1.53,
+ 1.64]
 \end_layout
 
 \end_inset
@@ -12334,7 +12432,8 @@ double
 \end_layout
 
 \begin_layout Subsection
-Spontaneous Fluctuations — Dynamic Causal Modelling
+Spontaneous Fluctuations —
+ Dynamic Causal Modelling
 \end_layout
 
 \begin_layout Standard
@@ -12567,7 +12666,11 @@ double (vector)
 \begin_layout Plain Layout
 
 \family typewriter
-[0.92, 3.92, 2.16, 1.53, 1.64]
+[0.92,
+ 3.92,
+ 2.16,
+ 1.53,
+ 1.64]
 \end_layout
 
 \end_inset
@@ -12635,7 +12738,8 @@ double
 \end_layout
 
 \begin_layout Subsection
-Spontaneous Fluctuations — Matching Pursuit
+Spontaneous Fluctuations —
+ Matching Pursuit
 \end_layout
 
 \begin_layout Standard
@@ -12868,7 +12972,11 @@ double (vector)
 \begin_layout Plain Layout
 
 \family typewriter
-[0.92, 3.92, 2.16, 1.53, 1.64]
+[0.92,
+ 3.92,
+ 2.16,
+ 1.53,
+ 1.64]
 \end_layout
 
 \end_inset
@@ -13773,7 +13881,8 @@ last
 \begin_layout Plain Layout
 
 \family typewriter
-first, all
+first,
+ all
 \end_layout
 
 \end_inset

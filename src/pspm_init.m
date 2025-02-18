@@ -190,10 +190,10 @@ defaults.channeltypes(end+1) = struct(s_t, 'pupil_l',          s_de, 'Pupil left
 defaults.channeltypes(end+1) = struct(s_t, 'pupil_r',          s_de, 'Pupil right',                              s_i, @pspm_get_pupil_r,   s_da, 'wave');
 defaults.channeltypes(end+1) = struct(s_t, 'pupil_c',          s_de, 'Pupil combined',                           s_i, @pspm_get_pupil_c,   s_da, 'wave');
 % Pupil missing
-defaults.channeltypes(end+1) = struct(s_t, 'pupil_missing',    s_de, 'Pupil data missing/interpolated',          s_i, @none,               s_da, 'wave');
-defaults.channeltypes(end+1) = struct(s_t, 'pupil_missing_l',  s_de, 'Pupil data missing/interpolated left',     s_i, @none,               s_da, 'wave');
-defaults.channeltypes(end+1) = struct(s_t, 'pupil_missing_r',  s_de, 'Pupil data missing/interpolated right',    s_i, @none,               s_da, 'wave');
-defaults.channeltypes(end+1) = struct(s_t, 'pupil_missing_c',  s_de, 'Pupil data missing/interpolated combined', s_i, @none,               s_da, 'wave');
+defaults.channeltypes(end+1) = struct(s_t, 'pupil_missing',    s_de, 'Pupil data missing',                       s_i, @none,               s_da, 'wave');
+defaults.channeltypes(end+1) = struct(s_t, 'pupil_missing_l',  s_de, 'Pupil data missingleft',                   s_i, @none,               s_da, 'wave');
+defaults.channeltypes(end+1) = struct(s_t, 'pupil_missing_r',  s_de, 'Pupil data missing right',                 s_i, @none,               s_da, 'wave');
+defaults.channeltypes(end+1) = struct(s_t, 'pupil_missing_c',  s_de, 'Pupil data missing combined',              s_i, @none,               s_da, 'wave');
 % Blink
 defaults.channeltypes(end+1) = struct(s_t, 'blink_l',          s_de, 'Blink left',                               s_i, @pspm_get_blink_l,   s_da, 'wave');
 defaults.channeltypes(end+1) = struct(s_t, 'blink_r',          s_de, 'Blink right',                              s_i, @pspm_get_blink_r,   s_da, 'wave');
@@ -680,7 +680,7 @@ defaults.glm(end + 1) = struct(...
 defaults.glm(end+1) = struct(...
   'modality',     'pupil',...
   'modelspec',    'ps_fc',...
-  'cbf',          struct('fhandle', @pspm_bf_psrf_fc, 'args', 1),...
+  'cbf',          struct('fhandle', @pspm_bf_psrf_fc, 'args', []),...
   'filter',       struct('lpfreq', 50,  'lporder', 1, 'hpfreq', NaN,    'hporder', NaN, 'down', 100,  'direction',  'bi'),...
   'default',      0);
 % GLM for RA (evoked)
@@ -818,11 +818,12 @@ settings.added_paths      = added_paths;
 settings.removed_paths    = removed_paths;
 
 settings.developmode      = 0;
+settings.handle           = 'on'; % the options are 'on', 'off' and 'callback'
 settings.initial_paths    = initial_paths;
 settings.path             = pspm_root;
 settings.pspm_version     = pspm_vers;
 settings.signal           = signal;
-settings.developmode = 0;
+
 
 
 

@@ -12,9 +12,7 @@ marker_chan      = pspm_cfg_selector_channel('many');
 channel_action   = pspm_cfg_selector_channel_action;
 
 %% Specific items
-marker_chan.help    = {['Choose any number of marker channel numbers ',...
-                           'to combine. If 0, all marker ',...
-                           'channels in the file are combined.']};
+marker_chan.help    = pspm_cfg_help_format('pspm_combine_markerchannels', 'options.marker_chan_num');
 
 %% Executable branch
 combine_markerchannels        = cfg_exbranch;

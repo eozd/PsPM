@@ -4,11 +4,12 @@ function [sts, out] = pspm_sf_mp(model, options)
 %   matching pursuit algorithm, and f_SF for the forward model the input data is assumed
 %   to be in mcS, and sampling rate in Hz.
 % ● Format
-%   [sts, mp] = pspm_sf_mp(model, options)
+%   [sts, out] = pspm_sf_mp(model, options)
 % ● Arguments
-%   *     scr : skin conductance epoch (maximum size depends on computing power, a
-%               sensible size is 60 s at 10 Hz)
-%   *      sr : sampling rate in Hz
+%   ┌─model
+%   ├─────scr : skin conductance epoch (maximum size depends on computing power, a
+%   │           sensible size is 60 s at 10 Hz)
+%   └──────sr : sampling rate in Hz
 %   ┌─options
 %   ├─.threshold: threshold for SN detection (default 0.1 mcS)
 %   ├──.theta : a (1 x 5) vector of theta values for f_SF (default: read from pspm_sf_theta)
@@ -23,15 +24,19 @@ function [sts, out] = pspm_sf_mp(model, options)
 %   ├──────.n : number of responses above threshold
 %   ├──────.f : frequency of responses above threshold in Hz
 %   ├─────.ma : mean amplitude of responses above threshold
-%   ├──────.t : timing of responses
-%   ├──────.a : amplitude of responses (re-estimated)
-%   ├───.rawa : amplitude of responses (initial estimate)
+%   ├──────.t : timing of responses (adjusted for conduction delay)
+%   ├──────.a : amplitude of responses (re-estimated via ML)
+%   ├───.rawa : amplitude of responses (initial greedy estimate)
 %   ├──.theta : parameters used for f_SF
-%   ├─.threshold : threshold
-%   ├───.yhat : fitted time series (reestimated amplitudes)
-%   ├.yhatraw : fitted time series (original amplitudes)
-%   ├──────.S : inversion settings
-%   └──────.D : inversion dictionary
+%   ├─.threshold : threshold applied for response detection
+%   ├───.yhat : fitted time series (using reestimated amplitudes)
+%   ├.yhatraw : fitted time series (using initial amplitudes)
+%   ├──────.ind : indices of selected dictionary atoms in D.D
+%   ├──.sortind : sorted indices of selected atoms (after pruning)
+%   ├───────.y : preprocessed input data (baseline-centered scr)
+%   ├───.time : total execution time in seconds
+%   ├──────.S : inversion settings (struct with algorithm parameters)
+%   └──────.D : inversion dictionary (struct with atoms and metadata)
 % ● References
 %   [1] Bach DR, Staib M (2015). A matching pursuit algorithm for inferring tonic
 %       sympathetic arousal from spontaneous skin conductance fluctuations.

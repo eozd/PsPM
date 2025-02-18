@@ -182,7 +182,7 @@ end
 function out = pupil_chan(menu_set, menu_default)
 
     labels                 = {'Combined pupil channel', 'Both pupil channels', 'Left pupil', 'Right pupil', 'Default', 'None'};
-    values                 = {'pupil_c', 'both', 'pupil_l', 'pupil_r', 'pupil', ''};
+    values                 = {'pupil_c', 'both', 'pupil_l', 'pupil_r', 'pupil', 'none'};
     
     out                    = cfg_menu;
     out.name               = 'Channel specification';

@@ -65,16 +65,6 @@ exclude_missing.help     = pspm_cfg_help_format('pspm_glm', 'options.exclude_mis
 
 %% Modality dependent items
 % Basis function
-% SCRF
-for i=1:3
-    scrf{i}        = cfg_const;
-    scrf{i}.name   = ['SCRF ' num2str(i-1)];
-    scrf{i}.tag    = ['scrf' num2str(i-1)];
-    scrf{i}.val    = {i-1};
-end
-scrf{1}.help   = {'SCRF without derivatives.'};
-scrf{2}.help   = {'SCRF with time derivative (default).'};
-scrf{3}.help   = {'SCRF with time and dispersion derivative.'};
 
 %FIR
 n         = cfg_entry;
@@ -106,10 +96,9 @@ fir.help   = {'Uninformed finite impulse response (FIR) model: specify the numbe
 bf        = cfg_choice;
 bf.name   = 'Basis Function';
 bf.tag    = 'bf';
-bf.val    = {scrf{2}};
-bf.values = {scrf{:}, fir};
-bf.help   = {['Basis functions. Standard is to use a canonical skin conductance response function ' ...
-    '(SCRF) with time derivative for later reconstruction of the response peak.']};
+bf.val    = {fir};
+bf.values = {fir};
+bf.help   = {};
 
 %% Latency
 time_window          = cfg_entry;

@@ -188,7 +188,7 @@ tab = sprintf('\t');
 while strncmp(curr_line, '**', numel('**'))
   if contains(curr_line, 'DATE')
     colon_idx = strfind(curr_line, ':');
-    date_part = curr_line(colon_idx + 1 : end);
+    date_part = curr_line(colon_idx(1) + 1 : end);
     date_fmt = 'eee MMM d HH:mm:ss yyyy';
     date = datetime(date_part, 'InputFormat', date_fmt);
     file_info.record_date = sprintf('%.2d.%.2d.%.2d', date.Day, date.Month, date.Year);
@@ -364,6 +364,7 @@ end
 function chan_info = parse_session_headers(messages)
 prev_n_messages = 0;
 pupil_str = sprintf('PUPIL\t');
+global  settings;
 for sess_idx = 1:numel(messages)
   i = 1;
   while true
@@ -387,7 +388,12 @@ for sess_idx = 1:numel(messages)
       parts = split(msg);
       chan_info{sess_idx}.track_mode = parts{4};
       chan_info{sess_idx}.sr = str2num(parts{5});
-      chan_info{sess_idx}.eyesObserved = parts{8};
+      chan_info{sess_idx}.eyesObserved = parts{end};
+      if ~any(structfun( @(x) strcmpi(chan_info{sess_idx}.eyesObserved  , x), settings.eye.cap ) )
+         warning(['Parsing Error: The value for "eyesObserved"' ...
+             ' must be ''R'', ''L'', ''RL'', or ''LR''.']);
+      end
+
     elseif contains(msg, pupil_str)
       parts = split(msg);
       chan_info{sess_idx}.diam_vals = lower(parts{2});

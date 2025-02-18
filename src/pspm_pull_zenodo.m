@@ -1,4 +1,6 @@
 function sts = pspm_pull_zenodo(ID, datapath)
+% ● Description
+%   pspm_pull_zenodo pulls data from zenodo.org
 
 fprintf('Pulling data set %i from zenodo.org\n', ID);
 mkdir(datapath);

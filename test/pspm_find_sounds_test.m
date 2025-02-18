@@ -39,7 +39,7 @@ classdef pspm_find_sounds_test < matlab.unittest.TestCase
                      'ID:invalid_input', 'ID:invalid_input', 'ID:invalid_input'};
       for i=1:numel(pos_int_fields)
           for j=1:numel(invalid_values)
-              o = struct(pos_int_fields{i}, invalid_values{j});
+              o = struct(pos_int_fields{i}, invalid_values{j}, 'diagnostics', 1);
               this.verifyWarning(@() pspm_find_sounds(fn, o), warning_IDs{i, j});
           end
       end
@@ -63,7 +63,7 @@ classdef pspm_find_sounds_test < matlab.unittest.TestCase
       % invalid channel ids out of range
       channel_fields = {'channel', 'marker_chan_num'};
       for i=1:numel(channel_fields)
-        o = struct(channel_fields{i}, 5);
+        o = struct(channel_fields{i}, 5, 'diagnostics', 1);
         this.verifyWarning(@() pspm_find_sounds(fn, o), 'ID:invalid_input');
       end
       % test with diagnostics and no marker channel in data

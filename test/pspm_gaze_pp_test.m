@@ -29,8 +29,10 @@ classdef pspm_gaze_pp_test < pspm_testcase
       import{end}.eyelink_trackdist = 600;
       import{end}.distance_unit = 'mm';
       import{end + 1}.type = 'marker';
+      options = struct();
+      options.overwrite = 1; % to always overwrite
       [sts, this.pspm_input_fn] = pspm_import(...
-        this.raw_input_fn, 'eyelink', import, struct());
+        this.raw_input_fn, 'eyelink', import, options);
     end
   end
   methods(Test)

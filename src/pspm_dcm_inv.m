@@ -536,7 +536,9 @@ if ~options.getrf
         win = start:stop;
       else
         adepth = trlno - trl + 1;
-        stop = min([floor((sr * (trlstop(end) + 10))), numel(yscr{sn})]);
+        % for last trial, if possible use at least 10 s of data, and at
+        % most min ITI. If this is not possible, use all available data.
+        stop = min([floor((sr * (trlstop(end) + min([miniti, 10])))), numel(yscr{sn})]);
         win = start:stop;
       end
 
