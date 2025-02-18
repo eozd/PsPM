@@ -19,7 +19,7 @@ function [sts, markerinfo] = pspm_get_markerinfo(fn, options)
 %   └──overwrite : [logical] (0 or 1)
 %                  Define whether to overwrite existing output files or not.
 %                  Default value: determined by pspm_overwrite.
-% ● Output
+% ● Outputs
 %   *        sts : [double]
 %                  default value: -1 if unsuccessful
 %   ┌─markerinfo : [struct]

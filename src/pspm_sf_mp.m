@@ -19,7 +19,7 @@ function [sts, out] = pspm_sf_mp(model, options)
 %               Add further diagnostics to the output. Is disabled if set to be false.
 %               If set to true this will add a further field 'D' to the output struct.
 %               Default is false.
-% ● Output
+% ● Outputs
 %   ┌─────out
 %   ├──────.n : number of responses above threshold
 %   ├──────.f : frequency of responses above threshold in Hz

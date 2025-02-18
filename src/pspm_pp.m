@@ -36,7 +36,7 @@ function [sts, outchannel] = pspm_pp(varargin)
 %                 [optional][string][Accepts: 'add'/'replace'][Default: 'add'] Defines
 %                 whether corrected data should be added or the corresponding preprocessed
 %                 channel should be replaced.
-% ● Output
+% ● Outputs
 %   *  channel_index: index of channel containing the processed data
 % ● History
 %   Introduced in PsPM 3.0

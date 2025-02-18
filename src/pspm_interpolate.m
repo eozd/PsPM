@@ -29,7 +29,7 @@ function [sts, outdata] = pspm_interpolate(indata, varargin)
 %                   or the corresponding channel should be replaced.
 %                   [optional; accept: 'add', 'replace'; default: 'add']
 %                   Only used if 'channel' is not 'all'.
-% ● Output
+% ● Outputs
 %   *     outdata : interpolated numeric array.
 %   * channel_index : index of new channel if no new file is created
 %   *     newfile : name of new file if channel == 'all'

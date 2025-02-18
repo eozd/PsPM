@@ -130,7 +130,7 @@ function [sts, dcm] = pspm_dcm(model, options)
 %   └.eventnames: Cell array of names for individual events,
 %                 in the order they are specified in the model.timing array -
 %                 to be used for display and export only
-% ● Output
+% ● Outputs
 %   * fn        : Name of the model file.
 %   * dcm       : Model struct. Output units: all timeunits are in seconds;
 %                 eSCR and aSCR amplitude are in SN units such that an

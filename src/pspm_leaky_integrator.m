@@ -7,7 +7,7 @@ function filtered_data = pspm_leaky_integrator(data, tau)
 %        leak rate. The leak constant defines how quickly previous values
 %        "leak out" of the integrator (or decay). A higher tau value
 %        results in slower decay, meaning the integrator has a longer memory.
-% ● Output
+% ● Outputs
 %   * filtered_data: The filtered signal, of the same size as the input data,
 %                 processed by the leaky integrator.
 

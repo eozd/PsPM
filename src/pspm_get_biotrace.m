@@ -11,7 +11,7 @@ function [sts, import, sourceinfo] = pspm_get_biotrace(datafile, import)
 %   ├────────.sr : The sampling rate of the file.
 %   ├──────.data : The data read from the file.
 %   └────.marker : The type of marker, such as 'continuous'
-% ● Output
+% ● Outputs
 %         import : The import struct that saves importing information
 %     sourceinfo : The struct that saves information of original data source
 % ● History
