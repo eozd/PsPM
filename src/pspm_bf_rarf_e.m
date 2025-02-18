@@ -8,7 +8,7 @@ function [bs, x] = pspm_bf_rarf_e(varargin)
 %   *      td:  The time the response function should have.
 %   * bf_type:  Can be either 0 or 1. If 0, returns the response function only.
 %               If 1, (default) returns the response function and the time derivative.
-% ● Reference
+% ● References
 %   Dominik R. Bach, Samuel Gerster, Athina Tzovara, Giuseppe Castegnetti,
 %   A linear model for event-related respiration responses,
 %   Journal of Neuroscience Methods, Volume 270, 1 September 2016, Pages 147-155,

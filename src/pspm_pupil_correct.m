@@ -29,7 +29,7 @@ function [sts, pupil_corrected] = pspm_pupil_correct(pupil, gaze_x_mm, gaze_y_mm
 %                   screen if they have same x and y coordinates. (Unit: mm)
 % ● Outputs
 %   * pupil_corrected: PFE corrected pupil data. (Unit: unit of the input pupil data)
-% ● Developer's Notes
+% ● Developer
 %   geometry_setup is a struct with the geometry setup fields. When defining these
 %   coordinate system parameters, we assume that the origin O of the 3D coordinate system
 %   is the center of the pupil.

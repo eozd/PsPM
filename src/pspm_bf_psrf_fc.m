@@ -10,7 +10,7 @@ function [bs, x] = pspm_bf_psrf_fc(varargin)
 %   *  cs_d : Derivative of CS-evoked response in the basis set. Acceptable values are 0 and 1. Default as 0.
 %   *    us : US-evoked response in the basis set. Acceptable values are 0 and 1. Default as 0.
 %   * us_shift : CS-US SOA in seconds. Ignored if us == 0. Default as 3.5.
-% ● Reference
+% ● References
 %   Christoph W. Korn, Matthias Staib, Athina Tzovara, Giuseppe Castegnetti,
 %   and Dominik R. Bach (2017) A pupil size response model to assess fear learning.
 %   Psychophysiology, 54, 330-343, DOI: 10.1111/psyp.12801

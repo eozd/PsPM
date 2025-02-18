@@ -8,7 +8,7 @@ function [sts, b, a] = pspm_butter(order, freqratio, pass)
 % ● Arguments
 %   *     order: the order of the Butterworth filter to be designed
 %   * freqratio: the cut-off frequency of the Butterworth filter to be designed
-% ● Output
+% ● Outputs
 %   *       sts: -1 if non-standard filters are requested
 % ● History
 %   Introduced in PsPM 3.0

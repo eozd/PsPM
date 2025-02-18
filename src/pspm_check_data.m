@@ -6,7 +6,7 @@ function [sts, data] = pspm_check_data(data, infos)
 %   conversions.
 % ● Format
 %   [sts, data] = pspm_check_data(data, infos)
-% ● Developer's notes
+% ● Developer
 %   This code is taken from pspm_load_data; it could be improved using cellfun.
 % ● History
 %   Introducted in Version 7.0

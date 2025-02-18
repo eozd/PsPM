@@ -2,7 +2,7 @@ function sts = pspm_rev_dcm(dcm, job, sn, trl)
 % ● Description
 %   pspm_rev_dcm displays DCM results post hoc. It is meant to be called by
 %   pspm_review only.
-% ● Developer's Notes
+% ● Developer
 %   The development of this funcrion is still in progress.
 %   More jobs to be implemented.
 % ● Format

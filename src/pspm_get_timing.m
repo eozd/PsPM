@@ -53,7 +53,7 @@ function [sts, outtiming] = pspm_get_timing(varargin)
 %             - a .mat file with a variable 'events' (see below)
 %             - a cell array with multiple one and two column vectors for fully
 %               flexible DCMs that must all have the same number of rows.
-% ● Developer's Notes
+% ● Developer
 %   Differences in GLM multiple condition definitions between SPM and PsPM
 %   (1) 'durations' is optional - default is 0
 %   (2) 'durations' must be 0 if onsets are specified by markers

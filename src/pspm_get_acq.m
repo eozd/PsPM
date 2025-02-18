@@ -19,7 +19,7 @@ function [sts, import, sourceinfo] = pspm_get_acq(datafile, import)
 % ● Output
 %   *     import : The import struct that saves importing information
 %   * sourceinfo : The struct that saves information of original data source
-% ● Developer's Notes
+% ● Developer
 %   The main part of this function is shared with pspm_get_acq_python.
 %   The function acqread is stored in the path /Import/acq.
 % ● History

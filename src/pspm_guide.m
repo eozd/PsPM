@@ -1,7 +1,7 @@
 function varargout = pspm_guide(varargin)
 % ● Description
 %   pspm_guide handles the main GUI for PsPM
-% ● Developer's Guide
+% ● Developer
 %   * Template
 %     function varargout = FunctionName(hObject, eventdata, handles, varargin)
 %       varargout  cell array for returning output args (see VARARGOUT);

@@ -9,7 +9,7 @@ function [sts, y] = pspm_filtfilt(b,a,x)
 %   * a:  filter parameters (denominator)
 %   * x:  input data vector (if matrix, filter over columns)
 %   * y:  filtered data
-% ● Developer's notes
+% ● Developer
 %   The filter is described by the difference equation:
 %   y(n) = b(1)*x(n) + b(2)*x(n-1) + ... + b(nb+1)*x(n-nb)
 %          - a(2)*y(n-1) - ... - a(na+1)*y(n-na)
@@ -26,9 +26,8 @@ function [sts, y] = pspm_filtfilt(b,a,x)
 %   [2] Fredrik Gustafsson, Determining the initial states in forward-backward
 %       filtering, IEEE Transactions on Signal Processing, pp. 988--992,
 %       April 1996, Volume 44, Issue 4
-% ● References
-%   L. Shure, T. Krauss, F. Gustafsson
-%   Copyright 1988-2004 The MathWorks, Inc.
+%   [3] L. Shure, T. Krauss, F. Gustafsson
+%       Copyright 1988-2004 The MathWorks, Inc.
 % ● History
 %   Introduced in PsPM 3.0
 %   Written in 2008-2015 by Dominik R Bach (Wellcome Trust Centre for Neuroimaging)

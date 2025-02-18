@@ -7,7 +7,7 @@ function [bs, x] = pspm_bf_hprf_rew(td)
 %   [bs, x] = pspm_bf_hprf_fc(TD)
 % ● Arguments
 %   *    td : time resolution in second.
-% ● References:
+% ● References
 %   GLM for reward-conditioned bradycardia:
 %   Xia Y, Liu H, Kälin OK, Gerster S, Bach DR (2024). Measuring
 %   human Pavlovian appetitive conditioning and memory retention.

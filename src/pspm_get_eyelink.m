@@ -33,7 +33,7 @@ function [sts, import, sourceinfo] = pspm_get_eyelink(datafile, import)
 %   │                      according to the set distance.
 %   └────.distance_unit :  [optional] The unit to which the data should be
 %                          converted and in which eyelink_trackdist is given.
-% ● Developer's Notes
+% ● Developer
 %   In this function, channels related to eyes will not produce an error, if
 %   they do not exist. Instead they will produce an empty channel (a channel
 %   with NaN values only).

@@ -34,9 +34,9 @@ function [sts, outchannel] = pspm_convert_hb2hp(fn, sr, options)
 %   └─────────.lower: [numeric]
 %                     Specifies the lower limit of the
 %                     heart periods in seconds. Default is 0.2.
-% ● Output
+% ● Outputs
 %   *  channel_index: index of channel containing the processed data
-% ● Reference
+% ● References
 %   [1] Paulus PC, Castegnetti G, & Bach DR (2016). Modeling event-related
 %       heart period responses. Psychophysiology, 53, 837-846.
 % ● History

@@ -12,7 +12,7 @@ function [sts, import, sourceinfo] = pspm_get_physlog(datafile, import)
 %   respiration marker, Measurement (?slice onset?), Start of scan sequence, 
 %   End of scan sequence, Trigger external, Calibration, Manual start, 
 %   Reference ECG Trigger.
-% ● Developer's Notes
+% ● Developer
 %   Special about this function is that channel numbers for event/marker
 %   channels correspond to the different event types scanphyslog files.
 %   * Possible event types are:

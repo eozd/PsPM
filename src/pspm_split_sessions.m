@@ -54,7 +54,7 @@ function [sts, newdatafile, newepochfile] = pspm_split_sessions(datafile, option
 %   *      newdatafile : cell array of filenames for the individual sessions
 %   *     newepochfile : cell array of missing epoch filenames for the individual
 %                        sessions (empty if options.missing not specified).
-% ● Developer's notes
+% ● Developer
 %   epochs have a fixed sampling rate of 10000
 %   REMARK for suffix and prefix:
 %   Markers in the prefix and suffix intervals are ignored. Only markers

@@ -136,7 +136,7 @@ function [sts, dcm] = pspm_dcm(model, options)
 %                 eSCR and aSCR amplitude are in SN units such that an
 %                 eSCR SN pulse with 1 unit amplitude causes an eSCR with
 %                 1 mcS amplitude.
-% ● Developer's Notes
+% ● Developer
 %   1. pspm_dcm can handle NaN values in data channels. Either by specifying
 %   missing epochs manually using model.missing, or by detecting NaN epochs
 %   in the data. Missing epochs shorter than model.substhresh will be ignored
