@@ -28,15 +28,17 @@ function [sts, outtiming] = pspm_get_timing(varargin)
 %   onsets and timeunits are 'markervalues':
 %      for defining onsets for multiple conditions (e.g. GLM) from
 %      entries in markerinfos:
-%      intiming:  - a struct with fields 'markerinfos', 'markervalues,
+%      intiming:  - a struct with fields 'markerinfo', 'markervalues',
 %                   'names' OR
 %                 - a cell array of struct
-%                    - markerinfos as loaded from a marker channel
-%                    - if markervalues is a vector of numeric, it creates
-%                      conditions from the entries in markerinfos.value
+%                 - in both cases:
+%                    - markerinfo as loaded from a marker channel
+%                    - if markervalues is a vector of numeric, this creates
+%                      conditions from the corresponding entries in markerinfos.value
 %                    - if markervalues is a cell array of char, it creates
-%                      conditions from the entries in markerinfos.name
-%                    - names: cell array of condition names
+%                      conditions from the corresponding entries in markerinfos.name
+%                    - names: cell array of condition names for the values
+%                      indicated in markervalues
 %
 %     epochs: for defining data epochs (e. g. analysis of SF, missing epochs in
 %             GLM). epochs can be one of the following
