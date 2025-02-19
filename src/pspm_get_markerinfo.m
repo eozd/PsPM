@@ -7,8 +7,7 @@ function [sts, markerinfo] = pspm_get_markerinfo(fn, options)
 % ● Format
 %   [sts, markerinfo] = pspm_get_markerinfo(filename, options)
 % ● Arguments
-%   *   filename : [char]
-%                  name of PsPM file
+%   *   filename : [char] name of PsPM file
 %                  if empty, you will be prompted for one
 %   ┌────options
 %   ├.marker_chan_num:  [int] marker channel number.
@@ -20,12 +19,11 @@ function [sts, markerinfo] = pspm_get_markerinfo(fn, options)
 %                  Define whether to overwrite existing output files or not.
 %                  Default value: determined by pspm_overwrite.
 % ● Outputs
-%   *        sts : [double]
-%                  default value: -1 if unsuccessful
-%   ┌─markerinfo : [struct]
-%   ├──────.name : [char]
-%   ├─────.value : ...
-%   └───.element : ...
+%   *        sts : [double]  default value: -1 if unsuccessful.
+%   ┌────markerinfo 
+%   ├──────.name : [char]  marker type name, extracted from the data.
+%   ├─────.value : [double]  marker value, representing event codes or timestamps.
+%   └───.element : [array] 
 % ● History
 %   Introduced in PsPM 6.0
 %   Written in 2008-2015 by Dominik R Bach (Wellcome Trust Centre for Neuroimaging)

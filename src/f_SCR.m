@@ -18,14 +18,14 @@ function [fx, dfdx, dfdP] = f_SCR(Xt, Theta, ut, in)
 % ● Format
 %   [fx, dfdx, dfdP] = f_SCR(Xt,Theta,ut,in)
 % ● Arguments
-%   Theta:  4 ER constants (3 ODE params + time)
+% * Theta:  4 ER constants (3 ODE params + time)
 %           3 SF constants (3 ODE params)
 %           3 values per aSCR (invsigma(peaktime), invsigma(std),
 %           log(amplitude))
 %           1 value  per eSCR (log(amplitude))
 %           2 values per SF (invsigma(peaktime), log(amplitude))
 %           2 values per SCL change (invsigma(time), amplitude)
-%      ut:  row 1 - time (after cue onset)
+% *    ut:  row 1 - time (after cue onset)
 %           row 2 - number of aSCR
 %           row 3 - number of eSCR
 %           row 4 - number of SF

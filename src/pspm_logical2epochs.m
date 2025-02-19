@@ -13,7 +13,7 @@ function epochs = pspm_logical2epochs(index, sr)
 % ● History
 %   Written in 2024 by Bernhard Agoué von Raußendorf
 
-    
+%%    
 % Compute the differences between consecutive elements in the index array,
 % with padding at the start and end
 diff_index = diff([0; index(:); 0]);

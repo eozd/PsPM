@@ -12,8 +12,8 @@ function [sts, import, sourceinfo] = pspm_get_biotrace(datafile, import)
 %   ├──────.data : The data read from the file.
 %   └────.marker : The type of marker, such as 'continuous'
 % ● Outputs
-%         import : The import struct that saves importing information
-%     sourceinfo : The struct that saves information of original data source
+%   *      import : The import struct that saves importing information
+%   *  sourceinfo : The struct that saves information of original data source
 % ● History
 %   Introduced in PsPM 3.0
 %   Written in 2008-2015 by Dominik R Bach (Wellcome Trust Centre for Neuroimaging)

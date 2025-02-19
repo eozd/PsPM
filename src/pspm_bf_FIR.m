@@ -17,7 +17,7 @@ function [FIR, x] = pspm_bf_FIR(varargin)
 %% Check input arguments
 if nargin==0
   errmsg='No sampling interval stated'; warning('ID:invalid_input', errmsg); return;
-end;
+end
 n = 30;
 d = 1;
 td = varargin{1}(1);
@@ -25,21 +25,21 @@ if nargin == 1 && numel(varargin{1}) > 1
   n = varargin{1}(2);
   if numel(varargin{1}) >= 3
     d = varargin{1}(3);
-  end;
+  end
 
 elseif nargin > 1
   if nargin >= 2
     n = varargin{2}(1);
-  end;
+  end
   if nargin >= 3
     d = varargin{3}(1);
-  end;
-end;
+  end
+end
 if td > d
   warning('ID:invalid_input', 'Time resolution is larger than duration of the function.'); return;
 elseif td == 0
   warning('ID:invalid_input', 'Time resolution must be larger than 0.'); return;
-end;
+end
 % initialise FIR
 FIR = [zeros(1, n); zeros(round((d*n/td)), n);];
 % generate timestamps
@@ -50,5 +50,5 @@ for reg=1:n
   stops=(d*reg)/td;
   FIR(starts:stops, reg)=1;
   starts=stops+1;
-end;
+end
 return

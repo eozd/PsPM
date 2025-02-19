@@ -14,7 +14,7 @@ function index = pspm_time2index(time, sr, varargin)
 %   *      events : vector of timestamps from a marker channel, will be considered if
 %                   given as input.
 % ● Outputs
-%           index : [integer] index or data point.
+%   *       index : [integer] index or data point.
 % ● History
 %   Introduced in PsPM 5.1.2
 %   Written in 2021 by Teddy

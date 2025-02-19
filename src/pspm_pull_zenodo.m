@@ -8,9 +8,7 @@ function sts = pspm_pull_zenodo(ID, datapath)
 %   * datapath: directory where the downloaded files will be stored (string)
 % ● Outputs
 %   * sts: status flag
-% ● Developer
-%   dsgd
-%   edsrgd
+
 fprintf('Pulling data set %i from zenodo.org\n', ID);
 mkdir(datapath);
 

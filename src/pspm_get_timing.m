@@ -11,7 +11,7 @@ function [sts, outtiming] = pspm_get_timing(varargin)
 %     [sts, epochs] = pspm_get_timing('missing', epochs, timeunits)
 %   → For recursive calls also:
 %     [sts, epochs] = pspm_get_timing('file', filename)
-% ● Arguments
+% ● Argument(s) // need change
 %   onsets and timeunits are 'seconds', 'samples' or 'markers':
 %      for defining event onsets for multiple conditions (e. g. GLM)
 %      intiming is - a multiple condition file name (single session) OR

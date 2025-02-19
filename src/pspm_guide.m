@@ -15,7 +15,7 @@ function varargout = pspm_guide(varargin)
 %       contents{get(hObject,'Value')} returns selected item from the list
 %   * Hint
 %       popupmenu controls usually have a white background on Windows.
-% ● Copyright
+% ● History
 %   Introduced in PsPM 1.0 and terminated in PsPM 6.1.
 %   Written by Dominik R Bach (Wellcome Centre for Human Neuroimaging) in 2008-2021
 %   Lastly updated in PsPM 6.1 by Teddy in 2022

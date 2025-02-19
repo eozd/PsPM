@@ -1,6 +1,6 @@
 function [sts, data_struct, infos, pos_of_channel, chantype_sts] = ...
     pspm_load_channel(fn, channel, channeltype)
-% ● Definition
+% ● Description
 %   pspm_load_channel loads a single data channel and provides integrated
 %   channel checking logic
 % ● Format

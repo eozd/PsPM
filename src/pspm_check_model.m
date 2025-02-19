@@ -1,5 +1,5 @@
 function [model, options] = pspm_check_model(model, options, modeltype)
-% ● Definition
+% ● Description
 %   pspm_check_model automatically determine the fields of the struct model
 %   for the corresponding function. It also checks the options structure
 %   and uses it to determine whether overwriting of the model file is
