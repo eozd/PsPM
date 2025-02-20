@@ -13,7 +13,7 @@ function v = pspm_struct2vec(S, field, warningtype)
 %   *       field : name of a numerical field.
 %   * warningtype : ['marker' or 'generic'] Type of warning to the displayed
 %                   for the user.
-% ● Output
+% ● Outputs
 %   *     v : numerical vector.
 % ● History
 %   Introduced in PsPM 7.0

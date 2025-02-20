@@ -15,7 +15,7 @@ function [sts, channel_index] = pspm_gaze_pp(fn, options)
 %   │                 specified above. Default is 'gaze'.
 %   └.channel_action: 'replace' existing gaze_x_c and gaze_y_c channels, or
 %                     'add' new ones (default)
-% ● Output
+% ● Outputs
 %   *            sts: Status determining whether the execution was
 %                     successfull (sts == 1) or not (sts == -1)
 %   *  channel_index: Index of the generated combined gaze channels.

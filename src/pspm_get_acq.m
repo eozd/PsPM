@@ -16,10 +16,10 @@ function [sts, import, sourceinfo] = pspm_get_acq(datafile, import)
 %   ├────────.sr : The sampling rate of the acq file.
 %   ├──────.data : The data read from the acq file.
 %   └────.marker : The type of marker, such as 'continuous'
-% ● Output
+% ● Outputs
 %   *     import : The import struct that saves importing information
 %   * sourceinfo : The struct that saves information of original data source
-% ● Developer's Notes
+% ● Developer
 %   The main part of this function is shared with pspm_get_acq_python.
 %   The function acqread is stored in the path /Import/acq.
 % ● History

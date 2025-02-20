@@ -3,7 +3,7 @@ function [theta, sr] = pspm_sf_theta
 %   pspm_sf_theta returns parameter values for skin conductance response function f_SF.
 % ● Format
 %   [theta, sr] = pspm_sf_theta
-% ● Developer's Notes
+% ● Developer
 %   Estimated on 29-Jul-2009
 % ● Outputs
 %   *  theta : a vector as [theta1, theta2, theta3, theta4, theta5]

@@ -53,7 +53,7 @@ function [sts, outchannel] = pspm_convert_au2unit(varargin)
 %   └.channel_action : ['add'/'replace', default as 'add']
 %                     Defines whether the new channel should be added or the previous
 %                     outputs of this function should be replaced.
-% ● Output
+% ● Outputs
 %   * channel_index : Index of channel containing the processed data.
 % ● History
 %   Introduced in PsPM 3.1

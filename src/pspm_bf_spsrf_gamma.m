@@ -9,7 +9,7 @@ function [bs, t] = pspm_bf_spsrf_gamma(varargin)
 % ● Arguments
 %   *   td : time resolution in second.
 %   *    p : An array of A, x0, a, and b (in order).
-% ● Reference
+% ● References
 %   Xia Y, Melinscak F, Bach DR (2020)
 %   Saccadic Scanpath Length: An Index for Human Threat Conditioning
 %   Behavioral Research Methods 53, pages 1426–1439 (2021)

@@ -25,8 +25,8 @@ function [sts, outchannel] = pspm_emg_pp(fn, options)
 %   └.channel_action: ['add'/'replace'] Defines whether the new channel should
 %                     be added or the previous outputs of this function should
 %                     be replaced. (Default: 'replace')
-% ● Output
-%      channel_index: index of channel containing the processed data
+% ● Outputs
+%   *   channel_index: index of channel containing the processed data
 % ● References
 %   [1] Khemka S, Tzovara A, Gerster S, Quednow BB, Bach DR (2017).
 %       Modelling startle eye blink electromyogram to assess fear learning.

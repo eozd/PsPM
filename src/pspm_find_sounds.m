@@ -70,7 +70,7 @@ function [sts, outchannel, outinfos] = pspm_find_sounds(fn, options)
 %                      few are found, lowers threshold until at least specified count is
 %                      reached. Threshold is lowered by .01 until 0.05 is reached for a max
 %                      of 95 iterations. This is a EXPERIMENTAL variable, use with caution!
-% ● Output
+% ● Outputs
 %   *  channel_index : index of channel containing the processed data
 %   ┌───────────info
 %   ├───.snd_markers : vector of begining of sound sound events

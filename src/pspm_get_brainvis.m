@@ -9,7 +9,7 @@ function [sts, import, sourceinfo] = pspm_get_brainvis(datafile, import)
 % ● Arguments
 %   *                datafile : the path of data file to be imported
 %   *                  import : the struct of import settings
-% ● Developer's Note
+% ● Developer
 %   I did not have sample files, simply assumed that hdr.labels would be
 %   a cell array - might have to be changed in lines 38 and 41
 % ● History

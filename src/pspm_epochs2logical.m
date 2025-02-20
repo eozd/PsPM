@@ -12,7 +12,7 @@ function index = pspm_epochs2logical(epochs, datalength, sr)
 %   *   datalength : length of the resulting logical index
 %   *           sr : if epochs are specified in seconds: sample rate
 %                    if epochs are specified in terms of data samples: 1
-% ● Output
+% ● Outputs
 %   *        index : [logical] index
 % ● History
 %   Introduced in PsPM 6.1.2

@@ -8,7 +8,7 @@ function data = pspm_denoise_spike(inputdata, header, kbdata, cutoff)
 %   *    header : header of data
 %   *    kbdata : keyboard channel data
 %   *    cutoff : the cut off value for denoising
-% ● Arguments
+% ● Outputs
 %   *    data: denoised data
 % ● History
 %   Introduced in PsPM 3.0

@@ -21,7 +21,7 @@ function [sts, out] = pspm_expand_epochs(varargin)
 %   │                     is epochs file.)
 %   └────.channel_action: Channel action, add / replace existing data
 %                         data (default: add)
-% ● Output
+% ● Outputs
 %   *  channel_index: index of channel containing the processed data
 % ● History
 %   Introduced in PsPM 7.0

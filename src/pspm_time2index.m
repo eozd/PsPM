@@ -4,7 +4,7 @@ function index = pspm_time2index(time, sr, varargin)
 %   to a sample index.
 % ● Format
 %   index = pspm_time2index(time, sr [, data_length, is_duration, events])
-% ● Developer's notes
+% ● Developer
 %   Optional arguments in []; all arguments up the last specified one need to be specified.
 % ● Arguments
 %   *        time : [vector or matrix] time stamps in second.
@@ -13,8 +13,8 @@ function index = pspm_time2index(time, sr, varargin)
 %   * is_duration : [0/1] whether an index or a duration is required, default as 0.
 %   *      events : vector of timestamps from a marker channel, will be considered if
 %                   given as input.
-% ● Output
-%           index : [integer] index or data point.
+% ● Outputs
+%   *       index : [integer] index or data point.
 % ● History
 %   Introduced in PsPM 5.1.2
 %   Written in 2021 by Teddy

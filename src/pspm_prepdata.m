@@ -19,7 +19,7 @@ function [sts, data, newsr] = pspm_prepdata(varargin)
 %   └─────.down:  sample rate in Hz after downsampling or 'none'
 %   ┌───options
 %   └──.fillnan:  0/1 specify whether to fill nan if there is. Default: 1
-% ● Developer's Notes
+% ● Developer
 %   Note that the order for bandpass and bandstop filters is equal to
 %   order = lporder + hporder
 %   the new sample rate is returned as newsr because downsampling might fail

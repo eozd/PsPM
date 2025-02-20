@@ -9,7 +9,7 @@ function [bf, x] = pspm_bf_sebrf(varargin)
 %   *    td : Time resolution in s.
 %   *     d : Whether first derivative should be included (1) or not (0). Default as 0.
 %   *     g : Whether gaussian to model the tail should be included (1) or not (0). Default as 0.
-% ● Reference
+% ● References
 %   Khemka S, Tzovara A, Gerster S, Quednow B and Bach DR (2016)
 %   Modeling Startle Eyeblink Electromyogram to Assess Fear Learning.
 %   Psychophysiology. 2017 Feb; 54(2): 204–214.

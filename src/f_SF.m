@@ -13,10 +13,10 @@ function [fx, dfdx, dfdP] = f_SF(Xt, Theta, ut, in)
 % ● Format
 %   [fx, dfdx] = f_SF(Xt,Theta,ut,in)
 % ● Arguments
-%   Theta:  3 general constants
-%           2 value  per SF (time, log(amplitude))
-%      ut:  row 1 - time (after cue onset)
-%           row 2 - number of SF
+%   * Theta: 3 general constants
+%            2 value  per SF (time, log(amplitude))
+%   *    ut: row 1 - time (after cue onset)
+%            row 2 - number of SF
 % ● History
 %   Introduced in PsPM 3.0
 %   Written in 2008-2015 by Dominik R Bach (Wellcome Trust Centre for Neuroimaging)

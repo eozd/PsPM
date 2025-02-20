@@ -16,7 +16,7 @@ function [sts, import, sourceinfo] = pspm_get_labchartmat_in(datafile, import)
 %   *        sts : status.
 %   *     import : the import structure.
 %   * sourceinfo : the source information structure.
-% ● Developer's Notes
+% ● Developer
 %   * NOTE
 %     This info is inherited from the old labchart export code but I
 %     assume it's still valid

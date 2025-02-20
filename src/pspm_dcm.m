@@ -130,13 +130,13 @@ function [sts, dcm] = pspm_dcm(model, options)
 %   └.eventnames: Cell array of names for individual events,
 %                 in the order they are specified in the model.timing array -
 %                 to be used for display and export only
-% ● Output
+% ● Outputs
 %   * fn        : Name of the model file.
 %   * dcm       : Model struct. Output units: all timeunits are in seconds;
 %                 eSCR and aSCR amplitude are in SN units such that an
 %                 eSCR SN pulse with 1 unit amplitude causes an eSCR with
 %                 1 mcS amplitude.
-% ● Developer's Notes
+% ● Developer
 %   1. pspm_dcm can handle NaN values in data channels. Either by specifying
 %   missing epochs manually using model.missing, or by detecting NaN epochs
 %   in the data. Missing epochs shorter than model.substhresh will be ignored

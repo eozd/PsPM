@@ -3,7 +3,7 @@ function theta = pspm_get_rf(fn, events, outfile, channel, options)
 %   pspm_get_rf estimates a response function from an event-related design
 %   (e.g. for further use in a GLM analysis), using a regularisation as
 %   third-order ODE and DCM machinery.
-% ● Developer's Notes
+% ● Developer
 %   the function returns an m-function for the RF, and the parameters of that
 %   function
 % ● Format

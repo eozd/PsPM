@@ -17,7 +17,7 @@ function [sts, import] = pspm_get_events(import)
 %   │             descending flank as separate events).
 %   └──.denoise : for continuous marker channels: only retains markers of
 %                 duration longer than the value given here (in seconds).
-% ● Output
+% ● Outputs
 %   *    import : returns event timestamps in seconds in import.data
 % ● History
 %   Introduced in PsPM 3.0

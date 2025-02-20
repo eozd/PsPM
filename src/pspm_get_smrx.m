@@ -14,10 +14,10 @@ function [sts, import, sourceinfo] = pspm_get_smrx(datafile, import)
 %   ├────.type : [string]  The type of input channel, such as 'scr'.
 %   └──.typeno : [integer] The number of channel type, please see pspm_init.
 % ● Outputs
-%   sts: the status recording whether the function runs successfully.
-%   import: the struct that stores read information.
-%   sourceinfo: the struct that stores channel titles.
-% ● Developer's notes
+%   * sts: the status recording whether the function runs successfully.
+%   * import: the struct that stores read information.
+%   * sourceinfo: the struct that stores channel titles.
+% ● Developer
 %   The following fields are read from the datafile and saved in import
 %   * data      | via CEDS64ReadWaveF/CEDS64ReadEvents/CEDS64ReadMarkers
 %   * div       | via CEDS64ChanDiv

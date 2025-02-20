@@ -34,7 +34,7 @@ function [sts, outchannel] = pspm_resp_pp(fn, sr, options)
 %   └.channel_action: ['add'(default) /'replace']
 %                     Defines whether the new channels should be added or the
 %                     corresponding channel should be replaced.
-% ● Output
+% ● Outputs
 %   *  channel_index: index of channel containing the processed data
 %
 % ● References

@@ -1,5 +1,5 @@
 function app = pspm_ui_app (app)
-% ● Descrition
+% ● Description
 %   pspm_ui_app handles the ui controlling elements for app designer based GUI files.
 %   Details of font styles can be found in the developer's guide.
 % ● History

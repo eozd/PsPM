@@ -1,10 +1,15 @@
 function [hObject, handles] = pspm_ui(hObject,handles,window)
 % ● Description
 %   pspm_ui controls the UI of the referred handle.
+% ● Format
+%   [hObject, handles] = pspm_ui(hObject,handles,window)
 % ● Arguments
 %   * hObject : UI controllor of the specific GUI window.
 %   * handles : UI controllor of the specific GUI window.
 %   *  window : the name of the specific GUI window.
+% ● Outputs
+%   * hObject : The handle of the main UI figure or control element.
+%   * handles : A structure containing handles to all UI components. 
 % ● History
 %   Introduced in PsPM 5.1
 %   Written and maintained in 2021-2022

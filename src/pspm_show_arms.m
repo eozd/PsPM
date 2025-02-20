@@ -1,5 +1,5 @@
 function pspm_show_arms
-% ● Developer's Notes
+% ● Developer
 %   Happy Easter!
 % ● History
 %   Introduced in PsPM 3.0
