@@ -38,13 +38,13 @@ rev = '$Rev: 380 $'; %#ok
 
 if nargin < 2
     tag = inputname(1);
-end;
+end
 if nargin < 3
     tagctx = {};
 end
 if isempty(tag)
     tag = genvarname('val', tagctx);
-end;
+end
 % Item count
 cind = 1;
 
@@ -143,15 +143,15 @@ else
     ind = 1:sz(1);
     for k = 2:numel(sz)
         ind = [kron(ind, ones(1,sz(k))); kron(ones(1,size(ind,2)), 1:sz(k))];
-    end;
-end;
+    end
+end
 
 subs = cell(1,size(ind,2));
 % for each column of ind, generate a separate subscript structure
 for k = 1:size(ind,2)
     cellind = num2cell(ind(:,k));
     subs{k} = substruct(type, [initdims(:)' cellind(:)']);
-end;
+end
 
 function str = gencode_structobj(item, tag, tagctx)
 

@@ -13,7 +13,7 @@ function [bytes]=SONChanBytes(fh, chan)
 if nargin ~= 2
     bytes=-1000;
     return;
-end;
+end
 
 
 bytes=calllib('son32','SONChanBytes',fh,chan);

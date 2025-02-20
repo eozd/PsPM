@@ -20,14 +20,14 @@ case {1,6,7,9}
         else
             interval=[];
             start=[];
-        end;
+        end
         
     case {6}                                                        % Version 6
         interval=Info.lChanDvd;
         start=header(2,1);
-    end;
+    end
 otherwise
     warning('SONGetSampleInterval: Invalid channel type');
     return
-end;
+end
 

@@ -27,7 +27,7 @@ if ~isnumeric(mm)
     warning('ID:invalid_input', 'mm is not numeric');
 elseif ~isnumeric(distance)
     warning('ID:invalid_input', 'distance is not numeric'); return;
-end;
+end
 
 d_mm = distance*1000;
 vd = 2.*atan(mm ./ (2*d_mm)).*180./pi;

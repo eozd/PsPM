@@ -106,7 +106,7 @@ elseif strcmpi(hdr.DataFormat, 'ascii')
     fclose(fid);
     t = tokenize(tline, ' ', true); % cut the line into pieces
     hdr.nSamples = length(t) - 1;   % the first element is the channel label
-  end;
+  end
 end
 
 if isinf(hdr.nSamples)

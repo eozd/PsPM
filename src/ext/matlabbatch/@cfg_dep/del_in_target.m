@@ -26,12 +26,12 @@ for k = 1:numel(sdeps)
         % only check source here: if source has changed, delete it in all
         % targets
         dind(l) = ~isequalsource(sdeps(k),ditem.val{1}(l));
-    end;
+    end
     if any(dind)
         ditem.val = {ditem.val{1}(dind)}; % Keep other dependencies
     else
         ditem.val = {}; % nothing left
-    end;
+    end
     eitem = subsasgn(eitem, sdeps(k).tgt_input, ditem);
     % input to eitem.vout changes, but not the structure. Re-harvesting
     % eitem is therefore not necessary, instead just delete sdeps(k) from
@@ -39,11 +39,11 @@ for k = 1:numel(sdeps)
     dind  = false(1,numel(eitem.tdeps));
     for l = 1:numel(eitem.tdeps)
         dind(l) = ~isequalsource(sdeps(k), eitem.tdeps(l));
-    end;
+    end
     if any(dind)
         eitem.tdeps = eitem.tdeps(dind);
     else
         eitem.tdeps = [];
-    end;
+    end
     cj = subsasgn(cj, sdeps(k).tgt_exbranch, eitem);
-end;
+end

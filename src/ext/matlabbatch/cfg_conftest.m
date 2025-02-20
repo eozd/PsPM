@@ -23,8 +23,8 @@ else
     [c0, sts] = load_var_from_fun(bch.cfg.cfgfile{1});
     if ~sts
         return;
-    end;
-end;
+    end
+end
 % Try initialisation through defaults, if any
 if ~isfield(bch.def, 'none')
     if isfield(bch.def, 'defvar')
@@ -34,18 +34,18 @@ if ~isfield(bch.def, 'none')
         [def, sts] = load_var_from_fun(bch.def.deffile{1});
         if ~sts
             return;
-        end;
-    end;
+        end
+    end
     try 
         ci1 = initialise(c0, def, true);
     catch
         cfg_disp_error(lasterror);
         sts = false;
         return;
-    end;
+    end
 else
     ci1 = c0;
-end;
+end
 % Try initialisation through .def fields
 fprintf('Initialisation of .def defaults\n');
 try 
@@ -54,7 +54,7 @@ catch
     cfg_disp_error(lasterror);
     sts = false;
     return;
-end;
+end
 % Find cfg_exbranch(es)
 [exids, stop, cont] = list(c0, cfg_findspec({{'class','cfg_exbranch'}}), ...
                              cfg_tropts({}, 0, Inf, 0, Inf, true), {'level'});
@@ -62,7 +62,7 @@ if isempty(exids)
     fprintf(['No cfg_exbranch items found. '...
              'Some tests will be skipped.\n']);
     return;
-end;
+end
 % List cfg_exbranch(es)
 fprintf('The following cfg_exbranch items were found:\n');
 for k = 1:numel(exids)
@@ -70,7 +70,7 @@ for k = 1:numel(exids)
             subsref(c0, [exids{k} substruct('.','tag')]), ...
             subsref(c0, [exids{k} substruct('.','name')]), ...
             cont{1}{k});
-end;
+end
 % Check for nested cfg_exbranch(es)
 if numel(exids) > 1
     if isa(c0, 'cfg_exbranch')
@@ -90,9 +90,9 @@ if numel(exids) > 1
                 sts = false;
                 pexids{end+1} = exids{k};
                 cexids{end+1} = c1exids(2:end);
-            end;
-        end;
-    end;
+            end
+        end
+    end
     if ~sts
         fprintf(['Nested cfg_exbranch(es) detected - this is currently ' ...
                  'not supported:\n']);
@@ -103,15 +103,15 @@ if numel(exids) > 1
                 fprintf('Child cfg_exbranch: %s\n', ...
                         subsref(c0, [pexids{k} cexids{k}{l} ...
                                     substruct('.','tag')]));
-            end;
-        end;
+            end
+        end
         return;
-    end;
-end;
+    end
+end
 % Checks for .vouts
 %for k = 1:numel(exids)
 %    sts = local_test_all_leafs(ci2, exids{k});
-%end;
+%end
 % Checks for sample batches
 for k = 1:numel(bch.jobs)
     fprintf('Running test batch #%d\n', k);
@@ -122,8 +122,8 @@ for k = 1:numel(bch.jobs)
         job = job{1};
         if isempty(job)
             fprintf('Failed to load batch ''%s''.\n', bch.jobs{k}.jobfile{1});
-        end;
-    end;
+        end
+    end
     cj = [];
     if ~isempty(job)
         try
@@ -132,8 +132,8 @@ for k = 1:numel(bch.jobs)
             cj = [];
             fprintf('Failed to initialise configuration with job #%d\n', ...
                     k);
-        end;
-    end;
+        end
+    end
     if ~isempty(cj)
         % Test each cfg_exbranch:
         % harvest (if all_leafs, this also runs .vout)
@@ -144,7 +144,7 @@ for k = 1:numel(bch.jobs)
                 cm = cj;
             else
                 cm = subsref(cj, exids{l});
-            end;
+            end
             try
                 [un, hjob, un1, dep, chk, cj] = harvest(cm, cj, false, true);
                 hsts = true;
@@ -157,13 +157,13 @@ for k = 1:numel(bch.jobs)
             if hsts
                 if ~isempty(dep)
                     fprintf('Module has unresolved dependencies\n'),
-                end;
+                end
                 if ~chk
                     fprintf('Validity checks failed\n');
-                end;
+                end
                 if ~all_set(cm)
                     fprintf('Module does not have all inputs set\n');
-                end;
+                end
                 if isempty(dep) && chk && all_set(cm)
                     fprintf('Running module\n');
                     try
@@ -175,7 +175,7 @@ for k = 1:numel(bch.jobs)
                         cfg_disp_error(lasterror);
                         rsts = false;
                         sts = false;
-                    end;
+                    end
                     if rsts
                         cj = subsasgn(cj, exids{l}, cm);
                         for m = 1:numel(cm.sout)
@@ -189,14 +189,14 @@ for k = 1:numel(bch.jobs)
                                          '''%s''\n'], cm.sout(m).sname);
                                 cfg_disp_error(lasterror);
                                 sts = false;
-                            end;
-                        end;
-                    end;
-                end;
-            end;
-        end;
-    end;
-end;
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end
+end
 
 function [val, sts] = load_var_from_fun(fname)
 val = [];
@@ -204,18 +204,18 @@ sts = false;
 if ~exist(fname,'file')
     fprintf('File does not exist: ''%s''\m', fname);
     return;
-end;
+end
 [p, n, e] = fileparts(fname);
 if ~strcmpi(e, '.m')
     fprintf('File does not have MATLAB ''.m'' extension.');
     return;
-end;
+end
 cfgs = which(n, '-all');
 if numel(cfgs) > 1
     fprintf('Multiple instances of function/variable on MATLAB path:\n');
     fprintf('   %s\n', cfgs{:});
     fprintf('Trying the one specified in file: ''%s''\n', fname);
-end;
+end
 opwd = pwd;
 if ~isempty(p)
     try
@@ -223,15 +223,15 @@ if ~isempty(p)
     catch
         fprintf('Can not change to directory ''%s''.\n', p);
         return;
-    end;
-end;
+    end
+end
 try
     val = feval(n);
     sts = true;
 catch
     fprintf('Failed to run ''val = feval(''%s'');\n', n);
     cfg_disp_error(lasterror);
-end;
+end
 cd(opwd);
 
 % Here, it would be necessary to collect a number for how many
@@ -249,21 +249,21 @@ cd(opwd);
 %     exitem = c;
 % else
 %     exitem = subsref(c,exsubs);
-% end;
+% end
 % if isempty(item.vout)
 %     fprintf('No .vout callback defined - no tests performed.\n');
 %     return;
-% end;
+% end
 % if isempty(subs)
 %     citem = c;
 % else
 %     citem = subsref(c,subs);
-% end;
+% end
 
 % if isa(citem, 'cfg_leaf')
 %     if all_leafs(exitem)
 %         [sts jfailed] = local_test_exitem(exitem, cj);
-%     end;
+%     end
 % else
 %     switch class(citem)
 %         case {'cfg_branch', 'cfg_exbranch'},
@@ -273,7 +273,7 @@ cd(opwd);
 %                 csubs = [subs substruct('.','val','{}',{k})];
 %                 [sts jfailed1] = local_test_all_leafs(c, exsubs, csubs);
 %                 jfailed = {jfailed{:} jfailed1{:}};
-%             end;
+%             end
 %         case 'cfg_choice',
 %             csubs = [subs substruct('.','val','{}',{1})];
 %             for l = 1:numel(citem.values)
@@ -282,7 +282,7 @@ cd(opwd);
 %                                     substruct('.','values', '{}',{l})])), ...
 %                     exsubs, csubs);
 %                 jfailed = {jfailed{:} jfailed1{:}};
-%             end;
+%             end
 %         case 'cfg_repeat',
 %             % only test for minimum required number of repeats, or zero
 %             % and one if no minimum specified
@@ -292,14 +292,14 @@ cd(opwd);
 %                     exitem = c1;
 %                 else
 %                     exitem = subsref(c1,exsubs);
-%                 end;
+%                 end
 %                 if all_leafs(exitem)
 %                     [sts jfailed] = local_test_exitem(exitem, c1);
-%                 end;
+%                 end
 %                 nval = 1;
 %             else
 %                 nval = citem.num(1);
-%             end;
+%             end
 %             % create index array - this can grow large!
 %             nvalues = numel(citem.values);
 %             nind    = zeros(nval, nvalues^nval);
@@ -307,14 +307,14 @@ cd(opwd);
 %             for k = 1:nval
 %                 nind(k,:) = repmat(kron(valvec, ones(1,nvalues^(k-1))), ...
 %                                    1, nvalues^(nval-k));
-%             end;
+%             end
 %             for k = 1:nvalues^nval
 %                 cval = subsref(c, [subs ...
 %                                    substruct('.','values', ...
 %                                              '()',{nind(:,k)})]);
 %                 c = subsasgn(c, [subs substruct('.','val')], cval);
-%     end;
-% end;                
+%     end
+% end                
 % function [sts jf] = local_test_exitem(exitem, c)
 % sts = true;
 % jf = {};
@@ -325,4 +325,4 @@ cd(opwd);
 % catch
 %     sts = false;
 %     jf{end+1} = j;
-% end;
+% end

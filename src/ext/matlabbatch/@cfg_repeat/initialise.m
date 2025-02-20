@@ -29,7 +29,7 @@ if strcmp(val,'<DEFAULTS>')
     item = initialise_def(item, val, dflag);
 else
     item = initialise_job(item, val, dflag);
-end;
+end
 
 function item = initialise_def(item, val, dflag)
 if ~dflag
@@ -37,12 +37,12 @@ if ~dflag
     citem = subsref(item, substruct('.','val'));
     for k = 1:numel(citem)
         citem{k} = initialise(citem{k}, val, dflag);
-    end;
+    end
     item = subsasgn(item, substruct('.','val'), citem);
-end;
+end
 for k = 1:numel(item.values)
     item.values{k} = initialise(item.values{k}, val, dflag);
-end;
+end
 
 function item = initialise_job(item, val, dflag)
 % Modify job before initialisation
@@ -58,15 +58,15 @@ if numel(item.values)==1 && isa(item.values{1},'cfg_branch') ...
             citem = cell(1,numel(val));
             for k = 1:numel(val)
                 citem{k} = initialise(item.values{1}, val(k), dflag);
-            end;
+            end
             item.cfg_item.val = citem;
-        end;
+        end
     else
         cfg_message('matlabbatch:initialise', ...
                     'Can not initialise %s value(s): job is not a struct.', ...
                     gettag(item));
         return;
-    end;
+    end
 else
     if dflag
         if numel(item.values) > 1 || item.forcestruct
@@ -79,19 +79,19 @@ else
                 val1 = cell(size(vtag));
                 for k = 1:numel(vtag)
                     val1{k} = struct(vtag{k}, {val.(vtag{k})});
-                end;
+                end
                 val = val1;
             elseif iscell(val) && all(cellfun(@isstruct,val))
                 vtag = cell(size(val));
                 for k = 1:numel(val)
                     vtag(k) = fieldnames(val{k});
-                end;
+                end
             else
                 cfg_message('matlabbatch:initialise', ...
                             'Can not initialise %s value(s): job is not a cell array of struct items.', ...
                             gettag(item));
                 return;
-            end;
+            end
             for k = 1:numel(item.values)
                 % use first match for defaults initialisation
                 sel = find(strcmp(gettag(item.values{k}), vtag));
@@ -99,11 +99,11 @@ else
                     item.values{k} = initialise(item.values{k}, ...
                                                 val{sel(1)}.(vtag{sel(1)}), ...
                                                 dflag);
-                end;
-            end;
+                end
+            end
         else
             item.values{1} = initialise(item.values{1}, val{1}, dflag);
-        end;
+        end
     else
         citem = cell(1,numel(val));
         if numel(item.values) > 1 || item.forcestruct
@@ -120,14 +120,14 @@ else
                     cfg_message('matlabbatch:initialise', ...
                         'Item %s: No repeat named%s', ...
                         gettag(item), sprintf('\n%s', vtag{1}));
-                end;
-            end;
+                end
+            end
         else
             for l = 1:numel(val)
                 citem{l} = initialise(item.values{1}, ...
                     val{l}, dflag);
-            end;
-        end;
+            end
+        end
         item.cfg_item.val = citem;
-    end;
-end;
+    end
+end

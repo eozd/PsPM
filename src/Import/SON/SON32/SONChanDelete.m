@@ -14,7 +14,7 @@ function ret=SONChanDelete(varargin)
 if nargin < 2
     ret=-1000;
     return;
-end;
+end
 
 fh=varargin{1};
 chan=varargin{2};
@@ -22,7 +22,7 @@ if nargin==3
     query=varargin{3};
 else
     query=1;
-end;
+end
 
 
 if query~=0
@@ -31,8 +31,8 @@ if query~=0
     if strcmp(button,'No')
         ret=0;
         return;
-    end;
-end;
+    end
+end
 
 
 ret=calllib('son32','SONChanDelete',fh,chan);

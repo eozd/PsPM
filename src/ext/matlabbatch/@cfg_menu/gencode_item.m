@@ -36,7 +36,7 @@ if (tropts.clvl > tropts.mlvl || (~isempty(tropts.stopspec) && match(item, tropt
     cind = [];
     ccnt = 0;
     return;
-end;
+end
 % Reclassify generic object
 str{cind} = sprintf('%s         = %s;', tag, class(item));
 %% Labels

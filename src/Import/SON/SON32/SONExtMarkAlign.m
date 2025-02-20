@@ -18,6 +18,6 @@ function state=SONExtMarkAlign(fh, n)
 if nargin<2
     state=-1000;
     return;
-end;
+end
 
 state=calllib('son32','SONExtMarkAlign', fh, n);

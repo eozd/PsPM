@@ -21,11 +21,11 @@ if length(sz)>4,
 else
     for i=1:(length(sz)-1),
         fprintf('%d-by-',sz(i));
-    end;
+    end
     fprintf('%d\n',sz(end));
-end;
+end
 if prod(sz)==1,
     so = struct(obj);
     disp(so);
-end;
+end
 return;

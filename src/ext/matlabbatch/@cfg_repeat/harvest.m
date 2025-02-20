@@ -44,20 +44,20 @@ if numel(item.values)==1 && isa(item.values{1},'cfg_branch') && ~item.forcestruc
         for i=1:numel(item.values{1}.val),
             cargs{2*i-1} = gettag(item.values{1}.val{i});
             cargs{2*i}   = {};
-        end;
+        end
         val = struct(cargs{:});
-    end;
+    end
     if ~dflag
         njtsubs(1).type = '()';
-    end;
+    end
 else
     if ~dflag
         val = cell(size(citems));
         njtsubs(1).type = '{}';
     else
         val = struct([]);
-    end;
-end;
+    end
+end
 for i=1:numel(citems),
     [ctag, cval, unused, cdep, cchk, cj] = harvest(citems{i}, cj, dflag, rflag);
     if numel(item.values)==1 && isa(item.values{1},'cfg_branch') && ~item.forcestruct,
@@ -70,12 +70,12 @@ for i=1:numel(citems),
                 cval = struct(ctag,{cval});
             else
                 cval = struct(ctag,cval);
-            end;
+            end
             if ~dflag
                 njtsubs(2).type = '.';
                 njtsubs(2).subs  = ctag;
-            end;
-        end;
+            end
+        end
         if dflag
             % return a struct containing defaults of all child nodes
             % instead of a cell array. This makes defaults easier to
@@ -84,19 +84,19 @@ for i=1:numel(citems),
                 val(1).(ctag) = cval.(ctag);
             else
                 val = {cval};
-            end;
+            end
         else
             val{i} = cval;
-        end;
-    end;
+        end
+    end
     if ~dflag && ~isempty(cdep)
         % augment cdep tsubs references
         ntgt_input(2).subs = {i};
         njtsubs(1).subs = {i};
         dep = dep_add(cdep, dep, ntgt_input, njtsubs);
-    end;
+    end
     chk = chk && cchk;
-end;
+end
 if chk 
     chk = docheck(item, val);
-end;
+end

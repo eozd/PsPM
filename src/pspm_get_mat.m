@@ -34,7 +34,7 @@ if ~isfield(data, 'data')
 elseif isnumeric(data.data)
   for k = 1:size(data.data, 2)
     foo{k} = data.data(:, k);
-  end;
+  end
   data = foo;
   channeltype = 'column';
 elseif iscell(data.data)
@@ -47,7 +47,7 @@ elseif iscell(data.data)
   channeltype = 'cell';
 else
   warning('ID:invalid_data_structure', 'Variable ''data'' in file %s must be a cell or numeric.\n', datafile); return;
-end;
+end
 
 % select desired channels
 % -------------------------------------------------------------------------
@@ -65,7 +65,7 @@ for k = 1:numel(import)
     end
   end
   sourceinfo.channel{k} = sprintf('Data %s %02.0', channeltype, channel);
-end;
+end
 
 sts = 1;
 return

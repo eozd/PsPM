@@ -19,11 +19,11 @@ if strcmp(job.name,'<UNDEFINED>') || isempty(job.name) || isa(job.name, 'cfg_dep
     dirname = 'Directory';
 else
     dirname = job.name;
-end;
+end
 
 for k = 1:numel(job.dirs)
     dep(k) = cfg_dep;
     dep(k).sname = sprintf('%s(%d)', dirname, k);
     dep(k).src_output = substruct('.','dirs','{}',{k});
     dep(k).tgt_spec   = cfg_findspec({{'filter','dir','strtype','e'}});
-end;
+end

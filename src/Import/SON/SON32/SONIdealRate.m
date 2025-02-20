@@ -19,5 +19,5 @@ function rate=SONIdealRate(fh, chan, newrate)
 
 if nargin<3
     newrate=-1;
-end;
+end
 rate=calllib('son32','SONIdealRate', fh, chan, newrate);

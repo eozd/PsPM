@@ -23,7 +23,7 @@ if ischar(fid)==1
     data=[];
     header=[];
     return;
-end;
+end
 
 
 [path, name, ext]=fileparts(fopen(fid));
@@ -32,7 +32,7 @@ if strcmpi(ext,'.smr') ~=1
     data=[];
     header=[];
     return;
-end;
+end
 
 
 Info=SONChannelInfo(fid,chan);
@@ -41,7 +41,7 @@ if(Info.kind==0)
     data=[];
     header=[];
     return;
-end;
+end
 
 switch Info.kind
 case {1}
@@ -63,15 +63,15 @@ otherwise
     data=[];
     header=[];
     return;
-end;
+end
 
 
 switch Info.kind
 case {1,6,7,9}
     if isempty(header)==0
         header.transpose=0;
-    end;
-end;
+    end
+end
 
 
 

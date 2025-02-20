@@ -26,9 +26,9 @@ try
         else
             ch = ch + 1;
             cellhelp{ch} = tmphelp{1}{k};
-        end;
-    end;
+        end
+    end
 catch
     cellhelp = {sprintf('No help available for topic ''%s''.', ...
                         topic)};
-end;
+end

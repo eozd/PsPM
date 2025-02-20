@@ -31,7 +31,7 @@ for k = 1:numel(tdeps)
         found(k) = isa(sitem, 'cfg_exbranch');
     catch
         found(k) = false;
-    end;
+    end
     if ~found(k)
         try
             % look for correct source location
@@ -43,23 +43,23 @@ for k = 1:numel(tdeps)
                 sitem    = subsref(cj, tdeps(k).src_exbranch); % Source item to deal with
                 found(k) = isa(sitem, 'cfg_exbranch');
                 cflag(k) = true;
-            end;
-        end;
-    end;
+            end
+        end
+    end
     if found(k)
         if isempty(sitem.sdeps)
             sitem.sdeps = tdeps(k);
         else
             sitem.sdeps = [sitem.sdeps(:)' tdeps(k)];
-        end;
+        end
         cj = subsasgn(cj, tdeps(k).src_exbranch,sitem);
         if cflag(k)
             % Update all references to a source once a change has been
             % detected
             cj = update_deps(cj, {otdep.src_exbranch}, {tdeps(k).src_exbranch});
         end
-    end;
-end;
+    end
+end
 tdeps = tdeps(found);
 dflag = ~found;
 cflag = cflag(found);

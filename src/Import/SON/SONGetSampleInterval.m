@@ -28,15 +28,15 @@ switch Info.kind                                            % Disk block headers
                     warning('SONGetSampleInterval: ldivide not defined Channel #%d', chan);
                     interval=[];
                     start=[];
-                end;
+                end
             otherwise                                                       % Version 6 and above
                 interval=Info.lChanDvd*FileH.usPerTime*FileH.dTimeBase;
                 start=header(2,1)*FileH.usPerTime*FileH.dTimeBase;
-        end;
+        end
     otherwise
         warning('SONGetSampleInterval: Invalid channel type Channel #%d',chan);
         interval=[];
         start=[];
         return;
-end;
+end
 

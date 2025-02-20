@@ -40,7 +40,7 @@ function dat = read_erplabdata(filename, varargin)
 if nargin < 1
   help read_erplabdata;
   return;
-end;
+end
 
 header    = ft_getopt(varargin, 'header');
 begsample = ft_getopt(varargin, 'begsample');

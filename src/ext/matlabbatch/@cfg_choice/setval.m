@@ -20,4 +20,4 @@ if isempty(val)
 else
     val = item.values{val(1)};
     item = subsasgn(item, substruct('.','val', '{}',{1}), val);
-end;
+end

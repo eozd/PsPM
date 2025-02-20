@@ -30,15 +30,15 @@ if isempty(settings), pspm_init; end;
 
 if nargin < 4 || isempty(aspect) || ~isstruct(aspect)
     aspect = struct();
-end;
+end
 
 if ~isfield(aspect, 'actual')
     aspect.actual = [16 9];
-end;
+end
 
 if ~isfield(aspect, 'used')
     aspect.used = aspect.actual;
-end;
+end
 
 d_size_m = display_size*2.54/100;
 

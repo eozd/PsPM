@@ -35,7 +35,7 @@ n = 30; order = 8; window = 1;
 %----------------------------------------------------------------------
 if nargin == 0
     errmsg = 'No sampling interval stated'; warning('ID:invalid_input', errmsg); return;
-end;
+end
 td = varargin{1}(1);
 
 % get input arguments
@@ -47,13 +47,13 @@ else
    n = varargin{2};
    if nargin > 2, order = varargin{3}; end;
    if nargin > 3, window = varargin{4}; end;
-end;
+end
 
 if td > n
     warning('ID:invalid_input', 'Time resolution is larger than duration of the function.'); return;
 elseif td == 0
     warning('ID:invalid_input', 'Time resolution must be larger than 0.'); return;    
-end;
+end
 
 
 % construct basis set

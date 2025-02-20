@@ -176,7 +176,7 @@ if info.lowestPhysicalChannel == 1
     info.lowestPhysicalChannel = 0;
 else
     info.lowestPhysicalChannel = 1;
-end;
+end
     
 info.f3KeySelection = fread(fid, 1, '*ubit2');
 info.f4KeySelection = fread(fid, 1, '*ubit2');
@@ -301,8 +301,8 @@ for i=1:info.totalChannelsAcquired,
         data{i} = double(data{i}*0.25)*info.calibrationScalingFactor(i)+info.calibrationInterceptFactor(i);
     else
         data{i} = double(bitshift(data{i}, -2))*info.calibrationScalingFactor(i)+info.calibrationInterceptFactor(i);
-    end;
-end;
+    end
+end
 
 fclose(fid);
 
@@ -310,4 +310,4 @@ datacheck = cellfun(@(x) numel(x), data);
 if sum(datacheck) == 0
     warning(['Data seems to be empty. Has the file been closed properly? ', ...
         'Maybe try to open, save and import the file again.']);
-end;
+end

@@ -38,7 +38,7 @@ else
     cfg_message('matlabbatch:initialise', ...
                 'Can not initialise %s: job is not a struct.', ...
                 gettag(item));
-end;
+end
 
 function item = initialise_def(item, val, dflag)
 if ~dflag
@@ -46,12 +46,12 @@ if ~dflag
     citem = subsref(item, substruct('.','val'));
     for k = 1:numel(citem)
         citem{k} = initialise(citem{k}, val, dflag);
-    end;
+    end
     item = subsasgn(item, substruct('.','val'), citem);
-end;
+end
 for k = 1:numel(item.values)
     item.values{k} = initialise(item.values{k}, val, dflag);
-end;
+end
 
 function item = initialise_job(item, val, dflag)
 % Modify job before initialisation
@@ -69,8 +69,8 @@ if dflag % set defaults
         if any(vi) % field names are unique, so there will be at most one match
             item.values{k} = initialise(item.values{k}, ...
                                         val.(vtags{vi}), dflag);
-        end;
-    end;
+        end
+    end
 else
     % select matching values struct, initialise and assign it to val
     % field
@@ -83,10 +83,10 @@ else
                 item.cfg_item.val{end+1} = initialise(item.values{k}, ...
                     val.(vtags{vi}), dflag);
                 utags(vi) = true;
-            end;
-        end;
-    end;
-end;
+            end
+        end
+    end
+end
 
 % Check whether some fields were not found in child tags
 if ~dflag && any(~utags)

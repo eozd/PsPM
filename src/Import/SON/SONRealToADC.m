@@ -21,7 +21,7 @@ in=round(in);                       % round to nearest integer
 if(max(in)>32767) | (min(in)<-32768)  % Debug check that int16 conversion can't lead to overflow
     warning('SONRealToADC: Outside 16bit-integer range');
     return;
-end;
+end
 out=int16(in);                      % convert to int16
 hout=header;                        % copy header info
 hout.scale=scale(1)*6553.6;         % adjust slope to conform to SON scale format...

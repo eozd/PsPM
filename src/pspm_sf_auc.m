@@ -34,7 +34,7 @@ auc = [];
 %% check input arguments
 if nargin < 1
   warning('No data specified'); return;
-end;
+end
 try model.scr; catch, warning('Input data is not defined.'); return; end
 scr = model.scr;
 scr = scr - min(scr);

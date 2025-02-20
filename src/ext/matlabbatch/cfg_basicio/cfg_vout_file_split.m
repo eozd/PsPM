@@ -18,14 +18,14 @@ if strcmp(job.name,'<UNDEFINED>') || isempty(job.name) || isa(job.name, 'cfg_dep
     setname = 'File set';
 else
     setname = job.name;
-end;
+end
     
 for k = 1:numel(job.index)
     dep(k) = cfg_dep;
     dep(k).sname = sprintf('%s (%d)', setname, k);
     dep(k).src_output = substruct('{}', {k});
     dep(k).tgt_spec   = cfg_findspec({{'class','cfg_files','strtype','e'}});
-end;
+end
 dep(k+1) = cfg_dep;
 dep(k+1).sname = sprintf('%s (rem)', setname);
 dep(k+1).src_output = substruct('{}', {k+1});

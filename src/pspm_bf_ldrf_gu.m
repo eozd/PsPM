@@ -54,7 +54,7 @@ elseif nargin > 1
   if nargin > 4, p(2) = varargin{5}; end;
   if nargin > 5, p(3) = varargin{6}; end;
   if nargin > 5, p(4) = varargin{7}; end;
-end;
+end
 if td > n
   warning('ID:invalid_input', 'Time resolution is larger than or equal to the duration of the function.'); return;
 elseif td == 0
@@ -63,7 +63,7 @@ elseif offset < 0
   warning('ID:invalid_input', 'Offset has to be a positive number.'); return;
 elseif n <= 0
   warning('ID:invalid_input', 'Duration has to be a number larger then 0.'); return;
-end;
+end
 %% check if offset is in a valid range or correct it if it is to small
 if offset ~= 0
   r = td/offset;
@@ -73,9 +73,9 @@ if offset ~= 0
       offset = 0;
     elseif r <= 2
       offset = td;
-    end;
-  end;
-end;
+    end
+  end
+end
 %% create x axis
 bf_dur = n;
 n_bf = round((bf_dur)/td);

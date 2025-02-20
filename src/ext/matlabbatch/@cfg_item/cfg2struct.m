@@ -24,5 +24,5 @@ sitem.type = class(item);
 if numel(item.val) > 0 && isa(item.val{1}, 'cfg_item')
     for k = 1:numel(item.val)
         sitem.val{k} = cfg2struct(item.val{k});
-    end;
-end;
+    end
+end

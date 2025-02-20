@@ -19,4 +19,4 @@ str{end+1} = sprintf('One of the following options must be selected:');
 % Display cfg_menu labels
 for k = 1:numel(item.labels)
     str{end+1} = sprintf('* %s', item.labels{k});
-end;
+end

@@ -111,13 +111,13 @@ if nargin == 1
         else
             cfg_message('matlabbatch:constructor:reclassify', ['Don''t know how to convert this ' ...
                             'into class ''%s''.'], myclass);
-        end;
-    end;
+        end
+    end
     if isa(varargin{1}, myclass)
         item = varargin{1};
         return;
-    end;
-end;
+    end
+end
 
 item = class(struct(fnd{:}), 'cfg_item');
 switch nargin
@@ -145,4 +145,4 @@ switch nargin
         item.rewrite_job  = varargin{5};
     otherwise
         cfg_message('matlabbatch:constructor:nargin', 'Wrong number of arguments.');
-end;
+end

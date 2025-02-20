@@ -61,19 +61,19 @@ elseif ~isnumeric(offset)
   warning('ID:invalid_input','The parameter ''offset'' has to be numeric.'); return;
 elseif nargin < 5
   recsys = 'conductance';
-end;
+end
 
 if ~any(strcmpi(recsys, {'conductance','resistance'}))
   warning('ID:invalid_input', ['Invalid recording system given. Use either ', ...
     '''conductance'' or ''resistance''.']); return;
-end;
+end
 
 switch recsys
   case 'conductance'
     power = 1;
   case 'resistance'
     power = -1;
-end;
+end
 
 % catch zeros
 z = (data == 0);

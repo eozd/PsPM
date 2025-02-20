@@ -37,7 +37,7 @@ function event = read_eeglabevent(filename, varargin)
 if nargin < 1
   help read_eeglabheader;
   return;
-end;
+end
 
 hdr = ft_getopt(varargin, 'header');
 
@@ -52,7 +52,7 @@ if ~isempty(oldevent)
     nameList=fieldnames(oldevent);
 else
     nameList=[];
-end;
+end
 nameList=setdiff(nameList,{'type','value','sample','offset','duration','latency'});
 
 for index = 1:length(oldevent)
@@ -63,14 +63,14 @@ for index = 1:length(oldevent)
     type = oldevent(index).value;
   else
     type = 'trigger';
-  end;
+  end
 
   % events can have a numeric or a string value
   if isfield(oldevent,'type')
     value  = oldevent(index).type;
   else
     value = 'default';
-  end;
+  end
 
   % this is the sample number of the concatenated data to which the event corresponds
   sample = oldevent(index).latency;
@@ -84,7 +84,7 @@ for index = 1:length(oldevent)
     duration = oldevent(index).duration;
   else
     duration = 0;
-  end;
+  end
 
   % add the current event in FieldTrip format
   event(index).type     = type;     % this is usually a string, e.g. 'trigger' or 'trial'
@@ -96,9 +96,9 @@ for index = 1:length(oldevent)
   %add custom fields
   for iField=1:length(nameList)
       eval(['event(index).' nameList{iField} '=oldevent(index).' nameList{iField} ';']);
-  end;
+  end
 
-end;
+end
 
 if hdr.nTrials>1
   % add the trials to the event structure
@@ -109,7 +109,7 @@ if hdr.nTrials>1
         event(end  ).value    = oldevent(i).setname; %accommodate Widmann's pop_grandaverage function
     else
         event(end  ).value    = [];
-    end;
+    end
     event(end  ).offset   = -hdr.nSamplesPre;
     event(end  ).duration =  hdr.nSamples;
   end

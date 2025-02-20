@@ -36,7 +36,7 @@ if (tropts.clvl > tropts.mlvl || (~isempty(tropts.stopspec) && match(item, tropt
     cind = [];
     ccnt = 0;
     return;
-end;
+end
 % Reclassify generic object
 str{cind} = sprintf('%s         = %s;', tag, class(item));
 %% Strtype
@@ -44,7 +44,7 @@ str{cind} = sprintf('%s         = %s;', tag, class(item));
 if ~isempty(item.strtype)
     str1 = gencode(item.strtype, sprintf('%s.strtype', tag), tagctx);
     str = [str(:)' str1(:)'];
-end;
+end
 %% Num
 % Generate num field
 str{end+1} = sprintf('%s.num     = [%s];', tag, num2str(item.num));
@@ -53,4 +53,4 @@ str{end+1} = sprintf('%s.num     = [%s];', tag, num2str(item.num));
 if ~isempty(item.extras)
     str1 = gencode(item.extras, sprintf('%s.extras', tag), tagctx);
     str = [str(:)' str1(:)'];
-end;
+end

@@ -18,5 +18,5 @@ rev = '$Rev: 380 $'; %#ok
 for k = 1:numel(item.cfg_item.val)
     item.cfg_item.val{k} = clearval(item.cfg_item.val{k}, ...
                                     dflag);
-end;
+end
 

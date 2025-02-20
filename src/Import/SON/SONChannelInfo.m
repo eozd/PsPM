@@ -22,7 +22,7 @@ FileH=SONFileHeader(fid);           % Get file header
 if(FileH.channels<chan)
     warning('SONChannelInfo: Channel number #%d too large for this file',chan);
     TChannel=[];
-end;
+end
 
 
 base=512+(140*(chan-1));            % Offset due to file header and preceding channel headers
@@ -76,7 +76,7 @@ TChannel.nextLow=[];
            TChannel.divide=fread(fid,1,'int32');
        else
            TChannel.interleave=fread(fid,1,'int32');
-       end;
+       end
    case {7,9}
        TChannel.min=fread(fid,1,'float32');        % With test data from Spike2 v4.05 min=scale and max=offset
        TChannel.max=fread(fid,1,'float32');        % as for ADC data
@@ -88,7 +88,7 @@ TChannel.nextLow=[];
            TChannel.divide=fread(fid,1,'int32');
        else
            TChannel.interleave=fread(fid,1,'int32');
-       end;
+       end
    case 4
        TChannel.initLow=fread(fid,1,'uchar');
        TChannel.nextLow=fread(fid,1,'uchar');

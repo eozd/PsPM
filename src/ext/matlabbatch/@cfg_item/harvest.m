@@ -47,20 +47,20 @@ if ~isempty(item.val)
                 [val, sts] = resolve_deps(item, cj);
             else
                 sts = false;
-            end;
+            end
             if ~sts % deps not resolved
                 dep = item.val{1}; % dep is a array of cfg_dep objects
                 for k = 1:numel(dep) % we may have multiple dependencies
                     dep(k).tname = item.name; % set target name
-                end;
+                end
                 val = dep; % return deps also in val for saving
-            end;
-        end;
+            end
+        end
     else
         val = item.val{1};
-    end;
-end;
+    end
+end
 chk = chk && isempty(dep);
 if chk
     chk = docheck(item, val);
-end;
+end

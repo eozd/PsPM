@@ -23,4 +23,4 @@ sitem.type = class(item);
 fn = mysubs_fields;
 for k = 1:numel(fn)
     sitem.(fn{k}) = item.(fn{k});
-end;
+end

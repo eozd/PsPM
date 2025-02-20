@@ -21,6 +21,6 @@ if sts
               isequal(dep1.tgt_input, dep2.tgt_input);
         if ~sts
             break;
-        end;
-    end;
-end;
+        end
+    end
+end

@@ -54,12 +54,12 @@ if ~iscell(local_mysubs_fields)
         otherwise
             par_class = 'cfg_item';
             par_fields = subs_fields(item.cfg_item);
-    end;
+    end
 end
 if numel(item) ~= 1
     cfg_message('matlabbatch:subsasgn', ...
           'Arrays of cfg_item objects not supported.');
-end;
+end
 
 switch subs(1).type,
     case {'.'},
@@ -89,20 +89,20 @@ switch subs(1).type,
                                     ['Reference to unknown field ''%s''.\n' ...
                                      'To assign to a field in the job structure, use a reference like ' ...
                                      '''(x).%s''.'], subs(1).subs, subs(1).subs);
-                end;
-            end;
+                end
+            end
         else
             cfg_message('matlabbatch:subsasgn', ...
                         ['Array assignments not supported for fields of cfg_item objects.\n' ...
                          'To assign to a field in the job structure, use a reference like ' ...
                          '''(x).%s''.'], subs(1).subs);
 
-        end;
+        end
     case {'()','{}'},
         cfg_message('matlabbatch:subsasgn', ...
                     'Subscript type ''%s'' reserved for future use.', subs(1).type);
     otherwise
         cfg_message('matlabbatch:subsasgn', ...
                     'Unknown subsref type: ''%s''. This should not happen.', subs(1).type);
-end;
+end
 return;

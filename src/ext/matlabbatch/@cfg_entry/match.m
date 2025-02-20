@@ -65,14 +65,14 @@ for k = 1:numel(spec)
             otherwise
                 spec1{1}(1) = spec{k}(l);
                 sts = match(item.cfg_item, spec1);
-        end;
+        end
         if sts
             % OR: success on first match
             break;
-        end;
-    end;
+        end
+    end
     if ~sts
         % AND: fail on first non-match
         break;
-    end;
-end;
+    end
+end

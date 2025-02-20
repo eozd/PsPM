@@ -23,17 +23,17 @@ if sts && isa(val, 'function_handle')
     catch
         % fail silently if "functions" evaluation fails, keep sts == true
         return;
-    end;
+    end
     try
         if ~strcmp(f.type,'anonymous')
             % file name should not be empty for file functions
             sts = ~isempty(f.file) || ~isempty(which(f.function));
-        end;
+        end
     catch
         % fail silently if something is wrong with f, keep sts == true
         return;
-    end;
-end;
+    end
+end
         
         
         

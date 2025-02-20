@@ -18,4 +18,4 @@ cind = 1;
 for k = 1:numel(job.files)
     out.index{k} = cind:(cind+numel(job.files{k})-1);
     cind = cind+numel(job.files{k});
-end;
+end

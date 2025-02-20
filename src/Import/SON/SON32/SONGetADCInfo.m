@@ -20,7 +20,7 @@ global SON_UNITSZ;
 if nargin ~=2
     sc=-1000;
     return;
-end;
+end
 
 units=char(zeros(1,SON_UNITSZ+1));
 [sc of units points preTrig]=...

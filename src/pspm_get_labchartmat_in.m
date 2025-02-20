@@ -78,7 +78,7 @@ for blk = 1:blkno
       else
         channel = pspm_find_channel(cellstr(labchart.titles), import{blk}{k}.type);
         if channel < 1, return; end;
-      end;
+      end
 
       if channel > numel(cellstr(labchart.titles)), warning('ID:channel_not_contained_in_file', 'Channel %02.0f not contained in file %s.\n', channel, datafile); return; end;
 
@@ -89,9 +89,9 @@ for blk = 1:blkno
         labchart.data(labchart.datastart(channel, blk):labchart.dataend(channel, blk))];
       % get sample rate
       import{blk}{k}.sr = labchart.samplerate(channel, blk);
-    end;
-  end;
-end;
+    end
+  end
+end
 
 sts = 1;
 return

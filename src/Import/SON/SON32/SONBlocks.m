@@ -12,7 +12,7 @@ function nblocks=SONBlocks(fh,chan)
 if nargin ~= 2
     nblocks=-1000;
     return;
-end;
+end
 
 nblocks=calllib('son32','SONBlocks',fh,chan);
 return;

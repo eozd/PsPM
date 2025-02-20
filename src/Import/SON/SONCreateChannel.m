@@ -18,24 +18,24 @@ datatype=class(data);
 [filename permission]=fopen(fid);                           % Is the file open for writing?
 if strcmp(permission,'rb+')==0
     error('SONCreateChannel:  File not opened for writing');
-end;
+end
 
 FileH=SONFileHeader(fid);
 if (FileH.systemID<6)  & (strcmp(datatype,'int16')~=1)      % ... make sure it's compatible with the file
     warning('SONExportChannel: SON file is below version 6. RealWave data not allowed. Use SONUpgradeToVersion6.m first');
     return;
-end;
+end
 
 Failed=0;
 for freechan=1:FileH.channels                               %Find a free channel entry
     Info=SONChannelInfo(fid,freechan);
     if(Info.kind==0) break;
         Failed=1;
-    end;
-end;
+    end
+end
 if (Failed==1)
     error('SONCreateChannel: No free space exists in the file to write a channel header');
-end;
+end
 
                                      
 
@@ -48,12 +48,12 @@ case('double')
     data=single(data);                                      % Double so convert to single for disk save and treat as RealWave
     datatype='single';
     Bytes=4;
-end;
+end
 
 
 if (nargin<=3) | (dataheader.transpose==0)                         % Transpose data if needed - data should be organized in column vectors
     data=data';                                          % Transpose by default
-end;                                  
+end                                  
                                            
 
 
@@ -61,7 +61,7 @@ S=SONChannelInfo(fid,SrcChan);
 if (S.kind~=1) & (S.kind~=9)
     warning('SONExportChannel: Only waveforam channels (ADC or Real) can be written');
     return;
-end;
+end
 
 
 header=SONGetBlockHeaders(fid,SrcChan);
@@ -78,13 +78,13 @@ for i=1:columns                                 % One block per column in header
         fwrite(fid,-1,'int32');
     else
         fwrite(fid,p-BlockSize,'int32');        % ....otherwise, pointer to preceding block
-    end;
+    end
     if (i==columns)                             % Lat block in channel .....
         LastBlock=p;
         fwrite(fid,-1,'int32');
     else
         fwrite(fid,p+BlockSize,'int32');        % ....otherwise pointer to next block
-    end;
+    end
     fwrite(fid,header(2,i),'int32');            % Copy header data
     fwrite(fid,header(3,i),'int32');
     fwrite(fid,freechan,'int16');
@@ -92,7 +92,7 @@ for i=1:columns                                 % One block per column in header
     count=fwrite(fid,data(written:written+header(5,i)-1),datatype);     % Write data
     fwrite(fid,1:(BlockSize-20)/Bytes-count,datatype);                  % Pad file to next block boundary
     written=written+count;                                              % Update array pointer
-end;
+end
 
 
 
@@ -130,15 +130,15 @@ case 'int16'
         fwrite(fid,dataheader.offset,'float32');
         fwrite(fid,length(dataheader.units),'uint8');           % 21/5/03 Write units field
         fwrite(fid,dataheader.units,'uint8');
-    end;
+    end
 case 'single'
     fwrite(fid,9,'uint8');
     if(nargin==4) & (isfield(dataheader,'max'))
         fseek(fid,1,'cof');
         fwrite(fid,dataheader.min,'float32');
         fwrite(fid,dataheader.max,'float32');
-    end;
-end;
+    end
+end
 
 
 

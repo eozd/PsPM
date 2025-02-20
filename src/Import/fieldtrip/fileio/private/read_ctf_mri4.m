@@ -119,10 +119,10 @@ for slice = 1:256
     slicedata = uint16(fread(fid, [256 256], 'uint16'));
   else
     error('Unknown datasize in CTF MRI file');
-  end;
+  end
 
   mri(:, :, slice) = slicedata;
-end;
+end
 
 %mri = reshape(mri, [256 256 256]);
 fclose(fid);
@@ -203,7 +203,7 @@ hdr.fiducial.head.rpa = ft_warp_apply(hdr.transformMRI2Head, hdr.fiducial.mri.rp
     while(numel(remain > 0))
       [value, remain] = strtok(remain, delim);
       values(end + 1) = str2num(value);
-    end;
+    end
   end
 
 %

@@ -54,4 +54,4 @@ elseif nargin==3,
         Y = fft(X,N,DIM);
         N2 = sum(1-NX,DIM); % 
         N = fft(NX,N,DIM);
-end;
+end

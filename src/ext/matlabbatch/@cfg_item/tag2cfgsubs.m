@@ -29,5 +29,5 @@ if strcmp(gettag(item), taglist{1}) && match(item, finalspec)
 else
     id = {};
     stop = true;
-end;
+end
 rtaglist = taglist(2:end);

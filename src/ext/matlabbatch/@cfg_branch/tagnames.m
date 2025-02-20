@@ -24,4 +24,4 @@ citems = subsref(item, substruct('.', tp));
 tn = cell(size(citems));
 for k = 1:numel(citems)
     tn{k} = gettag(citems{k});
-end;
+end

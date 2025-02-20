@@ -41,7 +41,7 @@ if nargin<1
     errmsg=sprintf('No data file specified'); warning(errmsg); return;
 elseif nargin<2
     errmsg=sprintf('No result file specified'); warning(errmsg); return;
-end;
+end
 
 try options.overwrite; catch, options.overwrite = 0; end;
 try options.cleanup; catch, options.cleanup = 1; end;
@@ -56,7 +56,7 @@ elseif strcmpi(options.method, 'both');
     options.method = {'DDA', 'CDA'};
 else
     warning('Unknown Ledalab analysis method'); return; 
-end;
+end
 options.filter = 1;
 try options.norm; catch, options.norm = 0; end;
 
@@ -67,9 +67,9 @@ if exist(outfile, 'file')
         close gcf;
         if overwrite == 2, return; end;
         clear overwrite
-    end;
+    end
     delete(outfile);
-end;
+end
 
 % does working directory exist?
 workpath = [pwd, fs, 'SCR_ledalab'];
@@ -79,8 +79,8 @@ if exist(workpath, 'dir')
         close gcf;
         if overwrite == 2, return; end;
         clear overwrite
-    end;
-end;
+    end
+end
 
 % note current path (because ledalab changes the directory)
 cpth = pwd;
@@ -110,9 +110,9 @@ for k = 1:numel(options.method)
         ledafn{filecount} = fullfile(cpth, [fn, '_', options.method{k}, ext]);
         movefile(ledafiles(f).name, ledafn{filecount});
         filecount = filecount + 1;
-    end;
+    end
     cd(cpth);
-end;
+end
 % remove working directory
 rmdir(workpath, 's');
 
@@ -140,15 +140,15 @@ for k = 1:numel(options.method)
         results(cnt + 1, :) = res.AreaSum;
         cnt = cnt + 2;
         description = [description, 'DDA/AmpSum', 'DDA/AreaSum'];
-    end;
-end;
+    end
+end
 
 % build 'dummy' DCM results structure
 % -------------------------------------------------------------------------
 for k = 1:size(results, 2)
     dcm.sn{1}.a(k).a = []; dcm.sn{1}.a(k).m = []; dcm.sn{1}.a(k).s = []; 
     dcm.sn{1}.e(k).a = results(:, k);
-end;
+end
 dcm.sn{1}.description = description;
 
 dcm.stats = transpose([dcm.sn{1}.e.a]);
@@ -163,7 +163,7 @@ save(outfile, 'dcm');
 if options.cleanup
     for f = 1:numel(ledafn)
         delete(ledafn{f});
-    end;
-end;
+    end
+end
 
 return;

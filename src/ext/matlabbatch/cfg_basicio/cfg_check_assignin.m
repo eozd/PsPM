@@ -18,4 +18,4 @@ if isvarname(val) || strcmp(val,'<UNDEFINED>') || isempty(val) || isa(val, 'cfg_
     str = '';
 else
     str = sprintf('String ''%s'' is not a valid variable name.', val);
-end;
+end

@@ -44,7 +44,7 @@ else
         else
             cfg_message('matlabbatch:setval:repl','Nothing to replicate.');
             return;
-        end;
+        end
     else
         val1 = [];
         substype = '()';
@@ -52,4 +52,4 @@ else
         subsind  = min(val(2),numel(subsref(item, substruct('.', 'val'))));
     end
     item = subsasgn(item, substruct('.','val', substype, {subsind}), val1);
-end;
+end

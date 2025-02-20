@@ -53,13 +53,13 @@ for k = 1:numel(citems)
         njtsubs.subs  = ctag;
         ntgt_input(2).subs  = {k};
         dep = dep_add(cdep, dep, ntgt_input, njtsubs);
-    end;
+    end
     chk = chk && cchk;
-end;
+end
 if ~dflag && isempty(val) && isa(item, 'cfg_choice')
     val = '<UNDEFINED>';
     chk = false;
 end
 if chk 
     chk = docheck(item, val);
-end;
+end

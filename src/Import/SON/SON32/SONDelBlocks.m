@@ -12,7 +12,7 @@ function blocks=SONDelBlocks(fh, chan)
 if nargin<2
     blocks=-1000;
     return;
-end;
+end
 
 blocks=calllib('son32','SONDelBlocks', fh, chan);
 

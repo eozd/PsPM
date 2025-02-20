@@ -30,11 +30,11 @@ elseif nargin < 3
   pass = 'low';
 elseif ~(any(strcmpi(pass, {'high', 'low'})))
   warning('ID:invalid_input','%s is not a valid argument.', pass); return;
-end;
+end
 
 if ~settings.signal && order ~= 1
   warning('ID:toolbox_missing','This function can only create 1st order filters - %s', errmsg); return;
-end;
+end
 %% filters
 if settings.signal
   [b, a] = butter(order, freqratio, pass);
@@ -45,7 +45,7 @@ else
       f = F.filt{1};
     case 'high'
       f = F.filt{2};
-  end;
+  end
   d = abs([f.freqratio] - freqratio);
   n = find(d < .0001);
   if isempty(n)
@@ -53,10 +53,10 @@ else
   else
     if numel(n) > 1
       [foo, n] = min(d);
-    end;
+    end
     a = f(n).a;
     b = f(n).b;
-  end;
+  end
 end
 sts = 1;
 return
@@ -68,11 +68,11 @@ return
 % for n = 1:numel(freqratio)
 %     [filt{1}(n).b filt{1}(n).a] = butter(1, freqratio(n));
 %     filt{1}(n).freqratio = freqratio(n);
-% end;
+% end
 % % highpass (standard filter DCM, standard filter GLM)
 % freqratio = [0.0159./([4.5 5:5:500]), 0.05./([4.5 5:5:500])];
 % for n = 1:numel(freqratio)
 %     [filt{2}(n).b filt{2}(n).a] = butter(1, freqratio(n), 'high');
 %     filt{2}(n).freqratio = freqratio(n);
-% end;
+% end
 % save([settings.path, 'pspm_butter.mat'], 'filt');

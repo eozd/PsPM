@@ -36,10 +36,10 @@ if numel(taglist) == 1 || (~isempty(tropts.stopspec) ...
         % tag does not match but traversal should stop
         id = {};
         stop = true;
-    end;
+    end
     rtaglist = taglist(2:end);
     return;
-end;
+end
 
 % search defaults tree
 tname = treepart(item, true);
@@ -53,8 +53,8 @@ for k = 1:numel(citems)
                                          finalspec, tropts);
         if isstruct(id)
             id = [substruct('.', tname, '{}', {k}) id];
-        end;
+        end
         % stop after first matching tag
         break;
-    end;
-end;
+    end
+end

@@ -39,15 +39,15 @@ for k = 1:numel(import)
   channel = import{k}.channel;
   if channel > size(inputdata.Data, 2)
     warning('Channel %1.0f does not exist in data file', channel); return;
-  end;
+  end
   import{k}.sr = inputdata.SR;            % sample rate per channel
   import{k}.data = inputdata.Data(:, channel);     % data per channel
   import{k}.units = inputdata.Units{channel};
   sourceinfo.channel{k, 1} = sprintf('Channel %02.0f', channel);
   if strcmpi(settings.channeltypes(import{k}.typeno).data, 'events')
     import{k}.marker = 'continuous';
-  end;
-end;
+  end
+end
 
 % clear path and return
 % -------------------------------------------------------------------------

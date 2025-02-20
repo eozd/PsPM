@@ -51,7 +51,7 @@ elseif soa < 2
 elseif soa > 8
   warning(['SOA longer than 8s is not recommended. ', ...
     'Use at own risk.']);
-end;
+end
 x = (0:td:stop-td)';
 bs = zeros(stop_idx,1);
 bs(start_idx:stop_idx) = 1;

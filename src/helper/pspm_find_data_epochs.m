@@ -38,20 +38,20 @@ sts = -1;
 % check input
 if ~exist('options', 'var')
     options = struct();
-end;
+end
 
 if ~isfield(options, 'output_file')
     [path, name, ext] = fileparts(datafile);
     options.output_file = [path, filesep, 'e', name, ext];
-end;
+end
 
 if ~isfield(options, 'overwrite')
     options.overwrite = 0;
-end;
+end
 
 if ~isfield(options, 'dont_ask_overwrite')
     options.dont_ask_overwrite = 0;
-end;
+end
 
 if isempty(datafile) || ~ischar(datafile)
     warning('ID:invalid_input', 'Datafile is empty or not a valid string.'); return;
@@ -68,14 +68,14 @@ elseif ~islogical(options.dont_ask_overwrite) && ...
         ~isnumeric(options.dont_ask_overwrite)
     warning('ID:invalid_input', 'Options.overwrite is neither logical nor numeric.');
     return;
-end;
+end
 
 % load data
 [~, ~, data] = pspm_load_data(datafile);
 
 if chan_id > numel(data)
     warning('ID:invalid_input', 'Channel id exceeds channel count.'); return;
-end;
+end
 
 % create logical array in order to distinguish between non-zero and zero
 logi = data{chan_id}.data ~= 0;
@@ -89,12 +89,12 @@ stop = find(changes == -1);
 if ~isempty(start) || ~isempty(stop)
     if (isempty(stop) && ~isempty(start)) || (start(end) > stop(end))
         stop = [stop; numel(logi)];
-    end;
+    end
 
     if (isempty(start) && ~isempty(stop)) || (start(1) > stop(1))
         start = [1; start];
-    end;
-end;
+    end
+end
 
 % create epochs and divide by samplerate
 epochs = ([start, stop]).*data{chan_id}.header.sr^-1;
@@ -112,14 +112,14 @@ if file_exist
             ov = 'Yes'; % default to overwrite on Jenkins
         end
         write_ok = strcmp(ov,'Yes');
-    end;
+    end
 else
     write_ok = true;
-end;
+end
 
 if write_ok
     save(options.output_file, 'epochs');
-end;
+end
 
 epochfile = options.output_file;
 

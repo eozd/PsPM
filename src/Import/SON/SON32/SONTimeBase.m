@@ -13,7 +13,7 @@ function dTickLen=SONTimeBase(fh, dTb)
 if nargin ~=2
     dTickLen=-1000;
     return;
-end;
+end
 
 dTickLen=calllib('son32','SONTimeBase',fh,dTb);
 return;

@@ -38,14 +38,14 @@ for k = 1:numel(spec)
         elseif any(strcmp(spec{k}(l).name, mysubs_fields))
             sts = isequal(spec{k}(l).value, ...
                           subsref(item, substruct('.', spec{k}(l).name)));
-        end;
+        end
         if sts
             % OR: success on first match
             break;
-        end;
-    end;
+        end
+    end
     if ~sts
         % AND: fail on first non-match
         break;
-    end;
-end;
+    end
+end

@@ -84,8 +84,8 @@ fields = fieldnames(pars);
 for idx=1:length(fields)
     if ischar(getfield(pars,fields{idx})),
         pars=setfield(pars,fields{idx},lower(getfield(pars,fields{idx})));
-    end;
-end;
+    end
+end
 
 % First, check if NeuroShare DLL can be loaded
 if ft_filetype(datafile, 'ced_son')
@@ -98,14 +98,14 @@ if st,
 else,
     disp(['Loading file ' datafile ' using NeuroShare library v',...
         num2str(libinfo.LibVersionMaj),'.',num2str(libinfo.LibVersionMin),' ...']);
-end;
+end
 
 % open file
 [st,fhandle] = ns_OpenFile(datafile);
 if st,
     [st,mesg] = ns_GetLastErrorMsg;
     error(mesg);
-end;
+end
 
 try,
     % file header
@@ -114,7 +114,7 @@ try,
         [st,mesg] = ns_GetLastErrorMsg;
         ns_CloseFile(fhandle);
         error(mesg);
-    end;
+    end
 
     % Build catalogue of entities
     [st, entityinfo] = ns_GetEntityInfo(fhandle, [1:fheader.EntityCount]);
@@ -170,8 +170,8 @@ try,
             return
         else,
             error(['Unknown channel mode for channel ',num2str(channr)]);
-        end;
-    end;
+        end
+    end
     out.header = orderfields(out.header);
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -202,13 +202,13 @@ try,
                     out.events(cnt).value = evdata{trignr};  % cell2str
                 else
                     out.events(cnt).value = evdata(trignr);
-                end;
+                end
                 out.events(cnt).offset    = 0;
                 out.events(cnt).duration  = 0;
-            end;
-        end;
+            end
+        end
         out.events = orderfields(out.events);
-    end;
+    end
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % DATA
@@ -223,8 +223,8 @@ try,
                   error(['Requested more analog channels than present in datafile']);
               else,
                   pars.channels = analoglist(pars.channels);
-              end;
-          end;
+              end
+          end
                     
           % use first analog channel as reference channel
           targetchan = analoglist(1);           
@@ -273,15 +273,15 @@ try,
              
               out.data{cnt} = chandata(:)';              
               if strcmp(pars.readtimestamps,'yes') out.time{cnt} = chantime(:)'; end;
-          end;
-      end;
+          end
+      end
 
       % close file
       [st]  = ns_CloseFile(fhandle);
     if st,
         [st,mesg] = ns_GetLastErrorMsg;
         disp(mesg);
-    end;
+    end
    
 % use catch to close any opened files before terminating
 catch,
@@ -290,7 +290,7 @@ catch,
     if st,
         [st,mesg] = ns_GetLastErrorMsg;
         disp(mesg);
-    end;
+    end
     error(lasterr);
-end;
+end
 

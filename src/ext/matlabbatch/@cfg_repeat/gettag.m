@@ -20,6 +20,6 @@ if numel(item.values)>1 || item.forcestruct,
     tag = item.cfg_item.tag;
 else
     tag = gettag(item.values{1});
-end;
+end
 
     

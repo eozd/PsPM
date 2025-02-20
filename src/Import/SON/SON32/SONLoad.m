@@ -39,12 +39,12 @@ else
             value = winqueryreg('HKEY_CLASSES_ROOT', 'Spike2Data\shell\open\command');
         catch
             errordlg('No installed copy of CED''s Spike2 for Windows could be found');
-        end;
+        end
         try
             loadlibrary('c:\spike5\son32.dll',@son32);
         catch
             errordlg('This MATLAB library requires son32.dll to be located in the "C:\SPIKE5" folder. Make a copy there to continue',...
                 'SON32.DLL not found');
-        end;
-    end;
-end;
+        end
+    end
+end

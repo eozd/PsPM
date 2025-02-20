@@ -25,6 +25,6 @@ for row=1:rownum
         pos(ax,3)=width;
         pos(ax,4)=height;
         ax=ax+1;
-    end;
-end;
+    end
+end
 clear ax width height;

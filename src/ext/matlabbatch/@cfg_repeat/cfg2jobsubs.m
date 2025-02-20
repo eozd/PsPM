@@ -23,7 +23,7 @@ if isequal(subs(1), substruct('.','val')) && strcmp(subs(2).type, '{}')
         jsubs1 = cfg2jobsubs(citem, subs(3:end));
     else
         jsubs1 = [];
-    end;
+    end
     if numel(item.values)==1 && isa(item.values{1},'cfg_branch') && ~item.forcestruct,
         cjsubs = substruct('.', gettag(citem), '()',subs(2).subs);
     else
@@ -31,10 +31,10 @@ if isequal(subs(1), substruct('.','val')) && strcmp(subs(2).type, '{}')
             cjsubs = substruct('{}', subs(2).subs);
         else
             cjsubs = substruct('{}', subs(2).subs, '.', gettag(citem));
-        end;
-    end;
+        end
+    end
     jsubs = [cjsubs jsubs1];
 else
     cfg_message('matlabbatch:cfg2jobsubs:wrongsubs', 'Inappropriate subscript reference in item ''%s''.', item.tag);
     jsubs = struct('type',{},'subs',{});
-end;
+end

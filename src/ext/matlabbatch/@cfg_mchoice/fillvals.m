@@ -28,9 +28,9 @@ if ~all_set_item(item)
     if ~isempty(inputs)
         for k = 1:numel(inputs{1})
             item = setval(item, [inputs{1}{k} Inf], false);
-        end;
+        end
         inputs = inputs(2:end);
-    end;
+    end
     if ~all_set_item(item) && ~isempty(infcn) && subsasgn_check_funhandle(infcn)
         sts = false;
         while ~sts && ~all_set_item(item)
@@ -38,16 +38,16 @@ if ~all_set_item(item)
             if sts
                 for k = 1:numel(val)
                     item = setval(item, [val{k} Inf], false);
-                end;
-            end;
-        end;
-    end;
-end;
+                end
+            end
+        end
+    end
+end
 % Set children
 citems = subsref(item, substruct('.','val'));
 for k = 1:numel(citems)
     if ~all_set(citems{k})
         [citems{k}, inputs] = fillvals(citems{k}, inputs, infcn);
-    end;
-end;
+    end
+end
 item = subsasgn(item, substruct('.','val'), citems);

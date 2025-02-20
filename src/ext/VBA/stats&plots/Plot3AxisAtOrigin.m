@@ -23,7 +23,7 @@ if nargin<4
     plot3(x,y,z);
 else
     plot3(x,y,z,s);
-end;
+end
 hold on;
 
 % DRAW AXIS LINEs
@@ -55,13 +55,13 @@ Zoff=diff(get(gca,'ZLim'))./30;
 %%%%%%% THIS COULD BE VECTORiZeD %%%%%%%
 for i=1:length(X)
    plot3([X(i) X(i)],[0 0],[-Zoff Zoff],'k');
-end;
+end
 for i=1:length(Y)
    plot3([-Xoff Xoff],[Y(i) Y(i)],[0 0],'k');
-end;
+end
 for i=1:length(Z)
    plot3([-Xoff Xoff],[0 0],[Z(i) Z(i)],'k');
-end;
+end
 
 % DRAW LABELS
 text(X,zeros(size(X)),zeros(size(X))-3.*Zoff,XL);

@@ -19,7 +19,7 @@ rev = '$Rev: 380 $'; %#ok
 if isfield(job.save, 'savejobs')
     [p, n, e] = fileparts(job.save.savejobs.outstub);
     outfmt = strrep(fullfile(job.save.savejobs.outdir{1}, sprintf('%s_%%0%dd.m', n, ceil(log10(numel(job.inputs))+1))), '\', '\\');
-end;
+end
 hjobs = cell(size(job.inputs));
 sts = false(size(job.inputs));
 out.jobfiles = {};
@@ -29,17 +29,17 @@ for cr = 1:numel(job.inputs)
     for ci = 1:numel(job.inputs{cr})
         fn = fieldnames(job.inputs{cr}{ci});
         inp{ci} = job.inputs{cr}{ci}.(fn{1});
-    end;
+    end
     sts(cr) = cfg_util('filljob', cjob, inp{:});
     if sts(cr)
         [un, hjobs{cr}] = cfg_util('harvest', cjob);
-    end;
+    end
     if isfield(job.save, 'savejobs')
         out.jobfiles{cr} = sprintf(outfmt, cr);
         cfg_util('savejob', cjob, out.jobfiles{cr});
-    end;
+    end
     cfg_util('deljob', cjob);
-end;
+end
 if all(sts)
     % keep all hjobs;
 elseif any(sts) && strcmp(job.missing,'skip')
@@ -55,6 +55,6 @@ if ~isempty(hjobs)
 %        [p n e] = fileparts(job.save.savejobs.outstub);
 %        out.jobrun{1} = fullfile(p, [n '_run.m']);
 %        cfg_util('saverun', cjob, out.jobrun{1});
-%    end;
+%    end
     cfg_util('deljob', cjob);
-end;
+end

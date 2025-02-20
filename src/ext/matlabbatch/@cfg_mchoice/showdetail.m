@@ -22,4 +22,4 @@ str{end+1} = ['Set one or more of the options listed as a struct with a ' ...
 tags = tagnames(item, true);
 for k = 1:numel(tags)
     str{end+1} = sprintf('.%s', tags{k});
-end;
+end

@@ -22,7 +22,7 @@ if(Info.firstblock==-1)
     warning('SONGetBlockHeaders: No data on channel #%d', chan);
     header=[];
     return;
-end;
+end
     
 header=zeros(6,Info.blocks);                                %Pre-allocate memory for header data
 fseek(fid,Info.firstblock,'bof');                           % Get first data block    
@@ -38,9 +38,9 @@ else
         header(5:6,i)=fread(fid,2,'int16');
         fseek(fid,header(succBlock,i),'bof');
         header(1,i-1)=header(1,i);                          
-    end;
+    end
     header(1,Info.blocks)=header(2,Info.blocks-1);          % Replace predBlock for previous column
-end;
+end
 header(2,:)=[];                                           % Delete succBlock data
 
 

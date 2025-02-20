@@ -10,7 +10,7 @@ function cfg_serial(guifcn, job, varargin)
 % sts  = cfg_util('filljobui', cjob, guifcn, varargin);
 % if sts
 %      cfg_util('run', cjob);
-% end;
+% end
 % cfg_util('deljob', cjob);
 %
 % Instead of
@@ -22,7 +22,7 @@ function cfg_serial(guifcn, job, varargin)
 % sts  = cfg_util('filljobui', cjob, guifcn, varargin);
 % if sts
 %      cfg_util('run', cjob);
-% end;
+% end
 % cfg_util('deljob', cjob);
 %
 % Instead of
@@ -33,7 +33,7 @@ function cfg_serial(guifcn, job, varargin)
 % sts  = cfg_util('filljobui', cjob, guifcn, varargin);
 % if sts
 %      cfg_util('run', cjob);
-% end;
+% end
 % cfg_util('deljob', cjob);
 %
 % If no guifcn is specified, use cfg_util('filljob',... instead.
@@ -136,7 +136,7 @@ if ischar(job)
     else
         % tag string points to somewhere above cfg_branch
         cjob = local_addtojob(job);
-    end;
+    end
 elseif cfg_util('ismod_cfg_id', job)
         % initialise new job
         cjob = cfg_util('initjob');
@@ -145,7 +145,7 @@ elseif cfg_util('ismod_cfg_id', job)
 else
     % assume job to be a saved job structure
     cjob = cfg_util('initjob', job);
-end;
+end
 % varargin{:} is a list of input items
 in = varargin;
 % get job information
@@ -154,8 +154,8 @@ for cm = 1:numel(mod_job_idlist)
     % loop over modules, enter missing inputs
     if ~sts(cm)
         in = local_fillmod(guifcn, cjob, mod_job_idlist{cm}, in);
-    end;
-end;
+    end
+end
 cfg_util('run',cjob);
 cfg_util('deljob',cjob);
 
@@ -180,27 +180,27 @@ for ci = 1:numel(item_mod_idlist)
             inputs = inputs(2:end);
         else
             sts = false;
-        end;
+        end
         if ~sts && ~isa(guifcn, 'function_handle')
             % no input given, or input did not match required criteria
             cfg_message('matlabbatch:cfg_serial:notimplemented', ...
                   'User prompted input not yet implemented.');
-        end;
+        end
         while ~sts
             % call guifcn until a valid input is returned
             val = local_call_guifcn(guifcn, cjob, cm, item_mod_idlist{ci}, ...
                                     contents{1}{ci});
             sts = local_setval(cjob, cm, item_mod_idlist, contents, ci, val);
-        end;
+        end
         if strcmp(contents{1}{ci}, 'cfg_choice')||...
                 strcmp(contents{1}{ci}, 'cfg_repeat')
             % restart filling current module, break out of for loop
             % afterwards
             inputs = local_fillmod(guifcn, cjob, cm, inputs);
             return;
-        end;
-    end;
-end;
+        end
+    end
+end
 
 function sts = local_setval(cjob, cm, item_mod_idlist, contents, ci, val)
 if strcmp(contents{1}{ci}, 'cfg_repeat')
@@ -217,12 +217,12 @@ if strcmp(contents{1}{ci}, 'cfg_repeat')
         % append val{cv} to cfg_repeat list.
         sts = sts | cfg_util('setval', cjob, cm, item_mod_idlist{ci}, ...
                              [val{cv} Inf]);
-    end;
+    end
 else
     % try to set val
     sts = cfg_util('setval', cjob, cm, item_mod_idlist{ci}, ...
                    val);
-end;
+end
 
 function val = local_call_guifcn(guifcn, cjob, cm, citem, cmclass)
 % fieldnames depend on class of item
@@ -235,7 +235,7 @@ switch cmclass
         fnames = {'name', 'num', 'filter', 'dir', 'ufilter'};
     case 'cfg_menu',
         fnames = {'name', 'labels', 'values'};
-end;
+end
 
 % only search current module/item
 fspec  = cfg_findspec({{'hidden',false}});
@@ -245,7 +245,7 @@ if isempty(citem)
     [u1, u2, contents] = cfg_util('listcfgall', cm, fspec, tropts, fnames);
 else
     [u1, u2, contents] = cfg_util('listmod', cjob, cm, citem, fspec, tropts, fnames);
-end;
+end
 
 cmname = contents{1}{1};
 switch cmclass
@@ -254,16 +254,16 @@ switch cmclass
         labels = cell(size(contents{2}{1}));
         for k = 1:numel(contents{2}{1})
             labels{k} = contents{2}{1}{k}.name;
-        end;
+        end
         values = num2cell(1:numel(contents{2}{1}));
         args = {labels, values};
         if strcmp(cmclass, 'cfg_repeat')
             args{3} = contents{3}{1};
-        end;
+        end
     case {'cfg_entry', 'cfg_files', 'cfg_menu'}
         args = cell(1, numel(contents)-1);
         for k = 2:numel(contents)
             args{k-1} = contents{k}{1};
-        end;
-end;
+        end
+end
 val = feval(guifcn, cmclass, cmname, args{:});

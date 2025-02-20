@@ -27,4 +27,4 @@ elseif isempty(cm.sout)
     cm.jout = [];
 else
     cm.jout = feval(cm.prog, job);
-end;
+end

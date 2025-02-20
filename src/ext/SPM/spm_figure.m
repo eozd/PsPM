@@ -371,7 +371,7 @@ H  = findobj(get(F,'Children'),'flat','Type','axes');
 if ~isempty(H),
     un = cellstr(get(H,'Units'));
     set(H,'Units','normalized')
-end;
+end
 
 %-Print
 %-----------------------------------------------------------------------
@@ -413,7 +413,7 @@ if isempty(F), return, end
 [fn pn] = uiputfile('*.ps', 'Print to File');
 if fn == 0
     return;
-end;
+end
 
 psname = fullfile(pn, fn);
 spm_figure('Print',F,psname);
@@ -526,8 +526,8 @@ set(hPageNo,'UserData',Npage,'String',sprintf('%d / %d',Npage,nPages))
 for k = 1:length(hPg{Npage,1}) % VG
     if strcmp(get(hPg{Npage,1}(k),'Type'),'axes')
         axes(hPg{Npage,1}(k));
-    end;
-end;
+    end
+end
 
 %-Disable appropriate page turning control if on first/last page (for neatness)
 if Npage==1, set(hPrevPage,'Enable','off')
@@ -868,7 +868,7 @@ for F1=handles',
             'Position',get(F1,'Position'),...
             'Separator',get(F1,'Separator'));
         copy_menu(F1,G1);
-    end;
-end;
+    end
+end
 return;
 %=======================================================================

@@ -61,7 +61,7 @@ switch nargin
             dep = varargin{1};
         else
             dep.sname                          = varargin{1}; 
-        end;
+        end
     case 2
         dep.sname                              = varargin{1};
         dep.src_exbranch(1:numel(varargin{2})) = varargin{2};
@@ -106,4 +106,4 @@ switch nargin
         dep.tgt_input(1:numel(varargin{8}))    = varargin{8};
     otherwise
         cfg_message('matlabbatch:constructor:nargin', 'Wrong number of arguments.');
-end;
+end

@@ -34,13 +34,13 @@ function header = read_eeglabheader(filename)
 if nargin < 1
   help read_eeglabheader;
   return;
-end;
+end
 
 if ~isstruct(filename)
   load('-mat', filename);
 else
   EEG = filename;
-end;
+end
 
 header.Fs          = EEG.srate;
 header.nChans      = EEG.nbchan;
@@ -64,18 +64,18 @@ for i = 1:length( EEG.chanlocs )
         header.elec.elecpos(ind,2) = EEG.chanlocs(i).Y;
         header.elec.elecpos(ind,3) = EEG.chanlocs(i).Z;
         ind = ind+1;
-    end;
-end;
+    end
+end
 
 % remove data
 % -----------
 %if isfield(EEG, 'datfile')
 %    if ~isempty(EEG.datfile)
 %        EEG.data = EEG.datfile;
-%    end;
+%    end
 %else
 %    EEG.data = 'in set file';
-%end;
+%end
 EEG.icaact = [];
 
 header.orig = EEG;

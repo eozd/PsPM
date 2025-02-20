@@ -19,7 +19,7 @@ if strcmp(job.name,'<UNDEFINED>') || isempty(job.name) || isa(job.name, 'cfg_dep
     setname = 'File set';
 else
     setname = job.name;
-end;
+end
 
 nf = numel(job.files);
 for k = 1:nf
@@ -27,11 +27,11 @@ for k = 1:nf
     dep(k).sname      = sprintf('%s(%d) - Files', setname, k);
     dep(k).src_output = substruct('.','files','{}',{k});
     dep(k).tgt_spec   = cfg_findspec({{'class','cfg_files', 'strtype','e'}});
-end;
+end
 for k = 1:nf
     dep(nf+k)            = cfg_dep;
     dep(nf+k).sname      = sprintf('%s(%d) - File index', setname, k);
     dep(nf+k).src_output = substruct('.','index','{}',{k});
     dep(nf+k).tgt_spec   = cfg_findspec({{'strtype','n', 'strtype','w', ...
                         'strtype','i', 'strtype','r', 'strtype','e'}});
-end;
+end

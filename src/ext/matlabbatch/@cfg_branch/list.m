@@ -78,11 +78,11 @@ if match(item, spec)
                     val{k} = {subsref(item, substruct('.', fn{k}))};
                 otherwise
                     val{k} = {{}};
-            end;
-        end;
+            end
+        end
     else
         val = {};
-    end;
+    end
     matched = true;
 else
     id = {};
@@ -92,9 +92,9 @@ else
         [val{:}] = deal({});
     else
         val = {};
-    end;
+    end
     matched = false;
-end;
+end
 
 if (isempty(tropts.stopspec) || ~match(item, tropts.stopspec)) && (tropts.cnt < tropts.mcnt) && (tropts.clvl < tropts.mlvl)
     tname = treepart(item, tropts.dflag);
@@ -107,27 +107,27 @@ if (isempty(tropts.stopspec) || ~match(item, tropts.stopspec)) && (tropts.cnt < 
             [id1, stop1, val1] = list(citems{k}, spec, tropts, fn);
             for l = 1:numel(fn)
                 val{l} = [val{l}(:); val1{l}(:)]';
-            end;
+            end
         else
             [id1, stop1] = list(citems{k}, spec, tropts);
-        end;
+        end
         if ~isempty(id1)
             idsubs(2).subs = {k};
             for l = 1:numel(id1)
                 id = [id(:); {[idsubs id1{l}]}]';
-            end;
+            end
             stop = [stop stop1];
             tropts.cnt = tropts.cnt + numel(id1);
             if tropts.cnt >= tropts.mcnt
                 if matched
                     stop(1) = true;
-                end;
+                end
                 break;
-            end;
-        end;
-    end;
+            end
+        end
+    end
 else
     if matched
         stop = true;
-    end;
-end;
+    end
+end

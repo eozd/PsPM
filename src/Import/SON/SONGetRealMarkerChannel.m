@@ -36,12 +36,12 @@ if isempty (Info)
     data=[];
     h=[];
     return;
-end;
+end
 
 if(Info.kind~=7) 
     warning('SONGetRealMarkerChannel: Channel %d No data or wrong channel type',chan);
     return;
-end;
+end
 
 
 ShowProgress=0;
@@ -53,9 +53,9 @@ for i=1:length(varargin)
             ShowProgress=1;
             progbar=progressbar(0,sprintf('Analyzing %d blocks on channel %d',Info.blocks,chan),...
                 'Name',sprintf('%s',fopen(fid)));
-        end;
-    end;
-end;
+        end
+    end
+end
 
 switch arguments
     case {2}
@@ -67,7 +67,7 @@ switch arguments
     otherwise
         startBlock=varargin{1};
         endBlock=min(Info.blocks,varargin{2});
-end;
+end
 
 
 FileH=SONFileHeader(fid);
@@ -88,12 +88,12 @@ for block=startBlock:endBlock
         data.markers(count,:)=fread(fid,4,'uint8=>uint8');             % 4x marker bytes
         data.real(count,:)=fread(fid,nValues,'single=>single');
         count=count+1;
-    end;
+    end
         if ShowProgress==1
         done=(block-startBlock)/max(1,endBlock-startBlock);
         progressbar(done, progbar,sprintf('Reading Channel %d....     %d%% Done',chan,(int16(done*100)/5)*5));
-    end;
-end;
+    end
+end
 
 
 if(nargout>1)
@@ -113,12 +113,12 @@ if(nargout>1)
     h.units=Info.units;
     if(isfield(Info,'interleave'))
         h.interleave=Info.interleave;
-    end;
-end;
+    end
+end
 
 [data.timings,h.TimeUnits]=SONTicksToSeconds(fid,data.timings,varargin{:});                % Convert time
 h.Epochs={startBlock endBlock 'of' Info.blocks 'blocks'};
 if ShowProgress==1
     close(progbar);
     drawnow;
-end;
+end

@@ -38,7 +38,7 @@ if tropts.dflag
     itropts.clvl = 1;
     itropts.mlvl = 1;
     istoptag     = '';
-end;
+end
 [str, tag, cind, ccnt] = gencode_item(item.cfg_item, tag, tagctx, istoptag, itropts);
 tagctx = [tagctx {tag}];
 % Check whether to generate code - ccnt == 0 means that generic object did
@@ -48,7 +48,7 @@ if (tropts.clvl > tropts.mlvl || (~isempty(tropts.stopspec) && match(item, tropt
     cind = [];
     ccnt = 0;
     return;
-end;
+end
 % Reclassify generic object
 str{cind} = sprintf('%s         = %s;', tag, class(item));
 %% Values
@@ -75,11 +75,11 @@ if numel(item.values) > 0
             cstr = [cstr(:)' ccstr(:)'];
             ctropts.cnt = ctropts.cnt + cccnt;
             ccnt = ccnt + cccnt;
-        end;
-    end;
+        end
+    end
     % Update position of class definition
     cind = cind+numel(cstr);
     % Prepend code of children
     str = [cstr(:)' str(:)'];
     str{end+1} = sprintf('%s.values  = {%s};', tag, sprintf('%s ', ctag{:}));
-end;
+end

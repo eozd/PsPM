@@ -20,7 +20,7 @@ for k = 1:numel(tdeps)
     for l = 1:numel(sitem.sdeps)
         stind(l) = ~(isequaltarget(tdeps(k), sitem.sdeps(l)) && ...
                      isequalsource(tdeps(k), sitem.sdeps(l)));
-    end;
+    end
     sitem.sdeps = sitem.sdeps(stind);
     cj = subsasgn(cj, tdeps(k).src_exbranch,sitem);
-end;
+end

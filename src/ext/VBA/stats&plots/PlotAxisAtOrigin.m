@@ -17,7 +17,7 @@ if nargin == 2
     hold on;
 else
     display('   Not 2D Data set !')
-end;
+end
 
 % GET TICKS
 X=get(gca,'Xtick');
@@ -38,10 +38,10 @@ plot([0 0],get(gca,'YLim'),'k');
 % Plot new ticks  
 for i=1:length(X)
     plot([X(i) X(i)],[0 Yoff],'-k');
-end;
+end
 for i=1:length(Y)
    plot([Xoff, 0],[Y(i) Y(i)],'-k');
-end;
+end
 
 % ADD LABELS
 text(X,zeros(size(X))-2.*Yoff,XL);

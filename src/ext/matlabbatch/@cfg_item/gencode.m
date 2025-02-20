@@ -34,7 +34,7 @@ rev = '$Rev: 380 $'; %#ok
 
 if nargin < 2
     tag = inputname(1);
-end;
+end
 if nargin < 3
     tagctx = {};
 end

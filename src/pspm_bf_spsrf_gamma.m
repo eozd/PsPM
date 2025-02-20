@@ -32,11 +32,11 @@ elseif nargin > 1
   td = varargin{1};
   soa = varargin{2};
   if nargin > 2, p = varargin{3}; else , p=NaN; end;
-end;
+end
 %% Check td
 if td > 10
   warning('ID:invalid_input', 'Time resolution is larger than duration of the function.'); return;
-end;
+end
 %% Check soa
 if ~isnumeric(soa)
   warning('The SOA should be a numeric value.'); return;

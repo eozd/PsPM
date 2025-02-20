@@ -137,7 +137,7 @@ function MenuFileSave_Callback(hObject, eventdata, handles)
                     '*.m','Matlab .m Script File'}, 'Basename for jobs');
 if isnumeric(file) && file == 0
     return;
-end;
+end
 [p, n, e] = fileparts(file);
 if isempty(e) || ~any(strcmp(e,{'.mat','.m'}))
     e1 = {'.mat','.m'};

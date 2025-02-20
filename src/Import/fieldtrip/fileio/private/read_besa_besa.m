@@ -1179,7 +1179,7 @@ while ftell(fid) < (uint64(file_info.offsets(end))+uint64(fileinfo_block_length)
             end
         end
       end
-      clear fina_end;
+      clear fina_end
     case 'FENA'
       % Encryption algorithm
       file_info.encryption = read_chars(fid,current_length);
@@ -1253,7 +1253,7 @@ while ftell(fid) < (uint64(file_info.offsets(end))+uint64(fileinfo_block_length)
             end
         end
       end
-      clear rsta_end;
+      clear rsta_end
     case 'PNAF'
       % Subject first name
       file_info.subject.name.first = read_chars(fid,current_length);
@@ -1325,7 +1325,7 @@ while ftell(fid) < (uint64(file_info.offsets(end))+uint64(fileinfo_block_length)
             end
         end
       end
-      clear paad_end;
+      clear paad_end
     case 'PALA'
       % Subject language
       file_info.subject.language = read_chars(fid,current_length);

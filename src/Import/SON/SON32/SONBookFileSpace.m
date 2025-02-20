@@ -13,7 +13,7 @@ function [err]=SONBookFileSpace(fh, lspace)
 if nargin ~= 2 
     err=-1000;
     return;
-end;
+end
 
 err=calllib('son32','SONBookFileSpace',fh,lspace);
 return;
