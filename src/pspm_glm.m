@@ -101,7 +101,8 @@
 %                 model structure as fields .stats_missing and
 %                 .stats_exclude but not used further.
 % ● Outputs
-%   *       glm:  a structure 'glm' which is also written to file
+%   *       sts: status flag (-1 or 1)
+%   *       glm: a structure 'glm' which is also written to file
 % ● References
 %   * Skin conductance response analysis
 %   [1] GLM for SCR:
