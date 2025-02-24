@@ -28,7 +28,7 @@ global SON_TITLESZ;
 
 if (bufsize>32768)
     bufsize=32768;
-end;
+end
 
 comment=comment(1 : min(length(comment), SON_CHANCOMSZ));                             
 chantitle=chantitle(1 : min(length(chantitle), SON_TITLESZ));    

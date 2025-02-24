@@ -23,19 +23,19 @@ for k = 1:numel(oid)
         item = subsasgn(item, substruct('.', 'id'), nid{k});
         for cs = 1:numel(item.sout)
             item.sout(cs).src_exbranch = nid{k};
-        end;
+        end
         break;
-    end;
-end;
+    end
+end
 if ~isempty(item.tdeps)
     item.tdeps = update_deps(item.tdeps, oid, nid);
-end;
+end
 if ~isempty(item.sdeps)
     item.sdeps = update_deps(item.sdeps, oid, nid);
-end;
+end
 
 val = subsref(item, substruct('.','val'));
 for k = 1:numel(val)
     val{k} = update_deps(val{k}, oid, nid);
-end;
+end
 item = subsasgn(item, substruct('.','val'), val);

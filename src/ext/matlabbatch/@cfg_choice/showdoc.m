@@ -23,4 +23,4 @@ citems = subsref(item, substruct('.', treepart(item, true)));
 for k = 1:numel(citems)
     str1 = showdoc(citems{k}, sprintf('%s%d.', indent, k));
     str = [str(:); str1(:); {''}]';
-end;
+end

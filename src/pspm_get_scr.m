@@ -28,7 +28,7 @@ if isfield(import, 'transfer')
   transferparams = import.transfer;
 else
   transferparams = 'none';
-end;
+end
 clear c Rs offset recsys
 if isfield(import, 'units')
   dataunits = import.units;
@@ -40,7 +40,7 @@ if isstruct(transferparams)
     c=transferparams.c;
   catch
     warning('ID:no_conversion_constant', '/nNo conversion constant given'); return;
-  end;
+  end
   try
     Rs=transferparams.Rs;
   catch
@@ -49,12 +49,12 @@ if isstruct(transferparams)
     offset=transferparams.offset;
   catch
     offset=0;
-  end;
+  end
   try
     recsys=transferparams.recsys;
   catch
     recsys='conductance';
-  end;
+  end
   dataunits = 'uS';
 elseif ischar(transferparams)
   if strcmp(transferparams, 'none')
@@ -68,10 +68,10 @@ elseif ischar(transferparams)
     dataunits = 'uS';
   else
     warning('ID:nonexistent_file', '/nTransfer file doesn''t exist'); return;
-  end;
+  end
 else
   warning('/nWrong format for transfer parameters'); return;
-end;
+end
 
 % convert data
 inputdata = double(import.data);

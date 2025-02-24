@@ -14,7 +14,7 @@ function s = int2str(x)
 
 if ~islogical(x)
     x = round(real(x));
-end;
+end
 if length(x) == 1
     if islogical(x) 
         % handle logical
@@ -22,7 +22,7 @@ if length(x) == 1
             s = 'true';
         else
             s = 'false';
-        end;
+        end
     elseif isfinite(x)
         % handle special case of single infinite or NaN element
         s = sprintf('%.1f',x); % .1 to avoid precision loss on hpux
@@ -40,7 +40,7 @@ else
         [scell{~x}] = deal('false ');
         for k = 1:m
             s(k,:) = [scell{k,:}];
-        end;
+        end
     else
         % Determine elements of x that are finite.
         xfinite = x(isfinite(x));
@@ -86,5 +86,5 @@ else
                 s(:,1) = [];
             end
         end
-    end;
+    end
 end

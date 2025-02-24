@@ -15,7 +15,7 @@ function [vario, event] = getVarioport_allChannels(filename)
 vario=[];
 if nargout == 2
     event=[];
-end;
+end
 %open file
 fid = fopen(filename,'r','b'); %big-endian byte ordering
 
@@ -44,7 +44,7 @@ for i=1:vario.head.channel_count
     vario.channel(i) = vario_channel_read(i,fid,vario.head.Scaled_Scan_Rate,vario.head.channel_count);
     %write correct channel data
     vario.channel(i).data = (vario.channel(i).data - vario.channel(i).offset) .* (vario.channel(i).mul / vario.channel(i).div);
-end;
+end
 fclose(fid);
 
 if nargout==2
@@ -65,7 +65,7 @@ if nargout==2
             event(iEvent).name = num2str(vario.channel(markIX).data(iEventIdx));
         end
     end    
-end;
+end
 
 function out = vario_channel_read(chnr,fid,scnrate, chncnt)
 
@@ -89,7 +89,7 @@ if out.res && 1
     out.sres = 'uint16';
 else
     out.sres = 'uint8';
-end;
+end
 %channel unit
 fseek(fid, (chnr - 1) * 40 + 42, 'bof');
 out.unit = strtrim((fread(fid, 4,'*char'))');

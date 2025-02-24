@@ -23,7 +23,7 @@ rev = '$Rev: 380 $'; %#ok
 if nargin == 0
     tropts = struct('stopspec', {}, 'clvl', {}, 'mlvl', {}, 'cnt', {}, 'mcnt', {}, 'dflag', {});
     return;
-end;
+end
 
 tropts.stopspec = cfg_findspec(stopspec);
 tropts.clvl = clvl;

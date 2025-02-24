@@ -53,7 +53,7 @@ if (tropts.clvl > tropts.mlvl || (~isempty(tropts.stopspec) && match(item, tropt
     cind = [];
     ccnt = 0;
     return;
-end;
+end
 % Reclassify branch object
 str{cind} = sprintf('%s         = %s;', tag, class(item));
 %% Generate code for other fields
@@ -63,11 +63,11 @@ for k = 1:numel(funs)
         str1 = gencode(item.(funs{k}), sprintf('%s.%s', tag, funs{k}), ...
                        tagctx);
         str = [str(:)' str1(:)'];
-    end;
-end;
+    end
+end
 %% Modality
 % Generate modality field
 if numel(item.modality) > 0
     str1 = gencode(item.modality, sprintf('%s.modality', tag), tagctx);
     str = [str(:)' str1(:)'];
-end;
+end

@@ -18,7 +18,7 @@ if strcmp(job.name,'<UNDEFINED>') || isempty(job.name) || isa(job.name, 'cfg_dep
     savename = '';
 else
     savename = job.name;
-end;
+end
 
 dep = cfg_dep;
 dep.sname = sprintf('Save Variables: %s', savename);

@@ -74,7 +74,7 @@ end
 function out = justify_paragraph(n,spext,swidth,txt)
 if numel(txt)>1 && txt(1)=='%',
     txt = txt(2:end);
-end;
+end
 %txt = regexprep(txt,'/\*([^(/\*)]*)\*/','');
 st1  = strfind(txt,'/*');
 en1  = strfind(txt,'*/');
@@ -86,15 +86,15 @@ for i=1:numel(st1),
         st  = [st st1(i)];
         en  = [en en1(1)];
         en1 = en1(2:end);
-    end;
-end;
+    end
+end
 
 str = [];
 pen = 1;
 for i=1:numel(st),
     str = [str txt(pen:st(i)-1)];
     pen = en(i)+2;
-end;
+end
 str = [str txt(pen:numel(txt))];
 txt = str;
 
@@ -109,11 +109,11 @@ else
         out{1} = [txt(1:(off-1)) para{1}];
         for j=2:numel(para),
             out{j} = [repmat(' ',1,off-1) para{j}];
-        end;
+        end
     else
         out{1} = txt;
-    end;
-end;
+    end
+end
 return;
 
 function out = justify_para(n,off,spext,swidth,varargin)
@@ -121,7 +121,7 @@ function out = justify_para(n,off,spext,swidth,varargin)
 str = varargin{1};
 for i=2:length(varargin),
     str = [str ' ' varargin{i}];
-end;
+end
 if isempty(str), out = {''}; return; end;
 if ishandle(n)
     % new size: at least 20 spaces wide, max widget width less offset
@@ -136,7 +136,7 @@ if ishandle(n)
     % fill with spaces to produce (roughly) block output
     for k = 1:numel(out)-1
         out{k} = justify_line(out{k}, pos(3), cext(k), spext);
-    end;
+    end
     % reset position
     set(n,'Position',opos);
 else
@@ -144,8 +144,8 @@ else
     out = textwrap({str},cols);
     for k = 1:numel(out)-1
         out{k} = justify_line(out{k}, cols, length(out{k}), 1);
-    end;
-end;
+    end
+end
 
 function out = justify_line(str, width, cext, spext)
 ind = strfind(str,' ');
@@ -160,6 +160,6 @@ else
     % insert spaces beginning at the end of the string
     for k = numel(ind):-1:1
         str = [str(1:ind(k)) repmat(' ',1,ins(k)) str(ind(k)+1:end)];
-    end;
+    end
     out = str;
-end; 
+end 

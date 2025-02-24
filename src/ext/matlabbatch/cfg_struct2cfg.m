@@ -24,7 +24,7 @@ rev = '$Rev: 380 $'; %#ok
 
 if nargin < 2
     indent = '';
-end;
+end
 
 %% Class of node
 % Usually, the class is determined by the node type. Only for branches
@@ -38,8 +38,8 @@ else
         typ = co.type;
     else
         typ = sprintf('cfg_%s', co.type);
-    end;
-end;
+    end
+end
 
 try
     cfg_message('matlabbatch:cfg_struct2cfg:info', ...
@@ -47,7 +47,7 @@ try
 catch
     cfg_message('matlabbatch:cfg_struct2cfg:info', ...
             '%sNode UNKNOWN: %s > %s', indent, co.type, typ);
-end;
+end
 eval(sprintf('cc = %s;', typ));
 
 %% Import children
@@ -59,22 +59,22 @@ switch typ
         val = cell(size(co.val));
         for k = 1:numel(co.val)
             val{k} = cfg_struct2cfg(co.val{k}, [indent ' ']);
-        end;
+        end
         co.val = val;
     case {'cfg_repeat', 'cfg_choice', 'cfg_mchoice'}
         if isfield(co, 'val')
             val = cell(size(co.val));
             for k = 1:numel(co.val)
                 val{k} = cfg_struct2cfg(co.val{k}, [indent ' ']);
-            end;            
+            end            
             co.val = val;
-        end;
+        end
         values = cell(size(co.values));
         for k = 1:numel(co.values)
             values{k} = cfg_struct2cfg(co.values{k}, [indent ' ']);
-        end;
+        end
         co.values = values;
-end;
+end
 
 %% Assign fields
 % try to assign fields, give warnings if something goes wrong
@@ -90,11 +90,11 @@ fn = fn(~idind);
 try
     cc.name = co.name;
     fn = fn(~strcmp('name', fn));
-end;
+end
 try
     cc.tag = co.tag;
     fn = fn(~strcmp('tag', fn));
-end;
+end
 % if present, treat num field before value assignments
 nind = strcmp('num',fn);
 if any(nind)
@@ -104,15 +104,15 @@ if any(nind)
             co.num = [co.num co.num];
         else
             co.num = [0 Inf];
-        end;
+        end
         cfg_message('matlabbatch:cfg_struct2cfg:num', ...
                 '     Node %s / ''%s'' field num [%d] padded to %s', ...
                 cc.tag, cc.name, onum, mat2str(co.num));
-    end;
+    end
     cc = try_assign(cc,co,'num');
     % remove num field from list
     fn = fn(~nind);
-end;
+end
     
 % if present, convert .def field
 nind = strcmp('def',fn);
@@ -120,15 +120,15 @@ if any(nind)
     if ~isempty(co.def) && ischar(co.def)
         % assume SPM5 style defaults
         co.def = @(val)spm_get_defaults(co.def, val{:});
-    end;
+    end
     cc = try_assign(cc,co,'def');
     % remove def field from list
     fn = fn(~nind);
-end;
+end
 
 for k = 1:numel(fn)
     cc = try_assign(cc,co,fn{k});
-end;
+end
 
 function cc = try_assign(cc, co, fn)
 try
@@ -139,4 +139,4 @@ catch
     le1.message    = sprintf('     Node %s / ''%s'' field %s: import failed.\n%s', cc.tag, ...
             cc.name, fn, le.message);
     cfg_message(le1);
-end;
+end

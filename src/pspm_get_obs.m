@@ -92,7 +92,7 @@ for k = 1:numel(import)
   else
     channel = pspm_find_channel(obs.channel_names, import{k}.type);
     if channel < 1, return; end;
-  end;
+  end
 
   if channel > numel(obs.data), warning('ID:channel_not_contained_in_file', 'Channel %02.0f not contained in file %s.\n', channel, datafile); return; end;
 
@@ -101,10 +101,10 @@ for k = 1:numel(import)
   import{k}.sr = obs.sr;
   if strcmpi(import{k}.type, 'marker')
     import{k}.marker = 'continuous';
-  end;
+  end
   import{k}.data = obs.data{channel};
 
-end;
+end
 
 sts = 1;
 return

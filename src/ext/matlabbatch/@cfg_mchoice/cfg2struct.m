@@ -24,11 +24,11 @@ sitem.type = class(item);
 fn = mysubs_fields;
 for k = 1:numel(fn)
     sitem.(fn{k}) = item.(fn{k});
-end;
+end
 
 % Treat values{:} fields
 if numel(item.values) > 0
     for k = 1:numel(item.values)
         sitem.values{k} = cfg2struct(item.values{k});
-    end;
-end;
+    end
+end

@@ -158,10 +158,10 @@ for k = 1:numel(import)
 
     if isfield(import{k},'typeno') && strcmpi(settings.channeltypes(import{k}.typeno).data, 'events')
         import{k}.marker = 'continuous';
-    end;
+    end
 
     sourceinfo.channel{k} = sprintf('Data column %02.0', channel);
-end;
+end
 
 sts = 1;
 return

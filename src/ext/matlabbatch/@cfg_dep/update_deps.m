@@ -18,9 +18,9 @@ for k = 1:numel(dep)
     for l = 1:numel(oid)
         if isequal(dep(k).tgt_exbranch, oid{l})
             dep(k).tgt_exbranch = nid{l};
-        end;
+        end
         if isequal(dep(k).src_exbranch, oid{l})
             dep(k).src_exbranch = nid{l};
-        end;
-    end;
-end;
+        end
+    end
+end

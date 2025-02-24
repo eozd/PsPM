@@ -45,7 +45,7 @@ for k = 1:numel(import)
     else
       channel = pspm_find_channel(hdr.label, import{k}.type);
       if channel < 1, return; end;
-    end;
+    end
 
     if channel > size(indata, 1), warning('ID:channel_not_contained_in_file', 'Channel %02.0f not contained in file %s.\n', channel, datafile); return; end;
 
@@ -71,10 +71,10 @@ for k = 1:numel(import)
       import{k}.marker = 'timestamps';
       import{k}.markerinfo.value = [];
       import{k}.markerinfo.name = [];
-    end;
-  end;
+    end
+  end
 
-end;
+end
 
 % clear path and return
 % -------------------------------------------------------------------------

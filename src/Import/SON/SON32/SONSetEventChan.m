@@ -24,7 +24,7 @@ global SON_TITLESZ;
 
 if (bufsize>32768)
     bufsize=32768;
-end;
+end
 
 comment=comment(1:min(length(comment),SON_CHANCOMSZ));
 title=title(1:min(length(title),SON_TITLESZ));
@@ -40,6 +40,6 @@ switch  lower(kind)
     otherwise
         err=-1000;
         return;
-end;    
+end    
 err=calllib('son32','SONSetEventChan',...
     fh, chan, PhyCh, bufsize, comment, title, rate, type);

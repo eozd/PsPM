@@ -23,7 +23,7 @@ function dat = read_spike6mat_data(filename, varargin)
 if nargin < 1
     help read_spike6mat_data;
     return;
-end;
+end
 
 header    = ft_getopt(varargin, 'header');
 begsample = ft_getopt(varargin, 'begsample');

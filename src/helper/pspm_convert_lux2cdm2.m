@@ -46,12 +46,12 @@ elseif ~isfield(screen, 'aspect_actual') || ~isnumeric(screen.aspect_actual)
     warning('ID:invalid_input', 'screen.aspect_actual does not exist or is not numeric.'); return;
 elseif isfield(screen, 'aspect_used') && ~isnumeric(screen.aspect_used)
     warning('ID:invalid_input', 'screen.aspect_used is not numeric.'); return;
-end;
+end
 
 % default value from aspect_actual
 if ~isfield(screen, 'aspect_used')
     screen.aspect_used = screen.aspect_actual;
-end;
+end
 
 % do conversion
 dia_cm = screen.diameter*2.54;

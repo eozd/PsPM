@@ -79,14 +79,14 @@ if isempty (Info)
     data=[];
     h=[];
     return;
-end;
+end
 
 if Info.kind ~=9
     warning('SONGetRealWaveChannel: Channel #%d No data or not a RealWave channel',chan);
     data=[];
     h=[];
     return;
-end;
+end
 
 ShowProgress=0;
 ScaleData=0;
@@ -98,9 +98,9 @@ for i=1:length(varargin)
             ShowProgress=1;
             progbar=progressbar(0,sprintf('Analyzing %d blocks on channel %d',Info.blocks,chan),...
                 'Name',sprintf('%s',fopen(fid)));
-        end;
-    end;
-end;
+        end
+    end
+end
 
 FileH=SONFileHeader(fid);
 SizeOfHeader=20;                                            % Block header is 20 bytes long
@@ -123,7 +123,7 @@ h.sampleinterval=SONGetSampleInterval(fid,chan);
 h.min=Info.min;
 h.max=Info.max;
 h.units=Info.units;
-end;
+end
 
 
 NumFrames=1;                                                % Number of frames. Initialize to one.
@@ -135,8 +135,8 @@ for i=1:Info.blocks-1                                       % Check for disconti
         Frame(i+1)=NumFrames;                               % Record the frame number that each block belongs to
     else
         Frame(i+1)=Frame(i);                                % Pad between discontinuities
-    end;
-end;
+    end
+end
 
     switch arguments
         case {2}
@@ -154,7 +154,7 @@ end;
                 startEpoch=find(Frame<=varargin{1});
                 endEpoch=startEpoch(end);
                 startEpoch=endEpoch;
-            end;
+            end
         case {4}
             if NumFrames==1
                 startEpoch=varargin{1};         % Read a range of epochs
@@ -166,9 +166,9 @@ end;
                 startEpoch=startEpoch(1);
                 endEpoch=find(Frame<=varargin{2});
                 endEpoch=endEpoch(end);
-            end;
+            end
           
-    end;
+    end
 
 % Make sure we are in range if using START and STOP    
         if (startEpoch>Info.blocks || startEpoch>endEpoch)
@@ -177,10 +177,10 @@ end;
             close(progbar);
             warning('SONGetADCChannel: Invalid START and/or STOP')
             return;
-        end;
+        end
         if endEpoch>Info.blocks
             endEpoch=Info.blocks;
-        end;
+        end
 
 
 if NumFrames==1 
@@ -203,8 +203,8 @@ if NumFrames==1
         if ShowProgress==1
             done=(i-startEpoch)/max(1,endEpoch-startEpoch);
             progressbar(done, progbar,sprintf('Reading Channel %d     %d%%',chan,(int16(done*100)/10)*10));
-        end;
-    end;
+        end
+    end
 else
 %%%%%%% Frame based data -  multiple frames. Epochs correspond to
 %%%%%%% frames of data
@@ -229,30 +229,30 @@ else
             p=1;                          % begin new frame
             index=index+1;
             h.start(index)=header(2,i+1); % Time of first data point in next frame (clock ticks)
-            end;
-        end;
+            end
+        end
         if ShowProgress==1
             done=(i-startEpoch)/max(1,endEpoch-startEpoch);
             progressbar(done, progbar,sprintf('Reading Channel %d     %d%%',chan,(int16(done*100)/5)*5));
-        end;
+        end
         
-    end;
-end;
+    end
+end
 if NumFrames==1
     h.Epochs={startEpoch endEpoch 'of' Info.blocks 'blocks'};
 else
     h.Epochs={startEpoch endEpoch 'of' NumFrames 'epochs'};
-end;
+end
 [h.start,h.TimeUnits]=SONTicksToSeconds(fid,h.start, varargin{:});
 [h.stop,h.TimeUnits]=SONTicksToSeconds(fid,h.stop, varargin{:});
 if ScaleData==1
     if ShowProgress==1
         progressbar(1,progbar,'Scaling data.....');
-    end;
+    end
     [data,h]=SONRealToADC(data,h);
-end;
+end
 
 if ShowProgress==1
     close(progbar);
-end;
+end
 

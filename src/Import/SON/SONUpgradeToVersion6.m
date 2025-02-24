@@ -10,11 +10,11 @@ function[]=SONUpgradeToVersion6(fid)
 FileH=SONFileHeader(fid);
 if FileH.systemID==6                        % Already version 6 so do nothing
     return;
-end;
+end
 if FileH.systemID<3
     warning('SONUpgradeVersionTo6: This file is very old (version 1 or 2 of SON). This upgrade may not work');
     return;
-end;
+end
     
 for chan=1:FileH.channels                   %Run throught he channels
     Info=SONChannelInfo(fid,chan);
@@ -24,13 +24,13 @@ for chan=1:FileH.channels                   %Run throught he channels
         fwrite(fid,Info.divide*FileH.timePerADC,'int32');    % Set lChanDvd
         fseek(fid,base+138,'bof');
         fwrite(fid,1,'int16');                               % Set adc.divide to 1
-    end;
-end;
+    end
+end
 
 if strcmp(FileH.Creator,'00000000')==1
     fseek(fid,12,'bof');
     fprintf(fid,'MAT-TO-6');
-end;
+end
 
 fseek(fid,44,'bof');
 fwrite(fid,1e-6,'float64');                  % Set dTimeBase to 1e-6 seconds

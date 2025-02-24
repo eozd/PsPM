@@ -24,4 +24,4 @@ if isequal(subs(1:2), substruct('.','val','{}',{1}))
 else
     cfg_message('matlabbatch:cfg2jobsubs:wrongsubs', 'Inappropriate subscript reference in item ''%s''.', item.tag);
     jsubs = struct('type',{},'subs',{});
-end;
+end

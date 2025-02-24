@@ -26,14 +26,14 @@ if ~all_set_item(item)
     if ~isempty(inputs)
         item = setval(item, inputs{1}, false);
         inputs = inputs(2:end);
-    end;
+    end
     if ~all_set_item(item) && ~isempty(infcn) && subsasgn_check_funhandle(infcn)
         sts = false;
         while ~sts && ~all_set_item(item)
             [val, sts] = feval(infcn, item);
             if sts
                 item = setval(item, val, false);
-            end;
-        end;
-    end;
-end;
+            end
+        end
+    end
+end

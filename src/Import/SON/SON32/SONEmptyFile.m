@@ -11,6 +11,6 @@ function err=SONEmptyFile(fh)
 if nargin<1
     err=-1000;
     return;
-end;
+end
 
 err=calllib('son32','SONEmptyFile',fh);

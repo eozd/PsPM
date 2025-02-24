@@ -26,13 +26,13 @@ if ~isempty(item.check) && all_set(item)
         cstr = sprintf('Check function ''%s'' failed.', ...
                        func2str(item.check));
         chk  = false;
-    end;
+    end
     if ~chk
         if iscellstr(cstr)
             cstr = sprintf('%s\n', cstr{:});
-        end;
+        end
         cfg_message('matlabbatch:harvest:check', ...
                 'Contents of ''%s'' does not meet check criteria:\n''%s''', ...
                 gettag(item), cstr);
-    end;
-end;
+    end
+end

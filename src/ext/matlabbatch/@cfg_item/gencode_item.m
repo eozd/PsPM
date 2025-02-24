@@ -52,7 +52,7 @@ if (tropts.clvl > tropts.mlvl || (~isempty(tropts.stopspec) && match(item, tropt
         tag = genvarname(sprintf('%s%s', stoptag, item.tag), tagctx);
     else
         tag = genvarname(sprintf('%s%s', stoptag, tag), tagctx);
-    end;
+    end
     str = {};
     cind = [];
     ccnt = 0;
@@ -64,8 +64,8 @@ else
         % only modify tag if there seems to be something wrong
         % could be more specific (parse struct,cell,array subscripts)
         tag = genvarname(tag, tagctx);
-    end;
-end;
+    end
+end
 tagctx = [tagctx {tag}];
 % Item count
 ccnt = 1;
@@ -108,8 +108,8 @@ if numel(item.val) > 0 && isa(item.val{1}, 'cfg_item')
             ccnt = ccnt + cccnt;
             ctropts.cnt = ctropts.cnt + cccnt;
             tagctx = [tagctx ctag(k)];
-        end;
-    end;
+        end
+    end
     % Update position of class definition
     cind = cind+numel(cstr);
     % Prepend code of children
@@ -121,8 +121,8 @@ elseif numel(item.val) > 0 && ~isa(item.val{1}, 'cfg_item')
     if isempty(item.def) || ~isequalwithequalnans(feval(item.def), item.val{1})
         str1 = gencode(item.val, sprintf('%s.val', tag), tagctx);
         str = [str(:)' str1(:)'];
-    end;
-end;
+    end
+end
 %% Check
 % Generate check field
 if ~isempty(item.check)
@@ -145,7 +145,7 @@ if numel(item.help) > 0
     % Works only because gencode does not produce subscripts for cellstrings
     str1 = gencode(item.help, sprintf('%s.help   ', tag), tagctx);
     str = [str(:)' str1(:)'];
-end;
+end
 %% Def
 % Generate def field
 if ~isempty(item.def)
@@ -154,4 +154,4 @@ if ~isempty(item.def)
     % strings
     str1 = gencode(item.def, sprintf('%s.def    ', tag), tagctx);
     str = [str(:)' str1(:)'];
-end;
+end

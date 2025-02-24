@@ -55,7 +55,7 @@ if fid<0
 else
   fseek(fid, 900, 'cof');       % skip general header
   fseek(fid, 75*avg.nchan, 'cof');  % skip channel headers
-end;
+end
 
 % read raw signal data and convert to uV
 avg.data = zeros(avg.nchan, avg.npnt);
@@ -63,18 +63,18 @@ for elec = 1:avg.nchan
     fseek(fid, 5, 'cof'); % skip sweeps header
     raw = fread(fid, avg.npnt, 'float32');
     avg.data(elec,:) = (raw' - avg.baseline(elec)) * avg.calib(elec) / avg.nsweeps;
-end;
+end
 
 % read signal variance if present
 if avg.variance
     variance = zeros(avg.npnt, avg.nchan);
     for elec = 1:avg.nchan,
         variance(:, elec) = fread(fid, avg.npnt, 'float32');
-    end;
+    end
     avg.variance = variance';
 else
     avg.variance = [];
-end;
+end
 
 fclose(fid);
 

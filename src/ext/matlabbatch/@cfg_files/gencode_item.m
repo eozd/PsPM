@@ -36,7 +36,7 @@ if (tropts.clvl > tropts.mlvl || (~isempty(tropts.stopspec) && match(item, tropt
     cind = [];
     ccnt = 0;
     return;
-end;
+end
 % Reclassify generic object
 str{cind} = sprintf('%s         = %s;', tag, class(item));
 %% Filter, Dir, Ufilter
@@ -47,8 +47,8 @@ for k = 1:numel(fn)
         str1 = gencode(item.(fn{k}), sprintf('%s.%s', tag, fn{k}), ...
                        tagctx);
         str = [str(:)' str1(:)'];
-    end;
-end;
+    end
+end
 %% Num
 % Generate num field
 str{end+1} = sprintf('%s.num     = [%d %d];', tag, item.num);

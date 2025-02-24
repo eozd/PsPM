@@ -39,12 +39,12 @@ rev = '$Rev: 380 $'; %#ok
 % Set expanded based on eflag in item
 if eflag >= 0 && eflag <= 2
     item.expanded = eflag;
-end;
+end
 if eflag == 3
     if ~all_set(item)
         item.expanded = eflag;
     else
         item.expanded = 0;
-    end;
-end;
+    end
+end
 sts = item.expanded > 0;

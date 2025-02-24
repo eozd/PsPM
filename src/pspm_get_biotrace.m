@@ -44,7 +44,7 @@ if isempty(strfind(bio.header{1}{1}, 'RAW'))
 else
   foo = regexp(bio.header{1}{7}, '\s', 'split');
   sr = str2num(foo{3});
-end;
+end
 
 % retrieve recording channel, date and time ---
 foo = regexp(bio.header{1}{9}, ':', 'split');
@@ -66,8 +66,8 @@ for k = 1:numel(import)
   else
     import{k}.data = bio.data{1};
     import{k}.sr = sr;
-  end;
-end;
+  end
+end
 %% Return values
 sts = 1;
 return

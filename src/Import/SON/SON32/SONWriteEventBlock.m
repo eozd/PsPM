@@ -23,4 +23,4 @@ if (strcmp(class(buffer),'int32'))
     ret=calllib('son32','SONWriteEventBlock', fh, chan, buffer, count);
 else
     ret=-22;
-end;
+end

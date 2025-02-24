@@ -52,16 +52,16 @@ if nargin>=4
             k=1000;
             % load the "true", measured resistor values for the FIL testbox
             load('pspm_filtestbox.mat');
-        end;
-    end;
+        end
+    end
 else
     load('pspm_filtestbox.mat');
-end;
+end
 
 % check input file
 if exist(infile)~=2
     errmsg='Data file not found'; warning(errmsg); return;
-end;
+end
 
 % check output file
 [pathname filename]=fileparts(outfile);
@@ -111,19 +111,19 @@ for step=1:(numel(Rtest) - 1)
     dummy = find(scrs(ind) < (x(step) - cutoff), 1);
     if isempty(dummy); warning('Resistance change not found'); return; end;
     point(step + 1) = ind(1) + dummy;
-end;
+end
 % - delete dummy Rtest
 Rtest(end) = [];
 
 % - get end of file
 if numel(scr) > (point(end) + 5 * sr)
     point(end + 1) = numel(scr);
-end;
+end
 
 % identify corresponding pulse frequencies
 for step=1:(numel(point)-1)
     pulse(step)=mean(scr((point(step)+1*sr):(point(step+1)-1*sr)));
-end;
+end
 
 % now estimate transfer function
 if numel(point)>(numel(Rtest)+1)
@@ -132,7 +132,7 @@ if numel(point)>(numel(Rtest)+1)
 else
     offset=0;
     PR=pulse;
-end;
+end
 R=Rtest+Rs;
 
 % get rid of values to be skipped
@@ -155,7 +155,7 @@ if overwrite==1
     infos.date=date;
     infos.data=infile;
     save([outfile, '.mat'], 'infos', 'c', 'Rs', 'offset');
-end;
+end
 % make figures for graphical output
 fig.h=figure('Position', [100 100 800 1000], 'PaperPositionMode', 'auto', 'PaperOrientation', 'Portrait', 'InvertHardCopy', 'off', 'Color', 'w');
 annotation('textbox', [0.1 0.9 0.8 0.1], 'String', ['Transfer function estimation of ', date], 'FontWeight', 'Bold', 'FontSize', 16, 'LineStyle', 'none', 'HorizontalAlignment', 'center');
@@ -181,7 +181,7 @@ set(fig.ax(2).h, 'FontWeight', 'Bold', 'FontSize', 10, 'XTick', []);
 % give values
 if skipvalues>0
     annotation('textbox', [0.1 0.15 0.8 0.05], 'String', sprintf('First %d value(s) skipped', skipvalues), 'FontWeight', 'Bold', 'FontSize', 10, 'LineStyle', 'none');
-end;    
+end    
 annotation('textbox', [0.1 0.12 0.8 0.04], 'String', ['Maximum Difference (true/pred): ', num2str(me, '%0.2f'), ' mcS'], 'FontWeight', 'Bold', 'FontSize', 10, 'LineStyle', 'none');
 annotation('textbox', [0.1 0.09 0.8 0.04], 'String', 'Transfer function: C_B_o_d_y = (c/(data-offset)-Rs*1e-6)^-^1', 'FontWeight', 'Bold', 'FontSize', 10, 'LineStyle', 'none');
 annotation('textbox', [0.1 0.06 0.8 0.04], 'String', ['c = ', num2str(c, '%0.2f')], 'FontWeight', 'Bold', 'FontSize', 10, 'LineStyle', 'none');

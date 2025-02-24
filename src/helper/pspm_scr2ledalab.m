@@ -39,7 +39,7 @@ elseif nargin < 2
     warning('No output file specified'); return;
 elseif ~exist(datafile, 'file')
     warning('Input file does not exist'); return
-end;
+end
 
 try options.overwrite; catch, options.overwrite = 0; end;
 try options.filter; catch, options.filter = 0; end;
@@ -52,7 +52,7 @@ if sts == -1 || isempty(scr)
     warning('\nExport to ledalab unsuccesful'); return;
 elseif numel(scr) > 1
     warning('n\SCRalyze file contains more than one SCR channel - first one will be exported');
-end;
+end
 
 if options.filter == 1
     filt.lpfreq = 5; filt.lporder = 1;
@@ -65,10 +65,10 @@ if options.filter == 1
    scr.data = newscr; scr.header.sr = newsr;
 else
     scr = scr{1};
-end;
+end
 if options.norm == 1;
     scr.data = scr.data/std(scr.data);
-end;
+end
 
 [sts, infos, events] = pspm_load_data(datafile, 'events');
 if sts == -1 || isempty(events)
@@ -76,10 +76,10 @@ if sts == -1 || isempty(events)
     events.header = [];
 elseif numel(events) > 1
     warning('n\SCRalyze file contains more than one event channel - first one will be exported');
-end;
+end
 if ~isempty(events)
     events = events{1};
-end;
+end
 
 % construct elements of ledalab file
 %--------------------------------------------------------------------------
@@ -92,7 +92,7 @@ for k = 1:numel(events.data)
     data.event(k).nid   = 1;
     data.event(k).name  = '1';
     data.event(k).userdata.duration  = .01;
-end;
+end
 
 clear fileinfo
 fileinfo.version = 3.44;
@@ -111,13 +111,13 @@ if exist(outfile, 'file') == 2 && options.overwrite ~= 1
     close gcf;
 else
     overwrite = 'Yes';
-end;
+end
 if strcmp(overwrite, 'No')
     warning('Data discarded ...');
     return;
 else
     save(outfile, 'data', 'fileinfo');
-end;
+end
 sts = 1;
 return;
 

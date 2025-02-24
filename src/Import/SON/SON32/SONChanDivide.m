@@ -14,7 +14,7 @@ function [lDivide]=SONChanDivide(fh, chan)
 if nargin ~= 2
     lDivide=-1000;
     return;
-end;
+end
 
 
 lDivide=calllib('son32','SONChanDivide',fh,chan);

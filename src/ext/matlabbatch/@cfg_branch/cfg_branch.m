@@ -71,13 +71,13 @@ if nargin == 1
         else
             cfg_message('matlabbatch:constructor:reclassify', ['Don''t know how to convert this ' ...
                                 'into class ''%s''.'], myclass);
-        end;
-    end;
+        end
+    end
     if isa(varargin{1},myclass)
         item = varargin{1};
         return;
-    end;
-end;
+    end
+end
 
 mxpnargin = 4; % Max 4 arguments to parent initialisation
 pnargin = min([nargin,mxpnargin]);
@@ -88,9 +88,9 @@ switch nargin
         gitem = cfg_item(varargin{1:pnargin});
     otherwise
         cfg_message('matlabbatch:constructor:nargin', 'Wrong number of arguments.');
-end;
+end
 item = class(struct([]), myclass, gitem, cfg_intree);
 if nargin > mxpnargin
     item.cfg_item.val{1} = varargin{mxpnargin+1};
     mxpnargin = mxpnargin+1;
-end;
+end

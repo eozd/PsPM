@@ -17,7 +17,7 @@ function fh=SONOpenOldFile(filename, iMode)
 if nargin ~= 2 || iMode<0 || iMode>2
     fh=-1000;
     return;
-end;
+end
 
 
 fh=calllib('son32','SONOpenOldFile',filename,iMode);

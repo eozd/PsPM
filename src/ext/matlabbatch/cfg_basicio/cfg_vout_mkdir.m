@@ -18,6 +18,6 @@ if isa(job.name, 'cfg_dep')
     dep.sname  = sprintf('Make Directory');
 else
     dep.sname  = sprintf('Make Directory ''%s''', job.name);
-end;
+end
 dep.src_output = substruct('.','dir');
 dep.tgt_spec   = cfg_findspec({{'filter','dir', 'strtype','e'}});

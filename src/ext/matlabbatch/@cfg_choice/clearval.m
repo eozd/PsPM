@@ -23,5 +23,5 @@ if dflag % clear defaults
     for k = 1:numel(item.values)
         item.values{k} = clearval(item.values{k}, ...
             dflag);
-    end;
-end;
+    end
+end

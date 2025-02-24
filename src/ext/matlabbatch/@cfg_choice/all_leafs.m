@@ -25,6 +25,6 @@ if ok
         ok = ok && all_leafs(item.cfg_item.val{k});
         if ~ok
             break;
-        end;
-    end;
-end;
+        end
+    end
+end

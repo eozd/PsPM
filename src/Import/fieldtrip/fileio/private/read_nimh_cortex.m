@@ -145,15 +145,15 @@ while ( ~feof (i_fid) && trial<endtrial )
           epp1(s) = epp1(s) + 2047;
         else
           epp1(s) = epp1(s) - 2048;
-        end;
+        end
 
         if (epp2(s) < 0)
           epp2(s) = epp2(s) + 2047;
         else
           epp2(s) = epp2(s) - 2048;
-        end;
-      end;
-    end; % if skipepp
+        end
+      end
+    end % if skipepp
 
     if skipeog || skiptrial
       eog = [];
@@ -174,8 +174,8 @@ while ( ~feof (i_fid) && trial<endtrial )
     end
 
     trial = trial+1;
-  end; % if ~isempty(length)
-end;
+  end % if ~isempty(length)
+end
 
 fclose(i_fid);
 

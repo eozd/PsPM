@@ -21,6 +21,10 @@ function [sts, outchannel] = pspm_combine_markerchannels(datafile, options)
 %   └.marker_chan_num:  Choose any number of marker channel numbers to 
 %                       combine. If 0 all marker channels are 
 %                       used [default: use all channels].
+% ● Outputs
+%   *          sts : Status flag (-1 or 1).
+%   *   outchannel : Index of the newly created marker channel.
+%                    Empty if unsuccessful.
 % ● History
 %   Introduced In PsPM 6.1.2
 %   Written in 2023 by Dominik R Bach (Uni Bonn)

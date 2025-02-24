@@ -21,4 +21,4 @@ if ~isfield(job.action,'delete')
     dep.tgt_spec   = cfg_findspec({{'class','cfg_files','strtype','e'}});
 else
     dep = [];
-end;
+end

@@ -20,4 +20,4 @@ sts = true;
 switch subs(1).subs
     case {'val'}
         sts = ~cfg_get_defaults('cfg_item.checkval') || subsasgn_check_valcfg(subs,val,[0 Inf]);
-end;
+end

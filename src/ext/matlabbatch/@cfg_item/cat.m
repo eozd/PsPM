@@ -19,4 +19,4 @@ if nargin > 2
                     'not allowed.']);
 else
     varargout{1} = varargin{2};
-end;
+end

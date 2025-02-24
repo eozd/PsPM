@@ -57,7 +57,7 @@ if ~isempty(s.BytesAvailable) && s.BytesAvailable~=0
   %% transmitted)
   event.sample=1;
   event.duration=[];
-end;
+end
 
 
 %% this is the old code
@@ -93,6 +93,6 @@ end;
 %     % "newline" character (ascii character 10)
 %     try
 %       msg = fscanf(s,'%s\n');
-%     end;
+%     end
 %     % convert message to event structure
 %     event = msg2struct(msg);

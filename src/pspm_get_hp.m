@@ -26,7 +26,7 @@ if strcmpi(import.units, 'unknown')
   data.header.units = 'ms';
 else
   data.header.units = import.units;
-end;
+end
 data.header.sr = import.sr;
 
 % check status

@@ -15,18 +15,18 @@ function[]=SONTest(file)
 
 if (nargin<1)
     file='*.smr';
-end;
+end
 
 if strcmp(class(file),'char')~=1        % If not a character string expect a file identifier
     file=fopen(file);                   % convert to string
-end;
+end
 
 SONFIX='c:\Spike5\sonfix.exe';        % Edit path to point to SonFix.exe
 present=dir(SONFIX);
 if isempty(present)
     warning('SONTest: Could not find SONFix.exe');
     return;
-end;
+end
 
 SONFIX=[SONFIX,' ',file];
 eval(sprintf('!%s',SONFIX));

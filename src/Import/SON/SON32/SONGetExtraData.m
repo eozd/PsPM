@@ -45,11 +45,11 @@ if (nargin==5)
         else
             if (nargout==2)
                 varargout{2}=eval(sprintf('%s([])',datatype));
-            end;
-        end;
+            end
+        end
         return;
-    end;
-end;
+    end
+end
 
 if (nargin==4)
     fh=varargin{1};
@@ -61,13 +61,13 @@ if (nargin==4)
         varargout{1}=calllib('son32','SONGetExtraData',...
             fh, buffer, tmp.bytes, byteoffset, flag);
         return;
-    end;
-end;
+    end
+end
 
 varargout{1}=-1000;
 if nargout==2
     varargout{2}=[];
-end;
+end
 return;
 
 

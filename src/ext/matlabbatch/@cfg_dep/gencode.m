@@ -16,13 +16,13 @@ rev = '$Rev: 380 $'; %#ok
 
 if nargin < 2
     tag = inputname(1);
-end;
+end
 if nargin < 3
     tagctx = {};
 end
 if isempty(tag)
     tag = genvarname('val', tagctx);
-end;
+end
 
 cind = 1;
 
@@ -45,13 +45,13 @@ for k = 1:numel(item)
                         tag1 = sprintf('%s(%d).%s', tag, k, fn{l});
                         str1 = gencode_substructcode(item(k).(fn{l}), tag1);
                         str  = [str(:)' str1(:)'];
-                    end;
+                    end
                 otherwise
                     % other field should not be indexed
                     tag1 = sprintf('%s(%d).%s', tag, k, fn{l});
                     str1 = gencode(item(k).(fn{l}), tag1, [{tag1} tagctx]);
                     str  = [str(:)' str1(:)'];
-            end;
-        end;
-    end;
-end;
+            end
+        end
+    end
+end

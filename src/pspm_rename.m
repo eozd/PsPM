@@ -10,6 +10,10 @@ function [sts, outfile] = pspm_rename(filename, newfilename, options)
 %   ┌─────options
 %   └──.overwrite :  [Optional, logical] overwrite existing file by default
 %                    The default value is determined by pspm_overwrite.
+% ● Outputs
+%   *             sts : status flag (-1 or 1)
+%   *         outfile : path of the renamed file (char).
+%                       Empty if not successfully merged.
 % ● History
 %   Introduced in PsPM 3.0
 %   Written in 2008-2015 by Dominik R Bach (Wellcome Trust Centre for Neuroimaging)

@@ -13,7 +13,7 @@ function ticks=SONGetTimePerADC(fh)
 if nargin ~= 1
     ticks=-1000;
     return;
-end;
+end
 
 ticks=calllib('son32','SONGetTimePerADC',fh);
 return;

@@ -21,4 +21,4 @@ for k = 1:numel(str)
     set(obj,'String',str(k));
     next = get(obj, 'Extent');
     ext(k) = next(3);
-end;
+end

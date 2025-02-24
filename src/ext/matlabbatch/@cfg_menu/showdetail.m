@@ -20,4 +20,4 @@ str{end+1} = sprintf('The value for one of the following options must be entered
 % Display cfg_menu labels
 for k = 1:numel(item.labels)
     str(end+1) = gencode(item.values{k}, sprintf('''%s:''', item.labels{k}));
-end;
+end

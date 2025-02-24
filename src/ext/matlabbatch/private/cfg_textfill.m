@@ -25,30 +25,30 @@ else
     catch
         cfg_message('matlabbatch:usage',...
               'Input object must have a ''string'' property.');
-    end;
-end;
+    end
+end
 if ~iscellstr(left)
     if ischar(left)
         left = cellstr(left);
     else
         cfg_message('matlabbatch:usage',...
               'Second input must be a string array or cellstr.');
-    end;
+    end
     % add one space as delimiter
     left = strcat(left, {' '});
-end;
+end
 if ~iscellstr(right)
     if ischar(right)
         right = cellstr(right);
     else
         cfg_message('matlabbatch:usage',...
               'Third input must be a string array or cellstr.');
-    end;
-end;
+    end
+end
 if numel(left) ~= numel(right)
     cfg_message('matlabbatch:usage',...
           'Second and third input must have the same number of lines.');
-end;    
+end    
 
 TempObj=copyobj(obj,get(obj,'Parent'));
 set(TempObj,'Visible','off','Max',100);
@@ -88,19 +88,19 @@ if tflag && mlext+mrext > pos(3)-swidth
             tright = tright(2:end);
             set(TempObj,'String',['...' tright]);
             ext = get(TempObj,'Extent');
-        end;
+        end
         right{trind(k)} = ['...' tright];
         rext(trind(k)) = ext(3);
-    end;
+    end
     % Re-estimate max extent of trimmed right string
     rext = cfg_maxextent(TempObj, right);
     mrext = max(rext);
     width = mlext+mrext;
-end;
+end
 
 fillstr = cell(size(left));
 for k = 1:numel(left)
     fillstr{k} = repmat(' ',1,floor((width-(lext(k)+rext(k)))/spext));
-end;
+end
 str = strcat(left, fillstr, right);
 delete(TempObj);

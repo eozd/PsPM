@@ -20,7 +20,7 @@ function[out,h]=SONADCToDouble(in,header)
 if(nargin<2)
     header.scale=1;
     header.offset=0;
-end;
+end
 
 if isstruct(header)
     if(isfield(header,'kind'))
@@ -29,16 +29,16 @@ if isstruct(header)
             out=[];
             h=[];
             return;
-        end;
-    end;
-end;
+        end
+    end
+end
 
 if strcmp(class(in),'int16')~=1
     warning('SONADCToDouble: 16 bit integer expected');
     out=[];
     h=[];
     return;
-end;
+end
 
 s=header.scale/6553.6;
 o=header.offset;
@@ -46,10 +46,10 @@ out=(double(in)*s)+o;
 
 if(nargin==2)
 h=header;
-end;
+end
 
 if(nargout==2)
 h.max=(double(max(in(:)))*s)+o;
 h.min=(double(min(in(:)))*s)+o;
 h.kind=9;
-end;
+end

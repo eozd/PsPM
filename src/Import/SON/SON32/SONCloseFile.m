@@ -11,7 +11,7 @@ function [err]=SONCloseFile(fh)
 if nargin ~= 1
     err=-1000;
     return;
-end;
+end
 
 err=calllib('son32','SONCloseFile',fh);
 return;

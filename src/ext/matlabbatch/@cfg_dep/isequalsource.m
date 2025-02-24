@@ -21,6 +21,6 @@ if sts
               isequal(dep1(k).src_output, dep2(k).src_output);
         if ~sts
             break;
-        end;
-    end;
-end;
+        end
+    end
+end

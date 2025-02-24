@@ -25,10 +25,10 @@ plot([0 0],get(ha,'YLim'),'k');
 % Plot new ticks  
 for i=1:length(X)
     plot(ha,[X(i) X(i)],[0 -Yoff],'-k');
-end;
+end
 for i=1:length(Y)
    plot(ha,[-Xoff, 0],[Y(i) Y(i)],'-k');
-end;
+end
 
 % ADD LABELS
 text(X,zeros(size(X))-2.*Yoff,XL,'fontsize',fs,'HorizontalAlignment','center','VerticalAlignment','cap','parent',ha);

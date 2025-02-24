@@ -21,5 +21,5 @@ rev = '$Rev: 380 $'; %#ok
 val = subsref(item, substruct('.','val'));
 for k = 1:numel(val)
     val{k} = update_deps(val{k}, varargin{:});
-end;
+end
 item = subsasgn(item, substruct('.','val'), val);

@@ -45,14 +45,14 @@ if ~iscell(local_mysubs_fields)
         otherwise
             par_class = 'cfg_item';
             par_fields = subs_fields(item.cfg_item);
-    end;
+    end
 end
 switch subs(1).type,
     case {'.'},
         if numel(item) > 1
             cfg_message('matlabbatch:subsref:multiref', ...
                   'Field reference to multiple items not allowed for cfg_item classes.');
-        end;
+        end
         switch subs(1).subs
             case local_mysubs_fields,
                 val = item.(subs(1).subs);
@@ -63,7 +63,7 @@ switch subs(1).type,
                       ['Reference to unknown field ''%s''.\nTo reference ' ...
                        'a field in the job structure, use a reference like ' ...
                        '''(x).%s'''], subs(1).subs, subs(1).subs);
-        end;
+        end
         if numel(subs) > 1
             [varargout{1:nargout}] = cfg_callbuiltin('subsref',val,subs(2:end));
         else

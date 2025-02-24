@@ -16,7 +16,7 @@ h=SONFileHeader(fid);
 if isempty(h)
     ChanList=[];
     return;
-end;
+end
 
 AcChan=0;
 for i=1:h.channels

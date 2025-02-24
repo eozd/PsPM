@@ -11,7 +11,7 @@ function usPerTime=SONGetusPerTime(fh)
 if nargin ~= 1
     usPerTime=-1000;
     return;
-end;
+end
 
 usPerTime=calllib('son32','SONGetusPerTime',fh);
 return;

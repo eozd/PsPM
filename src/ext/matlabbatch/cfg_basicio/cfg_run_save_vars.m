@@ -18,9 +18,9 @@ rev = '$Rev: 380 $'; %#ok
 out.file{1} = fullfile(job.outdir{1}, [n '.mat']);
 for k = 1:numel(job.vars)
     svar.(job.vars(k).vname) = job.vars(k).vcont; %#ok<STRNU>
-end;
+end
 if job.saveasstruct
     save(out.file{1}, 'svar');
 else
     save(out.file{1}, '-struct','svar');
-end;
+end

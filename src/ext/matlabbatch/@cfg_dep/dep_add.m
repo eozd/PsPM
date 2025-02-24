@@ -16,9 +16,9 @@ rev = '$Rev: 380 $'; %#ok
 for k = 1:numel(cdep)
     cdep(k).tgt_input = [ntgt_input cdep(k).tgt_input];
     cdep(k).jtsubs = [njtsubs cdep(k).jtsubs];
-end;
+end
 if isempty(dep)
     dep = cdep(:);
 else
     dep = [dep(:); cdep(:)];
-end;
+end

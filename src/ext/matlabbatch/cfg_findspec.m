@@ -36,12 +36,12 @@ rev = '$Rev: 380 $'; %#ok
 if nargin == 0 || isempty(cellspec)
     spec = {};
     return;
-end;
+end
 spec = cell(size(cellspec));
 for k = 1:numel(cellspec)
     spec{k} = struct('name',{}, 'value',{});
     for l = 1:2:numel(cellspec{k})
         spec{k}(end+1).name = cellspec{k}{l};
         spec{k}(end).value = cellspec{k}{l+1};
-    end;
-end;
+    end
+end

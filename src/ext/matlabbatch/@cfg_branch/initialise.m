@@ -29,13 +29,13 @@ else
     cfg_message('matlabbatch:initialise', ...
                 'Can not initialise %s: job is not a struct.', ...
                 gettag(item));
-end;
+end
 
 function item = initialise_def(item, val, dflag)
 citem = subsref(item, substruct('.','val'));
 for k = 1:numel(citem)
     citem{k} = initialise(citem{k}, val, dflag);
-end;
+end
 item = subsasgn(item, substruct('.','val'), citem);
 
 function item = initialise_job(item, val, dflag)
@@ -54,8 +54,8 @@ for k = 1:numel(item.cfg_item.val)
         item.cfg_item.val{k} = initialise(item.cfg_item.val{k}, ...
             val.(vtags{vi}), dflag);
         utags(vi) = true;
-    end;
-end;
+    end
+end
 
 % Check whether some fields were not found in child tags
 if ~dflag && any(~utags)

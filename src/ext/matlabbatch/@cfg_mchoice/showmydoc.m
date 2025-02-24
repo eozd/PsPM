@@ -21,15 +21,15 @@ str2{1} = 'Some of the following options can be selected:';
 str3 = cell(1,numel(citems));
 for k = 1:numel(citems)
     str3{k} = sprintf('* %s', subsref(citems{k}, substruct('.','name')));
-end;
+end
 valitem = subsref(item, substruct('.','val'));
 if ~isempty(valitem)
     str4 = cell(1,numel(valitem)+1);
     str4{1} = sprintf('Currently selected options:');
     for k = 1:numel(valitem)
         str4{k+1} = sprintf('* "%s"', subsref(valitem{k}, substruct('.','name')));
-    end;
+    end
 else
     str4 = {};
-end;
+end
 str = [str1(:); {''}; str2(:); str3(:); str4(:)];

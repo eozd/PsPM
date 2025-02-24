@@ -23,23 +23,23 @@ if nargin>2
         if strcmpi(varargin{i},'ticks')
             out=in;
             timeunits='Ticks';
-        end;
+        end
         if strcmpi(varargin{i},'microseconds')
             out=in*FileH.usPerTime*(FileH.dTimeBase*1e6);
             timeunits='microseconds';
-        end;
+        end
         if strcmpi(varargin{i},'milliseconds')
             out=in*FileH.usPerTime*(FileH.dTimeBase*1e3);
             timeunits='milliseconds';
-        end;
-    end;
-end;
+        end
+    end
+end
 
 % if not set default to seconds
 if exist('timeunits','var')==0
     out=in*FileH.usPerTime*FileH.dTimeBase;% default, time in seconds
     timeunits='seconds';
-end;
+end
 
             
         

@@ -19,7 +19,7 @@ if ischar(job)
     filenames = cellstr(job);
 else
     filenames = job;
-end;
+end
 [ufilenames, unused, uind] = unique(filenames);
 ujobs = cell(size(ufilenames));
 usts  = false(size(ufilenames));
@@ -38,14 +38,14 @@ switch ext
             loadxml(filename,'matlabbatch');
         catch
             cfg_message('matlabbatch:initialise:xml','LoadXML failed: ''%s''',filename);
-        end;
+        end
     case '.mat'
         try
             S=load(filename);
             matlabbatch = S.matlabbatch;
         catch
             cfg_message('matlabbatch:initialise:mat','Load failed: ''%s''',filename);
-        end;
+        end
     case '.m'
         try
             fid = fopen(filename,'rt');
@@ -54,16 +54,16 @@ switch ext
             eval(str);
         catch
             cfg_message('matlabbatch:initialise:m','Eval failed: ''%s''',filename);
-        end;
+        end
         if ~exist('matlabbatch','var')
             cfg_message('matlabbatch:initialise:m','No matlabbatch job found in ''%s''', filename);
-        end;
+        end
     otherwise
         cfg_message('matlabbatch:initialise:unknown','Unknown extension: ''%s''', filename);
-end;
+end
 if exist('matlabbatch','var')
     sts = true;
 else
     sts = false;
     matlabbatch = [];
-end;
+end

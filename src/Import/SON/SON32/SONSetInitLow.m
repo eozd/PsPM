@@ -15,6 +15,6 @@ switch (flag(1))
         state=1;
     case {'F','f'}
         state=0;
-end;
+end
 
 calllib('son32','SONSetInitLow', fh, chan, state);

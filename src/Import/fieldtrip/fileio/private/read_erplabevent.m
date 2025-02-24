@@ -37,7 +37,7 @@ function event = read_erplabevent(filename, varargin)
 if nargin < 1
   help read_erplabheader;
   return;
-end;
+end
 
 hdr = ft_getopt(varargin, 'header');
 
@@ -54,7 +54,7 @@ for index = 1:length(oldevent)
     event(end  ).value    = oldevent{index};
     event(end  ).offset   = -hdr.nSamplesPre;
     event(end  ).duration =  hdr.nSamples;
-end;    
+end    
     
     
 

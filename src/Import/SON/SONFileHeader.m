@@ -18,7 +18,7 @@ catch
     warning(['SONFileHeader:' ferror(fid) 'Invalid file handle?' ]);
     Head=[];
     return;
-end;
+end
 
 Head.FileIdentifier=fopen(fid);
 Head.systemID=fread(fid,1,'int16');
@@ -37,13 +37,13 @@ Head.maxFTime=fread(fid,1,'int32');
 Head.dTimeBase=fread(fid,1,'float64');
 if Head.systemID<6
     Head.dTimeBase=1e-6;
-end;
+end
 Head.timeDate.Detail=fread(fid,6,'uint8');
 Head.timeDate.Year=fread(fid,1,'int16');
 if Head.systemID<6
     Head.timeDate.Detail=zeros(6,1);
     Head.timeDate.Year=0;
-end;
+end
 Head.pad=fread(fid,52,'char=>char');
 Head.fileComment=cell(5,1);    
 
@@ -53,7 +53,7 @@ for i=1:5
     Head.fileComment{i}=fread(fid,bytes,'char=>char')';
     pointer=pointer+80;
     fseek(fid,pointer,'bof');
-end;
+end
 
 
 

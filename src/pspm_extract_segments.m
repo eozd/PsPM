@@ -58,6 +58,12 @@ function [sts, out] = pspm_extract_segments(method, data, varargin)
 %   │                     a matlab file. Default is no NaN output.
 %   └──────────────.norm: If 1, z-scores the entire data time series
 %                         (default: 0).
+% ● Outputs
+%   *            sts : Status flag.
+%   *       segments : [1 x c] cell array, with one struct per condition c.
+%                      Each condition contains the following fields: data,
+%                      mean, std, sem, trial_nan_percent, and total_nan_percent
+%
 % ● History
 %   Introduced in PsPM 4.3
 %   Written in 2008-2018 by Tobias Moser (University of Zurich)
@@ -331,7 +337,7 @@ if ~strcmpi(options.nan_output,'none')
       disp(trials_nan_output);
     case 'none'
     otherwise
-      %print Nan-Value in file
+      %print NaN-Value in file
       %expect the path to file in options.nan_output
       %find information about file
       [path, name, ext ]= fileparts(options.nan_output);

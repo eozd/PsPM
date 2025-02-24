@@ -18,5 +18,5 @@ for k = 1:numel(job.index)
     idx = job.index{k}(job.index{k}<=numel(job.files));
     nosel(idx) = false;
     out{k} = job.files(idx);
-end;
+end
 out{k+1} = job.files(nosel);

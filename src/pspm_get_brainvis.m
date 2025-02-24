@@ -44,7 +44,7 @@ for k = 1:numel(import)
     else
       channel = pspm_find_channel(hdr.label, import{k}.type);
       if channel < 1, return; end;
-    end;
+    end
 
     if channel > numel(hdr.label), warning('ID:channel_not_contained_in_file', 'Channel %02.0f not contained in file %s.\n', channel, datafile); return; end;
 
@@ -72,15 +72,15 @@ for k = 1:numel(import)
         val{i} = '';
       else
         val{i} = v;
-      end;
-    end;
+      end
+    end
     % convert into double
     num_val = str2double(regexprep(val, '[^0-9]*([0-9,.]*)', '$1'));
     import{k}.markerinfo.value = num_val;
     import{k}.markerinfo.name  = {mrk.type}';
-  end;
+  end
 
-end;
+end
 
 % clear path
 rmpath(pspm_path('Import','fieldtrip','fileio'));

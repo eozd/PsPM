@@ -18,4 +18,4 @@ rev = '$Rev: 380 $'; %#ok
 
 if ~isempty(item.val) && isa(item.val{1}, 'cfg_dep')
     item.val{1} = update_deps(item.val{1},varargin{:});
-end;
+end

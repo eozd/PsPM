@@ -53,4 +53,4 @@ for k = 1:numel(job.a)
     vout(k) = cfg_dep;                               % The dependency object
     vout(k).sname      = sprintf('cumsum(a(1:%d))', k); % Displayed dependency name
     vout(k).src_output = substruct('.','cs','()',{k}); % The output subscript reference. The length of the output vector depends on the unknown length of the input vector. Therefore, the generic ':' subscript is needed.
-end;
+end

@@ -16,4 +16,4 @@ rev = '$Rev: 380 $'; %#ok
 out.dir{1} = fullfile(job.parent{1}, job.name);
 if ~exist(out.dir{1}, 'dir')
     mkdir(out.dir{1});
-end;
+end

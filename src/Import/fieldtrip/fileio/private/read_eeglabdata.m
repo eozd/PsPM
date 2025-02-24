@@ -40,7 +40,7 @@ function dat = read_eeglabdata(filename, varargin)
 if nargin < 1
   help read_eeglabdata;
   return;
-end;
+end
 
 header    = ft_getopt(varargin, 'header');
 begsample = ft_getopt(varargin, 'begsample');
@@ -78,14 +78,14 @@ if fid == -1, error(['Cannot not find data file: ' header.orig.data]); end;
         dat = fread(fid,[header.nSamples*header.nTrials header.nChans],'float32')';
     else
         dat = fread(fid,[header.nChans header.nSamples*header.nTrials],'float32');
-    end;
+    end
     dat = reshape(dat, header.nChans, header.nSamples, header.nTrials);
     fclose(fid);
-  end;
+  end
 else
   dat = header.orig.data;
   dat = reshape(dat, header.nChans, header.nSamples, header.nTrials);
-end;
+end
 
 if isempty(begtrial), begtrial = 1; end;
 if isempty(endtrial), endtrial = header.nTrials; end;

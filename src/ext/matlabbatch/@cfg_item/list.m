@@ -83,7 +83,7 @@ if match(item, spec)
                             dval = item.val;
                             if isa(dval, 'cfg_dep')
                                 dval = [];
-                            end;
+                            end
                             val{k} = {dval};
                         else
                             val{k} = {{item.def({})}};
@@ -95,11 +95,11 @@ if match(item, spec)
                     val{k} = {subsref(item, substruct('.', fn{k}))};
                 otherwise
                     val{k} = {{}};
-            end;
-        end;
+            end
+        end
     else
         val = {};
-    end;
+    end
 else
     id = {};
     stop = [];
@@ -108,5 +108,5 @@ else
         [val{:}] = deal({});        
     else
         val = {};
-    end;
-end;
+    end
+end

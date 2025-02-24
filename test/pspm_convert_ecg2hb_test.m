@@ -58,7 +58,7 @@ classdef pspm_convert_ecg2hb_test < pspm_testcase
         if nsts == -1
           warning('unable to load the test data file');
           return;
-        end;
+        end
         if numel(data) > original_num_channels
           for i=original_num_channels+1:numel(data)
             % check if channel header is correct
@@ -84,13 +84,13 @@ classdef pspm_convert_ecg2hb_test < pspm_testcase
             % otherwise there is something odd
             if std(diff(d)) > 2,
               warning('Abnormal high standard deviation (more than 2s) of time between heartbeats');
-            end;
+            end
             % check if last data point also corresponds to the
             % length of the recordings
             % shouldn't be more than 60s either
             if (infos.duration - d(end)) > 60
               warning('Heartbeat data ends 60s earlier than data recording');
-            end;
+            end
           end
         else
           warning('No channel has been added to testfile');

@@ -22,4 +22,4 @@ switch subs(1).subs
         % Check maximum number of elements
         sts = ~cfg_get_defaults('cfg_item.checkval') || subsasgn_check_valcfg(subs,val,[0 1]);
         % Could also check whether added element is one from 'values' list
-end;
+end

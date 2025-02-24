@@ -23,7 +23,7 @@ if numel(citems) > 1 || item.forcestruct
                   'single field:'];
     for k = 1:numel(citems)
         str{end+1} = sprintf('.%s', gettag(citems{k}));
-    end;
+    end
 else
     if isa(citems{1}, 'cfg_branch')
         str{end+1} = 'A struct array with fields:';

@@ -36,14 +36,14 @@ if isempty (Info)
     data=[];
     h=[];
     return;
-end;
+end
 
 if(Info.kind < 2 || Info.kind > 4 ) 
     warning('SONGetEventChannel: Channel #%d No data or not an event channel',chan);
     data=[];
     h=[];
     return;
-end;
+end
 
 FileH=SONFileHeader(fid);
 SizeOfHeader=20;                                            % Block header is 20 bytes long
@@ -58,9 +58,9 @@ for i=1:length(varargin)
             ShowProgress=1;
             progbar=progressbar(0,sprintf('Analyzing %d blocks on channel %d',Info.blocks,chan),...
                 'Name',sprintf('%s',fopen(fid)));
-        end;
-    end;
-end;
+        end
+    end
+end
 
 switch arguments
     case {2}
@@ -72,7 +72,7 @@ switch arguments
     otherwise
         startBlock=varargin{1};
         endBlock=min(Info.blocks,varargin{2});
-end;
+end
 
 NumberOfSamples=sum(header(5,startBlock:endBlock)); % Sum of samples in required blocks
 
@@ -86,8 +86,8 @@ for i=startBlock:endBlock
     if ShowProgress==1
         done=(i-startBlock)/max(1,endBlock-startBlock);
         progressbar(done, progbar,sprintf('Reading Channel %d....     %d%% Done',chan,(int16(done*100)/5)*5));
-    end;
-end;
+    end
+end
 
 
     h.FileName=Info.FileName;                                   % Set up the header information to return
@@ -101,7 +101,7 @@ end;
     if (Info.kind==4)
         h.initLow=Info.initLow;
         h.nextLow=Info.nextLow; 
-    end;
+    end
 
 
 [data,h.TimeUnits]=SONTicksToSeconds(fid, data, varargin{:});      % Convert time
@@ -109,4 +109,4 @@ h.Epochs={startBlock endBlock 'of' Info.blocks 'blocks'};
 if ShowProgress==1
     close(progbar);
     drawnow;
-end;
+end

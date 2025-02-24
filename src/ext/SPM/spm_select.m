@@ -73,7 +73,7 @@ function varargout = spm_select(varargin)
 
 if ~exist('cfg_getfile','file') && ~isdeployed
     addpath(fullfile(spm('dir'),'matlabbatch'));
-end;
+end
 % cfg_getfile expects and returns cellstr arguments for multi-line strings
 if nargin > 0 && ischar(varargin{1}) && strcmpi(varargin{1},'filter') && ischar(varargin{2})
     varargin{2} = cellstr(varargin{2});

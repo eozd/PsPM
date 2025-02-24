@@ -34,7 +34,7 @@ warning(w_state);
 % convert 3 dim to 2 dim (collapse all trials into continuous data)
 if numel(size(indata)) == 3,
   indata = indata(:,:);
-end;
+end
 
 % extract individual channels
 % -------------------------------------------------------------------------
@@ -47,7 +47,7 @@ for k = 1:numel(import)
     else
       channel = pspm_find_channel(hdr.label, import{k}.type);
       if channel < 1, return; end;
-    end;
+    end
 
     if channel > size(indata, 1), warning('ID:channel_not_contained_in_file', 'Channel %02.0f not contained in file %s.\n', channel, datafile); return; end;
 
@@ -71,10 +71,10 @@ for k = 1:numel(import)
     else
       warning('ID:channel_not_contained_in_file', ...
         'Marker channel not contained in file %s.\n', datafile); return;
-    end;
-  end;
+    end
+  end
 
-end;
+end
 
 % clear path and return
 % -------------------------------------------------------------------------

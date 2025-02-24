@@ -38,7 +38,7 @@ fid = fopen(filename,'r','ieee-le');
 
 if fid<0,
     error(['cannot open ', filename]);
-end;
+end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % these structures are from Neuroscan sethead.h 
@@ -299,7 +299,7 @@ for elec = 1:hdr.nchan,
   fseek(fid, offset_calib,    'bof'); hdr.calib(elec)       = fread(fid, 1, 'float32');
   hdr.label{elec}  = fliplr(deblank(fliplr(deblank(char(lab')))));
   hdr.factor(elec) = hdr.calib(elec) * hdr.sensitivity(elec) / 204.8;
-end;
+end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % try to infer whether time or frequency data is represented

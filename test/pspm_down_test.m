@@ -29,7 +29,7 @@ classdef pspm_down_test < matlab.unittest.TestCase
         delete(pspm_down_test.fn);
       end
       pspm_testdata_gen(channels, 10, scr_down_test.fn);
-      if ~exist(pspm_down_test.fn, 'file'), warning('the testdata could not be generated'), end;
+      if ~exist(pspm_down_test.fn, 'file'), warning('the testdata could not be generated'), end
     end
   end
   methods (TestClassTeardown)

@@ -65,10 +65,10 @@ elseif ~ismember(timeunits, {'seconds', 'markers', 'samples'})
     errmsg=sprintf('Timeunits (%s) not recognised; only ''seconds'', ''markers'' and ''samples'' are supported', timeunits); warning(errmsg); return;
 elseif nargin<5
     normalize=1;
-end;
+end
 if nargin<6 || isempty(chan)
     chan = 0;
-end;
+end
 
 % set options
 try options.overwrite; catch, options.overwrite = 0; end;
@@ -79,8 +79,8 @@ if strcmpi(options.method, 'spr')
     try options.summary;
     catch
         options.summary = 'amplitude';
-    end;
-end;
+    end
+end
 
 try options.window;
 catch
@@ -91,8 +91,8 @@ catch
             options.window = [1 4; 0.5 5];
         otherwise
             warning('Method unknown'); return;
-    end;
-end;
+    end
+end
             
 
 % check modelfile
@@ -100,23 +100,23 @@ if options.overwrite ~= 1 && exist(modelfile)==2
     overwrite=menu(sprintf('Model file (%s) already exists. Overwrite?', modelfile), 'yes', 'no');
     close gcf;
     if overwrite==2, return; end;
-end;
+end
 
 % check datafile(s)
 if ~iscell(datafile)
     datafile={datafile};
-end;
+end
 for d=1:numel(datafile)
     sts = pspm_load_data(datafile{d}, 'none');
     if sts == -1
         return;
-    end;
-end;
+    end
+end
 
 % check regressor files
 if ~iscell(regfile)
     regfile={regfile};
-end;
+end
 
 [sts multi] = check_regfile(regfile, timeunits);
 if sts < 0, return; end;
@@ -148,7 +148,7 @@ for d=1:numel(datafile)
             % load scr channel(s)
             [sts, infos, data] = pspm_load_data(datafile{d}, 'scr');
             if sts == -1 || isempty(data); return; end;
-        end;
+        end
         % use data from single waveform, or first scr channel
         scr = data{1};
         % if required, load events
@@ -158,10 +158,10 @@ for d=1:numel(datafile)
                 warning('No event data'); return;
             else
                 events = data{1}.data;
-            end;
+            end
         else
             events = [];
-        end;
+        end
     else
         [sts, infos, data] = pspm_load_data(datafile{d}, chan);
         if sts == -1 || isempty(data), warning('Could not load file %s', datafile{d}); return; end;
@@ -173,11 +173,11 @@ for d=1:numel(datafile)
                 warning('No event data'); return;
             else
                 events = data{1}.data;
-            end;
+            end
         else
             events = [];
-        end;
-    end;
+        end
+    end
 
     % prepare (filter & downsample) data (no high pass filtering)
     model.filter.hpfreq = 'none';
@@ -206,13 +206,13 @@ for d=1:numel(datafile)
                         dummy = round(events(multi(d).o{n}) * sr); % markers are timestamps in seconds
                     catch
                         warning('\nSome events in condition %01.0f were not found in the data file %s', n, datafile{d}); return;
-                    end;
+                    end
                     if any(multi(d).d{n} ~= 0)
                         warning('markers is a convenience timeunits option that does not allow to specify events of non-zero duration.'); return;
                     else
                         foo = multi(d).d{n};
-                    end;
-            end;
+                    end
+            end
             % get the first regressor file
             if d == 1
                 names{n} = multi(1).n{n};
@@ -220,22 +220,22 @@ for d=1:numel(datafile)
             else
                 dummy = dummy + sum(snduration(1:(d - 1)));
                 onsets{n} = [onsets{n}; dummy(:)];
-            end;
-        end;
-    end;
-end;
+            end
+        end
+    end
+end
 
 % z-transform if desired
 if normalize
     Y=(Y-mean(Y))/std(Y);
-end;
+end
 
 Y = Y(:);
 
 % smooth if SPR method
 if strcmpi(options.method, 'spr')
     Y = medfilt1(Y, 3);
-end;
+end
 
 %-------------------------------------------------------------------------
 % initialise design matrix
@@ -301,8 +301,8 @@ for k = 1:numel(onsets)
                         foundpeak = 1;
                     else
                         onsetindx = onsetindx + 1;
-                    end;
-                end;
+                    end
+                end
                 % do check on first derivative (old peak score method used
                 % until Staib, Castegnetti & Bach 2015) if diagnostics
                 % required
@@ -324,9 +324,9 @@ for k = 1:numel(onsets)
                             foundfirstpeak = 1;
                         else
                             firstwin(1:find(firstwin == firstonset)) = [];
-                        end;
-                    end;
-                end;
+                        end
+                    end
+                end
                 if foundpeak
                     peakscore(n) = scr(peak) - scr(onset);
                     % if an onset is followed by first peak before the peak
@@ -335,7 +335,7 @@ for k = 1:numel(onsets)
                     peakscore(n) = max(0, peakscore(n));
                 else
                     peakscore(n) = 0;
-                end;
+                end
                 if options.diagnostics
                     figure; axes; hold on
                     win = initialfirstwin(1):secondwin(end);
@@ -345,25 +345,25 @@ for k = 1:numel(onsets)
                     if foundpeak
                         stem(onset, scr(onset));
                         stem(peak, scr(peak));
-                    end;
+                    end
                     if foundfirstpeak
                         stem(firstonset,scr(firstonset));
                         stem(firstpeak, scr(firstpeak));
-                    end;
+                    end
                 	s = input('Press RETURN to continue.', 's');
                     close(gcf);
-                end;
-            end;
-        end;
-    end;
+                end
+            end
+        end
+    end
     if strcmpi(options.method, 'spr') && strcmpi(options.summary, 'amplitude')
         glm.stats(k, 1) = mean(peakscore(peakscore > .01));
     else
         glm.stats(k, 1) = mean(peakscore);
-    end;
+    end
     clear peakscore
     glm.names = {};
-end;
+end
 
 save(modelfile, 'glm');
 
@@ -386,7 +386,7 @@ function [sts multi] = check_regfile(fns, timeunits)
 
 if ~iscell(fns)
     fns = {fns};
-end;
+end
 
 sts = 1;
 multi = [];
@@ -399,21 +399,21 @@ for f = 1:numel(fns)
         warning(errmsg);
         sts = -1;
         return;
-    end;
+    end
     
     load(fn);
     if (isempty(find(ismember(who, 'names'), 1)))||(isempty(find(ismember(who, 'onsets'), 1))),
         warning(merrmsg); sts = -1; return;
-    end;
+    end
     if isempty(find(ismember(who, 'durations'), 1)),
         durations=num2cell(zeros(numel(names), 1));
-    end;
+    end
     if isempty(find(ismember(who, 'parametric_confound'), 1))
         parametric_confound=zeros(numel(names), 1);
-    end;
+    end
     if ~iscell(names)||~iscell(onsets)
         errmsg = 'Names and onsets need to be cell arrays'; warning([merrmsg, errmsg]); sts=-1; return;
-    end;
+    end
     if numel(names)~=numel(onsets),  errmsg=sprintf('Number of event names (%d) does not match the number of onsets (%d).',...
             numel(names),numel(onsets)); warning([merrmsg, errmsg]); sts = -1; return;
     elseif numel(names)~=numel(durations),  errmsg=sprintf('Number of event names (%d) does not match the number of durations (%d).',...
@@ -426,25 +426,25 @@ for f = 1:numel(fns)
             elseif (numel(onsets{n}) ~= numel(durations{n}))
                 errmsg=sprintf('"%s": Number of event onsets (%d) does not match the number of durations (%d).',...
                     names{n}, numel(onsets{n}),numel(durations{n})); warning([merrmsg, errmsg]); sts = - 1; return;
-            end;
+            end
             switch timeunits
                 case 'seconds'
                     if any(onsets{n})<0
                         errmsg=sprintf('Onset vector %d contains onsets smaller than 0 s', n); warning([merrmsg, errmsg]); sts = -1; return;
-                    end;
+                    end
                 case {'samples', 'markers'}
                     if any(fix(onsets{n})~=onsets{n})
                         errmsg=sprintf('Onset vector %d contains non-integers', n); warning([merrmsg, errmsg]); sts = -1; return;
-                    end;
-            end;
+                    end
+            end
             if any(onsets{n} < 0)
                 if numel(onsets{n}) == 1, onsets{n} = [];
                 else
                     errmsg=sprintf('Negative event onsets in regressor %s', names{n}); warning([merrmsg, errmsg]); sts = -1; return;
-                end;
-            end;
-        end;
-    end;
+                end
+            end
+        end
+    end
     if ~isempty(find(ismember(who, 'pmod'), 1))
         if numel(pmod)>numel(names),  errmsg=sprintf('Number of parametric modulators (%d) does not match the number of onsets (%d).',...
                 numel(pmod),numel(onsets)); warning([merrmsg, errmsg]); sts = -1; return;
@@ -454,26 +454,26 @@ for f = 1:numel(fns)
                     if numel(onsets{n}) ~= numel(pmod(n).param{o}),
                         errmsg= sprintf('"%s" & "%s": Number of event onsets (%d) does not equal the number of parameters (%d).',...
                             names{n}, pmod(n).name{o}, numel(onsets{n}),numel(pmod(n).param{o})); warning([merrmsg, errmsg]); sts = -1; return;
-                    end;
-                end;
-            end;
-        end;
-    end;
+                    end
+                end
+            end
+        end
+    end
     
     if f > 1
         for n = 1:numel(names)
             if ~strcmpi(multi(1).n{n}, names{n})
                 errmsg('Event names in sessions 1 and %.0f don''t match (%s and %s)', f, multi(1).n{n},names{n});
                 warning(errmsg); sts = -1; return;
-            end;
+            end
         end
-    end;
+    end
     multi(f).n = names;
     multi(f).o = onsets;
     multi(f).d = durations;
     multi(f).p = parametric_confound;
     if exist('pmod')
         multi(f).pmod = pmod;
-    end;
+    end
     clear names onsets durations parametric_confound pmod
-end;
+end

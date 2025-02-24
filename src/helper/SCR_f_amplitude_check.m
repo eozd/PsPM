@@ -40,7 +40,7 @@ if test_scr
     % approximate numeric integration
     for iT = 1:(30*sr)
         Xt(:, iT + 1) = f_SCR(Xt(:, iT), theta, ut(:, iT), in);
-    end;
+    end
     
     % scale data
     Y = Xt(1, :) / max(Xt(1, :));
@@ -68,7 +68,7 @@ if test_scr
     
     amp = dcm.sn{1}.e(1).a;
     
-end;
+end
 
 
 % (2) check f_SF and pspm_sf_dcm: the result is a variable 'amp' that gives
@@ -90,7 +90,7 @@ if test_sf
     % approximate numeric integration
     for iT = 1:(30*sr)
         Xt(:, iT + 1) = f_SF(Xt(:, iT), theta, ut(:, iT), in);
-    end;
+    end
     
     % scale data
     Y = Xt(1, :) / max(Xt(1, :));
@@ -109,4 +109,4 @@ if test_sf
     dcm = pspm_sf_dcm(scr, sr, options);
     
     
-end;
+end

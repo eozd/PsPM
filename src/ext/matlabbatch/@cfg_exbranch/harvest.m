@@ -55,11 +55,11 @@ else
     item_id = subsref(item, substruct('.','id'));
     if ~isempty(tdeps)
         [tdeps.tgt_exbranch] = deal(item_id);
-    end;
+    end
     if ~isequal(tdeps, item.tdeps)
         if ~isempty(item.tdeps)
             cj = del_in_source(item.tdeps, cj);
-        end;
+        end
         if ~isempty(tdeps)
             [cj, ntdeps, cflag, dflag] = add_to_source(tdeps, cj);
             item.tdeps = ntdeps;
@@ -91,35 +91,35 @@ else
             end
         else
             item.tdeps = [];
-        end;
-    end;
+        end
+    end
     if all_leafs(item)
         osout = item.sout;
         if ~isempty(item.vout)
             item.sout = feval(item.vout, val);
             if ~isempty(item.sout)
                 [item.sout.src_exbranch] = deal(item_id);
-            end;
+            end
             for k = 1:numel(item.sout)
                 item.sout(k).sname = sprintf('%s: %s', subsref(item, substruct('.','name')), item.sout(k).sname);
-            end;
+            end
         elseif ~isempty(item.vfiles)
             cfg_message('matlabbatch:deprecated:vfiles', 'Using deprecated ''vfiles'' output from node ''%s''.', tag);
             item.sout = cfg_dep;
             item.sout.sname = sprintf('%s: All Output Files', subsref(item, substruct('.','name')));
             item.sout.src_exbranch = item_id;
             item.sout.src_output = substruct('.','vfiles');
-        end;
+        end
         if ~isempty(osout) && ~isempty(item.sout)
             % isequalsource is only defined on cfg_dep objects
             ochange = ~isequalsource(osout, item.sout);
         else
             ochange = numel(osout) ~= numel(item.sout);
-        end;
+        end
     else
         ochange = true; % no outputs specified (may be they were before)
         item.sout = [];
-    end;
+    end
 
     if ochange && ~isempty(item.sdeps)
         % delete changed outputs from dependent modules
@@ -128,7 +128,7 @@ else
         cj = del_in_target(sdeps, cj);
         % invalidate already computed outputs
         item.jout = cfg_inv_out;
-    end;
+    end
 
     % even if no sources changed, source names may have changed
     for k = 1:numel(item.sdeps)
@@ -142,19 +142,19 @@ else
                 for m = 1:numel(cdeps)
                     if isequalsource(item.sdeps(k), cdeps(m))
                         cdeps(m).sname = item.sdeps(k).sname;
-                    end;
-                end;
+                    end
+                end
                 cj = subsasgn(cj, [item.sdeps(k).tgt_exbranch ...
                                    item.sdeps(k).tgt_input ...
                                    substruct('.','val','{}',{1})], cdeps);
-            end;
-        end;
-    end;
+            end
+        end
+    end
     
     dep = tdeps;
     % save chk status
     item.chk = chk;
     if ~isempty(item_id) % check whether we are in root node
         cj = subsasgn(cj, item_id, item);
-    end;
-end;
+    end
+end

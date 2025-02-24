@@ -28,7 +28,7 @@ pulse=inputdata;
 % start with low to high
 if header.initLow==0
   pulse(1)=[];
-end;
+end
 
 % filter out high spikes
 dt=diff(pulse);
@@ -75,13 +75,13 @@ if nargin == 3 && ~isempty(kbdata)
         % nexttrigger
         if ttl==1&&nextinterval>110 % max marker duration in ms
           pulse(nexttrigger)=[];
-        end;
-      end;
+        end
+      end
       errmsg=sprintf('During sampling, a buffer overflow occured at %.2f s. Please check your data for consistency.', bufferoverflowtime/1000);
       warning(errmsg);
-    end;
-  end;
-end;
+    end
+  end
+end
 
 % store only lo to hi transitions
 data = pulse(1:2:end);

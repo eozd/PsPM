@@ -75,7 +75,7 @@ if ~isempty(udmodlist.cmod)
     udmodlist.modified = true;
     set(handles.modlist,'userdata',udmodlist);
     local_showjob(hObject);
-end;
+end
 
 % --------------------------------------------------------------------
 function local_ReplMod(hObject)
@@ -87,7 +87,7 @@ if ~isempty(udmodlist.cmod)
     udmodlist.modified = true;
     set(handles.modlist,'userdata',udmodlist);
     local_showjob(hObject);
-end;
+end
 
 % --------------------------------------------------------------------
 function local_AddMod(varargin)
@@ -113,7 +113,7 @@ function local_setmenu(parent, id, cb, dflag)
 prevmenu = findobj(parent, 'Tag', 'AddedAppMenu');
 if ~isempty(prevmenu)
     delete(prevmenu);
-end;
+end
 % get strings and ids
 [id,stop,val]=cfg_util('listcfgall',id,cfg_findspec({{'hidden',false}}),{'name','level'});
 str = val{1};
@@ -135,15 +135,15 @@ for k = 2:numel(lvl)
     else
         udata = [];
         cback = '';
-    end;
+    end
     cm = uimenu('parent',lastmenulvl(lvl(k)-1), 'Label',label, 'Userdata',udata, ...
                 'Callback',cback, 'tag','AddedAppMenu');
     lastmenulvl(lvl(k)) = cm;
     if lvl(k) == 2
         toplevelmenus(end+1) = cm;
         toplevelids{end+1}   = id{k};
-    end;
-end;
+    end
+end
 hkeys = cell(1,numel(toplevelmenus)+2);
 hkeys{1} = 'f';
 hkeys{2} = 'e';
@@ -155,8 +155,8 @@ for k =1:numel(toplevelmenus)
             hkeys{k+2} = lower(clabel(l));
             clabel = [clabel(1:l-1) '&' clabel(l:end)];
             break;
-        end;
-    end;
+        end
+    end
     set(toplevelmenus(k),'Label',clabel);
     if dflag
         % add defaults manipulation entries
@@ -170,8 +170,8 @@ for k =1:numel(toplevelmenus)
         cm = uimenu('parent',toplevelmenus(k), 'Label','Edit Defaults', ...
                     'Callback',@local_editdefs, 'Userdata',toplevelids{k}, ...
                     'tag','AddedAppMenu', 'Separator','on');
-    end;
-end;
+    end
+end
 
 % --------------------------------------------------------------------
 function local_setfont(obj,fs)
@@ -197,7 +197,7 @@ appid = get(gcbo, 'Userdata');
 [file, sts] = cfg_getfile(1, '.*\.m$','Load Defaults from');
 if sts
     cfg_util('initdef', appid, file{1});
-end;
+end
 
 % --------------------------------------------------------------------
 function local_savedefs(varargin)
@@ -207,7 +207,7 @@ appid = get(gcbo, 'Userdata');
                         sprintf('%s_defaults.m', tag));
 if ~ischar(file)
     return;
-end;
+end
 fname      = fullfile(path, file);
 [fid, msg] = fopen(fname, 'wt');
 if fid == -1
@@ -218,7 +218,7 @@ end
 fprintf(fid, 'function %s = %s\n', tagstr, funcname);
 for k = 1:numel(defstr)
     fprintf(fid, '%s\n', defstr{k});
-end;
+end
 fclose(fid);
 
 % --------------------------------------------------------------------
@@ -258,7 +258,7 @@ set(gcbo, 'Enable','on', 'Callback',@local_editdefs, ...
 udmodlist = rmfield(get(handles.modlist, 'userdata'), 'defid');
 if numel(fieldnames(udmodlist)) == 0
     udmodlist = local_init_udmodlist;
-end;
+end
 set(handles.modlist, 'userdata',udmodlist);
 local_showjob(gcbo);
 
@@ -277,7 +277,7 @@ else
     % move figure onscreen
     cfg_onscreen(obj);
     set(obj,'Visible','on');
-end;
+end
 [id, str, sts, dep, sout] = cfg_util('showjob',cjob);
 if isempty(str)
     str = {'No Modules in Batch'};
@@ -291,7 +291,7 @@ else
         cmod = min(get(handles.modlist,'value'), numel(str));
         if udmodlist.cmod ~= cmod
             set(handles.module, 'Userdata',[]);
-        end;
+        end
     end
     udmodlist.id = id;
     udmodlist.sout = sout;
@@ -302,7 +302,7 @@ else
     [mrk{~sts}] = deal('<- X');
     [mrk{~dep & sts}] = deal('');
     str = cfg_textfill(handles.modlist, str, mrk, false);
-end;
+end
 ltop = cfg_ui_getListboxTop(handles.modlist, cmod, numel(str));
 set(handles.modlist, 'userdata',udmodlist, 'value', cmod, 'ListboxTop', ltop, 'string', str);
 if ~isempty(sts) && all(sts)
@@ -325,7 +325,7 @@ if ~isempty(udmodlist.cmod)
         cmid = udmodlist.defid{cmod};
     else
         cmid = {udmodlist.cjob, udmodlist.id{cmod}};
-    end;
+    end
     [id, namestr, datastr, contents] = cfg_ui_util('showmod', cmid, dflag);
     str = cfg_textfill(handles.module,namestr,datastr,true);
     udmodule = get(handles.module, 'userdata');
@@ -340,7 +340,7 @@ if ~isempty(udmodlist.cmod)
         if isempty(citem)
             citem = min(2,numel(id));
         end
-    end;
+    end
     udmodule.contents = contents;
     udmodule.id = id;
     udmodule.oldvalue = citem;
@@ -361,7 +361,7 @@ else
     % set help box to matlabbatch top node help
     [id, stop, help] = cfg_util('listcfgall', [], cfg_findspec({{'tag','matlabbatch'}}), {'showdoc'});
     set(handles.helpbox, 'Value',1, 'ListboxTop',1, 'String',cfg_justify(handles.helpbox, help{1}{1}));
-end;
+end
 
 % --------------------------------------------------------------------
 function local_showvaledit(obj)
@@ -376,7 +376,7 @@ if dflag
     ciid = [udmodlist.defid(cmod) udmodule.id(citem)];
 else
     ciid = {udmodlist.cjob udmodlist.id{cmod} udmodule.id{citem}};
-end;
+end
 contents = cellfun(@(c)subsref(c, substruct('{}',{citem})), udmodule.contents, 'UniformOutput', false);
 sout = cat(2, udmodlist.sout{1:cmod-1});
 cfg_ui_util('showvaledit', fig, ciid, contents, sout, dflag, [], @()local_valedit_update(obj));
@@ -396,7 +396,7 @@ if dflag
     ciid = {udmodlist.defid(cmod) udmodule.id{value}};
 else
     ciid = {udmodlist.cjob, udmodlist.id{cmod} udmodule.id{value}};
-end;
+end
 itemname = udmodule.contents{1}{value};
 cfg_ui_util('valedit_EditValue', ciid, itemname, val);
 
@@ -412,7 +412,7 @@ else
     udmodlist.modified = true;
     set(handles.modlist,'userdata',udmodlist);
     local_showjob(hObject);
-end;
+end
 
 % --------------------------------------------------------------------
 function local_valedit_dep(hObject)
@@ -426,7 +426,7 @@ str = {sout.sname};
 [val, sts] = listdlg('Name',udmodule.contents{1}{citem}, 'ListString',str);
 if sts
     cfg_ui_util('setvaledit', {udmodlist.cjob, udmodlist.id{cmod}, udmodule.id{citem}}, sout(val), false);
-end;
+end
 local_valedit_update(hObject);
 
 % --------------------------------------------------------------------
@@ -452,7 +452,7 @@ if dflag
     ciid = {udmodlist.defid(cmod) udmodule.id{value}};
 else
     ciid = {udmodlist.cjob, udmodlist.id{cmod} udmodule.id{value}};
-end;
+end
 
 % --------------------------------------------------------------------
 function cmd = local_check_job_modified(udmodlist, action)
@@ -473,7 +473,7 @@ if udmodlist.modified
     cmd = questdlg(queststr, 'Unsaved Changes', answers{:}, defans);
 else
     cmd = defans;
-end;
+end
 
 %%% Code display callbacks
 % --------------------------------------------------------------------
@@ -512,7 +512,7 @@ if isempty(udmodlist) || ~(~isempty(udmodlist.cjob) && cfg_util('isjob_id', udmo
     udmodlist = local_init_udmodlist;
     udmodlist.cjob = cfg_util('initjob');
     set(handles.modlist, 'userdata', udmodlist);
-end;
+end
 
 % set initial font
 lf = cfg_get_defaults([mfilename '.lfont']);
@@ -555,7 +555,7 @@ switch lower(cmd)
     case 'quit'
         if ~isempty(udmodlist.cjob)
             cfg_util('deljob', udmodlist.cjob);
-        end;
+        end
         delete(hObject);
 %         set(hObject,'Visible','off');
 %         udmodlist = local_init_udmodlist;
@@ -563,7 +563,7 @@ switch lower(cmd)
 %         set(handles.modlist,'userdata',udmodlist);
     case 'hide'
         set(hObject,'Visible','off');
-end;
+end
 
 % --- Outputs from this function are returned to the command line.
 function varargout = cfg_ui_OutputFcn(hObject, eventdata, handles)
@@ -587,12 +587,12 @@ cmd = local_check_job_modified(udmodlist, 'replace');
 if strcmpi(cmd, 'continue')
     if ~isempty(udmodlist.cmod)
         cfg_util('deljob',udmodlist(1).cjob);
-    end;
+    end
     udmodlist = local_init_udmodlist;
     udmodlist.cjob = cfg_util('initjob');
     set(handles.modlist, 'userdata', udmodlist);
     local_showjob(hObject);
-end;
+end
 
 % --------------------------------------------------------------------
 function MenuFileLoad_Callback(hObject, eventdata, handles)
@@ -619,8 +619,8 @@ if strcmpi(cmd, 'continue')
         set(handles.module, 'userdata', []);
         local_showjob(hObject);
         local_pointer('arrow');
-    end;
-end;
+    end
+end
 
 % --------------------------------------------------------------------
 function MenuFileSave_Callback(hObject, eventdata, handles)
@@ -632,13 +632,13 @@ udmodlist = get(handles.modlist, 'userdata');
 opwd = pwd;
 if ~isempty(udmodlist.wd)
     cd(udmodlist.wd);
-end;
+end
 [file, pth, idx] = uiputfile({'*.mat','Matlab .mat File';...
                     '*.m','Matlab .m Script File'}, 'Save Job');
 cd(opwd);
 if isnumeric(file) && file == 0
     return;
-end;
+end
 local_pointer('watch');
 [p, n, e] = fileparts(file);
 if isempty(e) || ~any(strcmp(e,{'.mat','.m'}))
@@ -671,13 +671,13 @@ udmodlist = get(handles.modlist, 'userdata');
 opwd = pwd;
 if ~isempty(udmodlist.wd)
     cd(udmodlist.wd);
-end;
+end
 [file, pth, idx] = uiputfile({'*.m','Matlab .m Script File'},...
     'Script File name');
 cd(opwd);
 if isnumeric(file) && file == 0
     return;
-end;
+end
 local_pointer('watch');
 [p, n, e] = fileparts(file);
 try
@@ -709,7 +709,7 @@ catch
         opwd = pwd;
         if ~isempty(udmodlist.wd)
             cd(udmodlist.wd);
-        end;
+        end
         [file, pth, idx] = uiputfile({'*.mat','Matlab .mat File'},...
             'Error .mat File name');
         cd(opwd);
@@ -720,9 +720,9 @@ catch
             diarystr  = cfg_util('getdiary',udmodlist(1).cjob);
             [p, n, e] = fileparts(file);
             save(fullfile(pth, [n '.mat']), 'ojob', 'rjob', 'outputs', 'diarystr');
-        end;
+        end
     end
-end;
+end
 local_pointer('arrow');
 
 % --------------------------------------------------------------------
@@ -749,7 +749,7 @@ if cont
         udmodlist = get(handles.modlist, 'userdata');
         if ~isempty(udmodlist.cmod)
             cfg_util('deljob',udmodlist(1).cjob);
-        end;
+        end
         [p, fun, e] = fileparts(file{1});
         addpath(p);
         cfg_util('addapp', fun);
@@ -758,8 +758,8 @@ if cont
         udmodlist.cjob = cfg_util('initjob');
         set(handles.modlist, 'userdata', udmodlist);
         local_showjob(hObject);
-    end;
-end;
+    end
+end
 
 % --------------------------------------------------------------------
 function MenuFileClose_Callback(hObject, eventdata, handles)
@@ -825,9 +825,9 @@ if ~isempty(handles)
             local_showmod(hObject);
         else
             local_showjob(hObject);
-        end;
+        end
     end
-end;
+end
 
 % --------------------------------------------------------------------
 function MenuViewFontSize_Callback(hObject, eventdata, handles)
@@ -843,7 +843,7 @@ if isstruct(fs)
     fs = struct2cell(fs);
     local_setfont(hObject,[fn'; fs']);
     MenuViewUpdateView_Callback(hObject, eventdata, handles);
-end;
+end
 
 % --------------------------------------------------------------------
 function MenuViewExpertEdit_Callback(hObject, eventdata, handles)
@@ -855,7 +855,7 @@ if strcmp(get(gcbo,'checked'),'on')
     newstate = 'off';
 else
     newstate = 'on';
-end;
+end
 set(gcbo, 'checked', newstate);
 cfg_get_defaults([mfilename '.ExpertEdit'], newstate);
 
@@ -898,8 +898,8 @@ if ~isempty(udmodlist.cmod)
         local_showjob(hObject);
     else
         local_showmod(hObject);
-    end;
-end;
+    end
+end
 % Return focus to modlist - otherwise it would be on current module
 uicontrol(handles.modlist);
 
@@ -947,7 +947,7 @@ value = get(hObject,'Value');
 udmodule = get(hObject,'Userdata');
 if isempty(udmodule)
     return;
-end;
+end
 if udmodule.oldvalue ~= value
     udmodule.oldvalue = value;
     set(hObject, 'Userdata', udmodule);
@@ -969,7 +969,7 @@ if doopen
     % call its callback without checking why it lost focus.
     % Call appropriate input handler for editable and selection types
     local_valedit_EditValue(hObject);
-end;
+end
 
 % --- Executes during object creation, after setting all properties.
 function module_CreateFcn(hObject, eventdata, handles)

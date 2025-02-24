@@ -25,13 +25,13 @@ if isempty (Info)
     data=[];
     h=[];
     return;
-end;
+end
 if(Info.kind ~= 5) 
     warning('SONGetMarkerChannel: Channel #%d No data or not a marker channel', chan);
     data=[];
     h=[];
     return;
-end;
+end
 
 
 FileH=SONFileHeader(fid);
@@ -47,9 +47,9 @@ for i=1:length(varargin)
             ShowProgress=1;
             progbar=progressbar(0,sprintf('Analyzing %d blocks on channel %d',Info.blocks,chan),...
                 'Name',sprintf('%s',fopen(fid)));
-        end;
-    end;
-end;
+        end
+    end
+end
 
 switch arguments
     case {2}
@@ -61,7 +61,7 @@ switch arguments
     otherwise
         startBlock=varargin{1};
         endBlock=min(Info.blocks,varargin{2});
-end;
+end
 
 NumberOfMarkers=sum(header(5,startBlock:endBlock)); % Sum of samples in required blocks                                                     
 
@@ -78,8 +78,8 @@ for block=startBlock:endBlock
         if ShowProgress==1
             done=(i-startBlock)/max(1,endBlock-startBlock);
             progressbar(done, progbar,sprintf('Reading Channel %d....     %d%% Done',chan,(int16(done*100)/5)*5));
-        end;
-    end;
+        end
+    end
 end
 
 
@@ -92,11 +92,11 @@ if(nargout>1)
     h.npoints=NumberOfMarkers;
     h.comment=Info.comment;
     h.title=Info.title;
-end;
+end
 
 [data.timings,h.TimeUnits]=SONTicksToSeconds(fid,data.timings, varargin{:});                % Convert time
 h.Epochs={startBlock endBlock 'of' Info.blocks 'blocks'};
 if ShowProgress==1
     close(progbar);
     drawnow;
-end;
+end

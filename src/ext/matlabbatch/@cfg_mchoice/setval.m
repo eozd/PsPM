@@ -25,8 +25,8 @@ else
         if ~any(strcmp(gettag(item.values{val(1)}), tagnames(item, false)))
             val = item.values{val(1)};
             item = subsasgn(item, substruct('.','val', '{}',{numel(item.cfg_item.val)+1}), val);
-        end;
+        end
     else
         item.cfg_item.val(val(2)) = [];
     end
-end;
+end

@@ -96,7 +96,7 @@ if nargin > 0 && ischar(varargin{1})
             if numel(t) == 1 && isempty(t{1})
                 sts = 1;
                 return;
-            end;
+            end
             [t,sts1] = do_filter(t,filt.ext);
             [t,sts2] = do_filter(t,filt.filt);
             sts = sts1(sts2);
@@ -105,7 +105,7 @@ if nargin > 0 && ischar(varargin{1})
                 frames = varargin{4};
             else
                 frames = 1; % (ignored in listfiles if typ==any)
-            end;
+            end
             if regexpi(varargin{1}, 'ext') % use frames descriptor
                 typ = 'extimage';
             else
@@ -128,11 +128,11 @@ if nargin > 0 && ischar(varargin{1})
         case 'prevdirs',
             if nargin > 1
                 prevdirs(varargin{2});
-            end;
+            end
             if nargout > 0 || nargin == 1
                 t = prevdirs;
                 sts = true;
-            end;
+            end
         otherwise
             cfg_message('matlabbatch:usage','Inappropriate usage.');
     end
@@ -173,7 +173,7 @@ if nargin<5 || isempty(wd) || ~ischar(wd)
         wd      = pwd;
     else
         wd = fileparts(already{1});
-    end;
+    end
 end
 
 if nargin<6 || ~ischar(filt), filt    = '.*';    end;
@@ -278,7 +278,7 @@ if strcmpi(typ,'image'),
         'BackgroundColor',col1,...
         'String',frames,'UserData',eval(frames));
 % 'ForegroundGolor',col3,...
-end;
+end
 
 % Help
 uicontrol(fg,...
@@ -333,7 +333,7 @@ dne = uicontrol(fg,...
 
 if numel(already)>=n(1) && numel(already)<=n(2),
     set(dne,'Enable','on');
-end;
+end
 
 % Filter Button
 uicontrol(fg,...
@@ -425,7 +425,7 @@ if strcmpi(computer,'PCWIN') || strcmpi(computer,'PCWIN64'),
         'ForegroundColor',col3,...
         'String',listdrives(false),...
         'Value',1);
-end;
+end
 
 [pd,vl] = prevdirs([wd filesep]);
 
@@ -508,9 +508,9 @@ if ishandle(sel),
     if sfilt.code == -1 && ~isempty(t)
         % don't canonicalise empty selection
         t = cellfun(@(t1)cpath(t1, pwd), t, 'UniformOutput',false);
-    end;
+    end
     ok = 1;
-end;
+end
 if ishandle(fg),  delete(fg); end;
 drawnow;
 return;
@@ -568,7 +568,7 @@ if nargin>=3,
     set(ob,'ForegroundColor',[1 0 0],'FontWeight','bold');
 else
     set(ob,'ForegroundColor',[0 0 0],'FontWeight','normal');
-end;
+end
 drawnow;
 return;
 %=======================================================================
@@ -687,7 +687,7 @@ if isempty(c) || isequal(c,char(13))
     else
         dr = fullfile(pd,sel);
         odr = '';
-    end;
+    end
     update(lb,dr);
     if ~isempty(odr)
         % If moving up one level, try to set focus on previously visited
@@ -718,12 +718,12 @@ function update(lb,dr)
 lb = sib(lb,'dirs');
 if nargin<2 || isempty(dr),
     dr = get(lb,'UserData');
-end;
+end
 if ~(strcmpi(computer,'PCWIN') || strcmpi(computer,'PCWIN64'))
     dr    = [filesep dr filesep];
 else
     dr    = [dr filesep];
-end;
+end
 dr(findstr([filesep filesep],dr)) = [];
 [f,d] = listfiles(dr,getfilt(lb));
 if isempty(d),
@@ -731,7 +731,7 @@ if isempty(d),
     [f,d] = listfiles(dr,getfilt(lb));
 else
     set(lb,'UserData',dr);
-end;
+end
 set(lb,'Value',1,'String',d);
 set(sib(lb,'files'),'Value',1,'String',f);
 set(sib(lb,'pardirs'),'String',pardirs(dr),'Value',1);
@@ -744,8 +744,8 @@ if numel(dr)>1 && dr(2)==':',
     mch = find(lower(str(:,1))==lower(dr(1)));
     if ~isempty(mch),
         set(sib(lb,'drive'),'Value',mch);
-    end;
-end;
+    end
+end
 return;
 %=======================================================================
 
@@ -759,7 +759,7 @@ catch
     msg(lb,['Failed to evaluate "' str '".'],'r');
     beep;
     return;
-end;
+end
 if ~isnumeric(r),
     msg(lb,['Expression non-numeric "' str '".'],'r');
     beep;
@@ -767,7 +767,7 @@ else
     set(lb,'UserData',r);
     msg(lb,'');
     update(lb);
-end;
+end
 %=======================================================================
 
 %=======================================================================
@@ -787,7 +787,7 @@ if isempty(c) || isequal(c, char(13))
     if isempty(vlo),
         msg(lb,'Nothing selected');
         return;
-    end;
+    end
     lim  = get(lb,'UserData');
     ob   = sib(lb,'selected');
     str3 = get(ob,'String');
@@ -798,7 +798,7 @@ if isempty(c) || isequal(c, char(13))
         beep;
         set(sib(lb,'D'),'Enable','on');
         return;
-    end;
+    end
 
     vl   = vlo(1:lim1);
     msk  = false(size(str,1),1);
@@ -821,14 +821,14 @@ if isempty(c) || isequal(c, char(13))
             msg(lb,['Selected ' num2str(numel(str3)) '/' num2str(lim(2)) ' files.']);
         else
             msg(lb,['Selected ' num2str(numel(str3)) '/' num2str(lim(1)) '-' num2str(lim(2)) ' files.']);
-        end;
+        end
     else
         if size(str3,1) == 1, ss = ''; else ss = 's'; end;
         msg(lb,['Selected ' num2str(numel(str3)) ' file' ss '.']);
-    end;
+    end
     if ~isfinite(lim(1)) || numel(str3)>=lim(1),
         set(sib(lb,'D'),'Enable','on');
-    end;
+    end
 end
 return;
 %=======================================================================
@@ -845,7 +845,7 @@ return;
 %    cfg_message('matlabbatch:usage',['Can''t find object with tag "' tag '".']);
 %elseif length(obj)>1,
 %    cfg_message('matlabbatch:usage',['Found ' num2str(length(obj)) ' objects with tag "' tag '".']);
-%end;
+%end
 %return;
 %=======================================================================
 
@@ -863,7 +863,7 @@ if numel(str2)>= lim(1) && numel(str2)<= lim(2),
     set(sib(lb,'D'),'Enable','on');
 else 
     set(sib(lb,'D'),'Enable','off');
-end;
+end
 
 if numel(str2) == 1, ss1 = ''; else ss1 = 's'; end;
 %msg(lb,[num2str(size(str2,1)) ' file' ss ' remaining.']);
@@ -894,17 +894,17 @@ if ~isempty(de),
     d     = {de([de.isdir]).name};
     if ~any(strcmp(d, '.'))
         d = {'.', d{:}};
-    end;
+    end
     if filt.code~=-1,
         f = {de(~[de.isdir]).name};
     else
         % f = d(3:end);
         f = d;
-    end;
+    end
 else
     d = {'.','..'};
     f = {};
-end;
+end
 
 msg(ob,['Filtering ' num2str(numel(f)) ' files...']);
 f  = do_filter(f,filt.ext);
@@ -919,16 +919,16 @@ if filt.code==1 && (numel(filt.frames)~=1 || filt.frames(1)~=1),
             d4 = (1:dm(4))';
         catch
             d4 = 1;
-        end;
+        end
         msk = false(size(filt.frames));
         for j=1:numel(msk), msk(j) = any(d4==filt.frames(j)); end;
         ii{i} = filt.frames(msk);
-    end;
+    end
 elseif filt.code==1 && (numel(filt.frames)==1 && filt.frames(1)==1),
     for i=1:numel(f),
         ii{i} = 1;
-    end;
-end;
+    end
+end
 
 msg(ob,['Listing ' num2str(numel(f)) ' files...']);
 
@@ -941,24 +941,24 @@ for i=2:numel(f),
             tmp      = sort([ii{i}(:) ; ii{i-1}(:)]);
             tmp(~diff(tmp,1)) = [];
             ii{i}    = tmp;
-        end;
+        end
         msk(i-1) = false;
-    end;
-end;
+    end
+end
 f        = f(msk);
 if filt.code==1,
     ii       = ii(msk);
     c        = cell(size(f));
     for i=1:numel(f),
         c{i} = [repmat([f{i} ','],numel(ii{i}),1) num2str(ii{i}(:)) ];
-    end;
+    end
     f        = c;
 elseif filt.code==-1,
     fs = filesep;
     for i=1:numel(f),
         f{i} = [f{i} fs];
-    end;
-end;
+    end
+end
 f        = f(:);
 
 d        = unique(d(:));
@@ -975,7 +975,7 @@ t1 = regexp(f,filt_or(1:end-1));
 if numel(f)==1 && ~iscell(t1), t1 = {t1}; end;
 for i=1:numel(t1),
     t2(i) = ~isempty(t1{i});
-end;
+end
 ind = find(t2);
 f   = f(t2);
 return;
@@ -1088,20 +1088,20 @@ end
 if isempty(regexp(t,mch,'once')),
     if (nargin<2)||isempty(d), d = pwd; end;
     t = [d fs t];
-end;
+end
 
 % Replace occurences of '/./' by '/' (problems with e.g. /././././././')
 re = [fs1 '\.' fs1];
 while ~isempty(regexp(t,re, 'once' )),
     t  = regexprep(t,re,fs);
-end;
+end
 t  = regexprep(t,[fs1 '\.' '$'], fs);
 
 % Replace occurences of '/abc/../' by '/'
 re = [fs1 '[^' fs1 ']+' fs1 '\.\.' fs1];
 while ~isempty(regexp(t,re, 'once' )),
     t  = regexprep(t,re,fs,'once');
-end;
+end
 t  = regexprep(t,[fs1 '[^' fs1 ']+' fs1 '\.\.' '$'],fs,'once');
 
 % Replace '//'
@@ -1168,16 +1168,16 @@ elseif isfinite(lim(2)),
         msg(ob,['Selected ' num2str(numel(str)) '/' num2str(lim(2)) ' files.']);
     else
         msg(ob,['Selected ' num2str(numel(str)) '/' num2str(lim(1)) '-' num2str(lim(2)) ' files.']);
-    end;
+    end
 else
     if numel(str) == 1, ss = ''; else ss = 's'; end;
     msg(ob,['Specified ' num2str(numel(str)) ' file' ss '.']);
-end;
+end
 if ~isfinite(lim(1)) || numel(str)>=lim(1),
     set(sib(ob,'D'),'Enable','on');
 else
     set(sib(ob,'D'),'Enable','off');
-end;
+end
 set(sib(ob,'selected'),'String',str,'Value',[]);
 acs = get(ob,'Userdata');
 fg = gcbf;
@@ -1226,7 +1226,7 @@ if ~isempty(fob)
     filt.frames = get(fob,'Userdata');
 else
     filt.frames = [];
-end;
+end
 ptr    = get(gcbf,'Pointer');
 try
     set(gcbf,'Pointer','watch');
@@ -1234,7 +1234,7 @@ try
 catch
     set(gcbf,'Pointer',ptr);
     sel = {};
-end;
+end
 set(gcbf,'Pointer',ptr);
 already= get(sib(ob,'selected'),'String');
 fb     = sib(ob,'files');
@@ -1246,7 +1246,7 @@ if ~isfinite(lim(1)) || size(sel,1)>=lim(1),
     set(sib(ob,'D'),'Enable','on');
 else
     set(sib(ob,'D'),'Enable','off');
-end;
+end
 %=======================================================================
 
 %=======================================================================
@@ -1255,13 +1255,13 @@ sel={};
 [t,d] = listfiles(cdir,filt);
 if ~isempty(t)
     sel = strcat([cdir,filesep],t);
-end;
+end
 for k = 1:numel(d)
     if ~any(strcmp(d{k},{'.','..'}))
         sel1 = select_rec1(fullfile(cdir,d{k}),filt);
         sel  = [sel(:); sel1(:)];
-    end;
-end;
+    end
+end
 %=======================================================================
 
 %=======================================================================
@@ -1283,7 +1283,7 @@ case {'batch'},   code = 0; ext = {'.*\.mat$','.*\.MAT$','.*\.m$','.*\.M$','.*\.
 case {'dir'},     code =-1; ext = {'.*'};
 case {'extdir'},     code =-1; ext = {['.*' filesep '$']};
 otherwise,        code = 0; ext = {typ};
-end;
+end
 sfilt = struct('code',code,'frames',frames,'ext',{ext},...
                              'filt',{{filt}});
 %=======================================================================
@@ -1298,7 +1298,7 @@ if isempty(mydrivestr) || reread
         dsel(i) = exist([driveLett{i} '\'],'dir')~=0;
     end
     mydrivestr = driveLett(dsel);
-end;
+end
 drivestr = mydrivestr;
 %=======================================================================
 

@@ -64,7 +64,7 @@ if nargin==1
   if fid<0
     fprintf(2,['Error LOADEDF: File ' FILENAME ' not found\n']);
     return;
-  end;
+  end
 
   EDF.FILE.FID=fid;
   EDF.FILE.OPEN = 1;
@@ -78,7 +78,7 @@ if nargin==1
     EDF.FILE.Path = pwd;
   else
     EDF.FILE.Path = FILENAME(1:SPos-1);
-  end;
+  end
   EDF.FileName = [EDF.FILE.Path SLASH EDF.FILE.Name '.' EDF.FILE.Ext];
 
   H1=char(fread(EDF.FILE.FID,256,'char')');     %
@@ -96,10 +96,10 @@ if nargin==1
       EDF.T0(1)=2000+EDF.T0(1);
     else
       EDF.T0(1)=1900+EDF.T0(1);
-    end;
+    end
   else ;
     % in a future version, this is hopefully not needed
-  end;
+  end
 
   EDF.HeadLen = str2num(H1(185:192));  % 8 Byte  Length of Header
   % reserved = H1(193:236);            % 44 Byte
@@ -167,7 +167,7 @@ if nargin==1
     EDF.NRec = floor((endpos - EDF.FILE.POS) / (sum(EDF.SPR) * 2));
     fseek(EDF.FILE.FID, EDF.FILE.POS, 'bof');
     H1(237:244)=sprintf('%-8i',EDF.NRec);      % write number of records
-  end;
+  end
 
   EDF.Chan_Select=(EDF.SPR==max(EDF.SPR));
   for k=1:EDF.NS
@@ -175,7 +175,7 @@ if nargin==1
       EDF.ChanTyp(k)='N';
     else
       EDF.ChanTyp(k)=' ';
-    end;
+    end
     if findstr(upper(EDF.Label(k,:)),'ECG')
       EDF.ChanTyp(k)='C';
     elseif findstr(upper(EDF.Label(k,:)),'EKG')
@@ -186,8 +186,8 @@ if nargin==1
       EDF.ChanTyp(k)='O';
     elseif findstr(upper(EDF.Label(k,:)),'EMG')
       EDF.ChanTyp(k)='M';
-    end;
-  end;
+    end
+  end
 
   EDF.AS.spb = sum(EDF.SPR);    % Samples per Block
   

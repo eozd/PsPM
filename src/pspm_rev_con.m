@@ -23,14 +23,14 @@ if nargin < 1, return;
 elseif ~isfield(model, 'con')
   fprintf('No contrasts contained in model.\n');
   return;
-end;
+end
 
 % print contrast names to screen
 % ------------------------------------------------------------------------
 fprintf('Contrast names for %s:\n---------------------------------------\n', model.modelfile);
 for n=1:numel(model.con)
   fprintf('Contrast %d: %s\n',n,model.con(n).name);
-end;
+end
 fprintf('---------------------------------------\n');
 
 sts = 1;

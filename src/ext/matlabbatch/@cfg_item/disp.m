@@ -24,9 +24,9 @@ if length(sz)>4,
 else
     for i=1:(length(sz)-1),
         fprintf('%d-by-',sz(i));
-    end;
+    end
     fprintf('%d\n',sz(end));
-end;
+end
 if prod(sz)==1,
     so = struct(obj);
     if isfield(so,'cfg_item')
@@ -35,10 +35,10 @@ if prod(sz)==1,
         % display additional fields, if any
         if numel(fieldnames(so)) > 1
             disp(rmfield(so,'cfg_item'));
-        end;
+        end
     else
         % disp base object only
         disp(so);
-    end;
-end;
+    end
+end
 return;

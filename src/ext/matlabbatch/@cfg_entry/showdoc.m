@@ -39,7 +39,7 @@ switch item.strtype
         else
             str{end+1} = sprintf(['The string must have at least %d ' ...
                                 'characters.'], item.num(1));
-        end;
+        end
     case {'s+'},
         str{end+1} = 'A multi-line string is entered as cellstr.';
         if isempty(item.num)
@@ -51,8 +51,8 @@ switch item.strtype
         else
             str{end+1} = sprintf(['The string array must have at least %d ' ...
                                 'lines.'], item.num(1));
-        end;  
-end;
+        end  
+end
 
 function numstr = shownum(num)
 if isempty(num)
@@ -64,8 +64,8 @@ else
             numstr1{k} = sprintf('%d',num(k));
         else
             numstr1{k} = 'X';
-        end;
-    end;
+        end
+    end
     numstr = sprintf('%s-by-', numstr1{:});
     numstr = sprintf('An %s array must be entered.', numstr(1:end-4));
-end;
+end

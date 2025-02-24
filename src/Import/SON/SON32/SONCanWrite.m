@@ -11,7 +11,7 @@ function [ret]=SONCanWrite(fh)
 if nargin ~= 1
     ret=-1000;
     return;
-end;
+end
 
 ret=calllib('son32','SONCanWrite',fh);
 return;

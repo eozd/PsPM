@@ -29,14 +29,14 @@ if ~iscell(X)
         warning('Input must be a 2-column vector (paired test) or a 2-element cell array (independent test).');
     else 
         paired = 1;
-    end;
+    end
 elseif iscell(X)
     if (numel(X) ~= 2) 
         warning('Input must be a 2-column vector (paired test) or a 2-element cell array (independent test).');
     else
         paired = 0;
-    end;
-end;
+    end
+end
 
 % prepare design matrix
 % -------------------------------------------------------------------------
@@ -53,12 +53,12 @@ else
     for k = 1:2
         nsub(k) = numel(X{k});
         X{k} = X{k}(:);
-    end;
+    end
     Y = [zeros(nsub(1), 1); ones(nsub(2), 1)];
     X = cell2mat(X(:));
     df = sum(nsub(:)) - 1;
     n = sum(nsub(:));
-end;
+end
 
 % invert predictive model
 % -------------------------------------------------------------------------

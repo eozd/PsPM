@@ -39,11 +39,11 @@ if nargin < 4
     closewindow = 1; 
 elseif closewindow ~= 0, 
     closewindow = 1; 
-end;
+end
 
 if nargin < 3
     fn = 'pspm_sf_theta.m';
-end;
+end
 
 fid = fopen(fn, 'w');
 [pth fn ext] = fileparts(fn);
@@ -62,7 +62,7 @@ elseif ~any(size(scr) == 1)
     errmsg = 'Input SCR is not a vector';
 else
     scr = scr(:);
-end;
+end
 
 if exist('errmsg') == 1, warning(errmsg); return; end;
         
@@ -126,7 +126,7 @@ job{9} = sprintf('sr = %f', sr);
 
 for f = 1:numel(job)
     fprintf(fid, '%s\n', job{f});
-end;
+end
 
 
 fclose(fid);

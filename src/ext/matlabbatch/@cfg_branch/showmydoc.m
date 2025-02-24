@@ -21,5 +21,5 @@ str2{1} = sprintf('This branch contains %d items:', numel(citems));
 str3 = cell(1,numel(citems));
 for k = 1:numel(citems)
     str3{k} = sprintf('* %s', subsref(citems{k}, substruct('.','name')));
-end;
+end
 str = [str1(:); {''}; str2(:); str3(:)];

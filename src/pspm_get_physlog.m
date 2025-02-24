@@ -64,7 +64,7 @@ addpath(pspm_path('Import','physlog'));
 if bsts ~= 1
   warning('ID:invalid_input', 'Physlog import was not successfull');
   return;
-end;
+end
 
 % iterate through data and fill up channel list as specified in import
 % -------------------------------------------------------------------------
@@ -82,8 +82,8 @@ for k = 1:numel(import)
     import{k}.data = out.data{channel,1}.data;
     import{k}.units = out.data{channel,1}.header.units;
     sourceinfo.channel{k, 1} = sprintf('Column %02.0f', channel);
-  end;
-end;
+  end
+end
 
 % extract record time and date
 sourceinfo.date = out.record_date;

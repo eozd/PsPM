@@ -21,7 +21,7 @@ rev = '$Rev: 380 $'; %#ok
 persistent local_def;
 if isempty(local_def)
    local_def = cfg_mlbatch_defaults;
-end;
+end
 
 % construct subscript reference struct from dot delimited tag string
 tags = textscan(defstr,'%s', 'delimiter','.');
@@ -35,4 +35,4 @@ if nargin == 1
     end
 else
     local_def = subsasgn(local_def, subs, varargin{1});
-end;
+end

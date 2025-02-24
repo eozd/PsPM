@@ -38,13 +38,13 @@ catch
             % test if val variable exists
             if ~exist('val','var')
                 cfg_message('cfg_ui:local_eval_valedit:noval','No variable ''val'' assigned.');
-            end;
+            end
             sts = true;
         catch
             sts = false;
             val = [];
             everr = lasterror;
             msgbox(everr.message,'Evaluation error','modal');
-        end;
-    end;
-end;
+        end
+    end
+end

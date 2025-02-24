@@ -74,13 +74,13 @@ if nargin == 1
         else
             cfg_message('matlabbatch:constructor:reclassify', ['Don''t know how to convert this ' ...
                                 'into class ''%s''.'], myclass);
-        end;
-    end;
+        end
+    end
     if isa(varargin{1},myclass)
         item = varargin{1};
         return;
-    end;
-end;
+    end
+end
 
 mxpnargin = 5; % Max 5 arguments to parent initialisation
 pnargin = min([nargin, mxpnargin]); 
@@ -100,17 +100,17 @@ switch nargin
             return;
         else
             bitem = cfg_branch(varargin{1});
-        end;
+        end
     case {2,3,4,5,6,7,8,9,10}
         bitem = cfg_branch(varargin{1:pnargin});
     otherwise
         cfg_message('matlabbatch:constructor:nargin', 'Wrong number of arguments.');
-end;
+end
 for k=1:numel(fn)
     sitem.(fn{k})=defs{k};
-end;
+end
 item = class(sitem, myclass, bitem);
 % set additional fields (if any) - field order as in mysubs_fields
 for k = 1:min(numel(fn),nargin-mxpnargin)
     item.(fn{k}) = varargin{k+mxpnargin};
-end;
+end

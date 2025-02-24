@@ -33,9 +33,9 @@ if ischar(val) && strcmp(val, '<DEFAULTS>')
                     '%s: No matching defaults value found.', ...
                     subsasgn_checkstr(item,substruct('.','val')));
             val = '<UNDEFINED>';
-        end;
-    end;
-end;
+        end
+    end
+end
 
 subs = substruct('.', 'val', '{}', {1});
 if ischar(val) && strcmp(val, '<UNDEFINED>') % val may be <UNDEFINED>
@@ -46,4 +46,4 @@ else
         val = feval(item.rewrite_job, val);
     end
     item = subsasgn(item, subs, val);
-end;
+end
