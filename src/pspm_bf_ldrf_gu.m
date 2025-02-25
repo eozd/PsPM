@@ -27,7 +27,7 @@ function [bs, x] = pspm_bf_ldrf_gu(varargin)
 
 %% initialise
 global settings
-if isempty(settings), pspm_init; end;
+if isempty(settings), pspm_init; end
 %% set defaults
 p = [0.27, 2.04, 1.48, 0.004]; % p = [sigma lambda1 lambda2 a]
 n = 20;
@@ -40,21 +40,21 @@ if nargin == 0
 elseif nargin == 1
   n_el = numel(varargin{1});
   td = varargin{1}(1);
-  if n_el > 1, n = varargin{1}(2); end;
-  if n_el > 2, offset = varargin{1}(3); end;
-  if n_el > 3, p(1) = varargin{1}(4); end;
-  if n_el > 4, p(2) = varargin{1}(5); end;
-  if n_el > 5, p(3) = varargin{1}(6); end;
-  if n_el > 6, p(4) = varargin{1}(7); end;
+  if n_el > 1, n = varargin{1}(2); end
+  if n_el > 2, offset = varargin{1}(3); end
+  if n_el > 3, p(1) = varargin{1}(4); end
+  if n_el > 4, p(2) = varargin{1}(5); end
+  if n_el > 5, p(3) = varargin{1}(6); end
+  if n_el > 6, p(4) = varargin{1}(7); end
 elseif nargin > 1
   td = varargin{1};
   n = varargin{2};
-  if nargin > 2, offset = varargin{3}; end;
-  if nargin > 3, p(1) = varargin{4}; end;
-  if nargin > 4, p(2) = varargin{5}; end;
-  if nargin > 5, p(3) = varargin{6}; end;
-  if nargin > 5, p(4) = varargin{7}; end;
-end;
+  if nargin > 2, offset = varargin{3}; end
+  if nargin > 3, p(1) = varargin{4}; end
+  if nargin > 4, p(2) = varargin{5}; end
+  if nargin > 5, p(3) = varargin{6}; end
+  if nargin > 5, p(4) = varargin{7}; end
+end
 if td > n
   warning('ID:invalid_input', 'Time resolution is larger than or equal to the duration of the function.'); return;
 elseif td == 0
@@ -63,7 +63,7 @@ elseif offset < 0
   warning('ID:invalid_input', 'Offset has to be a positive number.'); return;
 elseif n <= 0
   warning('ID:invalid_input', 'Duration has to be a number larger then 0.'); return;
-end;
+end
 %% check if offset is in a valid range or correct it if it is to small
 if offset ~= 0
   r = td/offset;
@@ -73,9 +73,9 @@ if offset ~= 0
       offset = 0;
     elseif r <= 2
       offset = td;
-    end;
-  end;
-end;
+    end
+  end
+end
 %% create x axis
 bf_dur = n;
 n_bf = round((bf_dur)/td);

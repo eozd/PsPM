@@ -137,14 +137,14 @@ classdef pspm_exp_test < matlab.unittest.TestCase
       % generate signal copied from pspm_glm_test
       % with signal(onsets) = scal + offset
       % default values
-      if nargin < 6, duration = 10; end;
-      if nargin < 5, sr = 100; end;
+      if nargin < 6, duration = 10; end
+      if nargin < 5, sr = 100; end
       if nargin < 4
         onsets_duration = zeros(size(onsets));
       elseif isscalar(onsets_duration)
         onsets_duration = onsets_duration .* ones(size(onsets));
       end
-      if nargin < 3, offset = 0; end;
+      if nargin < 3, offset = 0; end
       if nargin < 2
         scal = ones(size(onsets));
       elseif isscalar(scal)

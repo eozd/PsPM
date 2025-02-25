@@ -134,7 +134,7 @@ catch
     return;
 end
 
-%  warning('An error occured while reading a textfile.\n'); return; end;
+%  warning('An error occured while reading a textfile.\n'); return; end
 
 % select desired channels
 % -------------------------------------------------------------------------
@@ -144,7 +144,7 @@ for k = 1:numel(import)
         channel = import{k}.channel;
     elseif channel_names_line ~= 0
         channel = pspm_find_channel(channel_names, import{k}.type);
-        if channel < 1, return; end;
+        if channel < 1, return; end
     else
         warning('ID:invalid_input', ...
                 ['Neiter ''channel'' nor ''channel_names_line'' options were specified.', ...
@@ -152,16 +152,16 @@ for k = 1:numel(import)
         return;
     end
 
-    if channel > size(data, 2), warning('ID:channel_not_contained_in_file', 'Channel %02.0f not contained in file %s.\n', channel, datafile); return; end;
+    if channel > size(data, 2), warning('ID:channel_not_contained_in_file', 'Channel %02.0f not contained in file %s.\n', channel, datafile); return; end
 
     import{k}.data = data(:, channel);
 
     if isfield(import{k},'typeno') && strcmpi(settings.channeltypes(import{k}.typeno).data, 'events')
         import{k}.marker = 'continuous';
-    end;
+    end
 
     sourceinfo.channel{k} = sprintf('Data column %02.0', channel);
-end;
+end
 
 sts = 1;
 return

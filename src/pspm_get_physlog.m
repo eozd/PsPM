@@ -64,26 +64,26 @@ addpath(pspm_path('Import','physlog'));
 if bsts ~= 1
   warning('ID:invalid_input', 'Physlog import was not successfull');
   return;
-end;
+end
 
 % iterate through data and fill up channel list as specified in import
 % -------------------------------------------------------------------------
 for k = 1:numel(import)
   if strcmpi(import{k}.type, 'marker')
     channel = import{k}.channel;
-    if channel > size(out.trigger.t, 2), warning('ID:channel_not_contained_in_file', 'Column %02.0f not contained in file %s.\n', channel, datafile); return; end;
+    if channel > size(out.trigger.t, 2), warning('ID:channel_not_contained_in_file', 'Column %02.0f not contained in file %s.\n', channel, datafile); return; end
     import{k}.marker = 'continuous';
     import{k}.sr     = out.trigger.sr;
     import{k}.data   = out.trigger.t{:,channel};
   else
     channel = import{k}.channel;
-    if channel > size(out.data, 1), warning('ID:channel_not_contained_in_file', 'Column %02.0f not contained in file %s.\n', channel, datafile); return; end;
+    if channel > size(out.data, 1), warning('ID:channel_not_contained_in_file', 'Column %02.0f not contained in file %s.\n', channel, datafile); return; end
     import{k}.sr = out.data{channel,1}.header.sr;
     import{k}.data = out.data{channel,1}.data;
     import{k}.units = out.data{channel,1}.header.units;
     sourceinfo.channel{k, 1} = sprintf('Column %02.0f', channel);
-  end;
-end;
+  end
+end
 
 % extract record time and date
 sourceinfo.date = out.record_date;

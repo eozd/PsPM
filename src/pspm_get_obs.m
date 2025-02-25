@@ -88,23 +88,23 @@ for k = 1:numel(import)
     channel = import{k}.channel;
   elseif strcmpi(import{k}.type, 'marker')
     channel = pspm_find_channel(obs.channel_names, {'sync'});
-    if channel < 1, warning('Marker channel for import job %02.0f could not be identified (it''s name needs to be SYNC). Please specify as field .channel', k);  return; end;
+    if channel < 1, warning('Marker channel for import job %02.0f could not be identified (it''s name needs to be SYNC). Please specify as field .channel', k);  return; end
   else
     channel = pspm_find_channel(obs.channel_names, import{k}.type);
-    if channel < 1, return; end;
-  end;
+    if channel < 1, return; end
+  end
 
-  if channel > numel(obs.data), warning('ID:channel_not_contained_in_file', 'Channel %02.0f not contained in file %s.\n', channel, datafile); return; end;
+  if channel > numel(obs.data), warning('ID:channel_not_contained_in_file', 'Channel %02.0f not contained in file %s.\n', channel, datafile); return; end
 
   sourceinfo.channel{k, 1} = sprintf('Channel %02.0f: %s', channel, obs.channel_names{channel});
 
   import{k}.sr = obs.sr;
   if strcmpi(import{k}.type, 'marker')
     import{k}.marker = 'continuous';
-  end;
+  end
   import{k}.data = obs.data{channel};
 
-end;
+end
 
 sts = 1;
 return
