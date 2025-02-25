@@ -35,7 +35,7 @@ function [sts, data_struct, infos, pos_of_channel, chantype_sts] = ...
 %                 'wave', or 'events': checks whether retrieved data channel
 %                is of the specified type and gives a warning if not
 % ● Outputs
-%   *            sts : [logical] 1 as default, -1 if unsuccessful.
+%   *            sts : [numeric] 1 as default, -1 if unsuccessful.
 %   *    data_struct : a struct with fields .data and .header, corresponding to a single
 %                      cell of a data cell array returned by pspm_load_data.
 %   *          infos : file infos as returned from pspm_load_data.

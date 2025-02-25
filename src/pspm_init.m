@@ -15,11 +15,14 @@ function pspm_init
 %   3 channel type (channeltype) definitions
 %     3.1 SCR
 % ● Arguments
-%   defaults
-%   ├─channeltypes
-%   ├─import
-%   │   └─channeltypes
-%   └─lateral
+%   ┌──defaults
+%   ├─.channeltypes: List of all allowed PsPM channel types (e.g., SCR, ECG, Pupil).
+%   ├─.import: Settings and definitions for importing various data file formats.
+%   └─.lateral: Defines how PsPM denotes left, right, or combined channels.
+%   //  ... (not complete)
+%   ┌──defaults.import
+%   └─.channeltypes : Subset of channel types that are allowed for direct data import.
+%   //  ... (not complete)
 % ● History
 %   Introduced in PsPM 3.1
 %   Written in 2009-2015 by Dominik R Bach (WTCN, UZH)
