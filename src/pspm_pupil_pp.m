@@ -156,10 +156,10 @@ if sts_load ~= 1, return, end
 % Check for invalid pupil data units 
 allowed_units = {'mm', 'cm', 'dm', 'm', 'km', 'in', 'inches'};
 if ~ismember(data.header.units, allowed_units)
-    warning('pspm_pupil_pp:InvalidUnit', ...
-          'Unsupported pupil data unit: %s. Allowed units are: %s', ...
+    warning('ID:invalid_unit', ...
+          'Unsupported pupil data unit: "%s". Allowed units are: %s', ...
           data.header.units, strjoin(allowed_units, ', '));
-    return
+    return;
 end
 
 
