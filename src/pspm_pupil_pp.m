@@ -153,6 +153,16 @@ if sts_load < 1, return, end
 [sts_load, data,infos, pos_of_channel(1)] = pspm_load_channel(alldata, options.channel, 'pupil');
 if sts_load ~= 1, return, end
 
+% Check for invalid pupil data units 
+allowed_units = {'mm', 'cm', 'dm', 'm', 'km', 'in', 'inches'};
+if ~ismember(data.header.units, allowed_units)
+    warning('ID:invalid_unit', ...
+          'Unsupported pupil data unit: "%s". Allowed units are: %s', ...
+          data.header.units, strjoin(allowed_units, ', '));
+    return;
+end
+
+
 if action_combine
     [sts_load, data_combine, infos, pos_of_channel(2)] = pspm_load_channel(alldata, options.channel_combine, 'pupil');
     if sts_load ~= 1
