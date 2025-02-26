@@ -1,5 +1,5 @@
 function [sts, eye, new_chantype] = pspm_find_eye(chantype)
-% ● Definition
+% ● Description
 %   pspm_get_eye detects the eye location ('l', 'r', 'c', '') from an
 %   eyetracker channel type
 % ● Format

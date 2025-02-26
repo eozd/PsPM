@@ -101,7 +101,8 @@
 %                 model structure as fields .stats_missing and
 %                 .stats_exclude but not used further.
 % ● Outputs
-%   *       glm:  a structure 'glm' which is also written to file
+%   *       sts: status flag (-1 or 1)
+%   *       glm: a structure 'glm' which is also written to file
 % ● References
 %   * Skin conductance response analysis
 %   [1] GLM for SCR:
@@ -163,7 +164,7 @@
 %   Introduced in PsPM 3.1
 %   Written in 2008-2016 by Dominik R Bach (Wellcome Trust Centre for Neuroimaging)
 %   Maintained in 2022 by Teddy
-% ● Developer's Notes
+% ● Developer
 %   TIMING - multiple condition file(s) or struct variable(s):
 %   The structure is equivalent to SPM2/5/8/12 (www.fil.ion.ucl.ac.uk/spm),
 %   such that SPM files can be used.

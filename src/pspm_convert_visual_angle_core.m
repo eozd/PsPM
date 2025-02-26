@@ -12,7 +12,7 @@ function [lon, lat, lon_range, lat_range] = pspm_convert_visual_angle_core(x_dat
 %   *     width: screen width in same units as data
 %   *    height: screen height in same units as data
 %   *  distance: screen distance in same units as data
-% ● Output
+% ● Outputs
 %   *       lat: the latitude in degrees (x-direction)
 %   *       lon: the longitude in degrees (y-direction)
 %   * lat_range: the latitude range

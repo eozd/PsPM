@@ -1,6 +1,6 @@
 function [sts, data_struct, infos, pos_of_channel, chantype_sts] = ...
     pspm_load_channel(fn, channel, channeltype)
-% ● Definition
+% ● Description
 %   pspm_load_channel loads a single data channel and provides integrated
 %   channel checking logic
 % ● Format
@@ -35,7 +35,7 @@ function [sts, data_struct, infos, pos_of_channel, chantype_sts] = ...
 %                 'wave', or 'events': checks whether retrieved data channel
 %                is of the specified type and gives a warning if not
 % ● Outputs
-%   *            sts : [logical] 1 as default, -1 if unsuccessful.
+%   *            sts : [numeric] 1 as default, -1 if unsuccessful.
 %   *    data_struct : a struct with fields .data and .header, corresponding to a single
 %                      cell of a data cell array returned by pspm_load_data.
 %   *          infos : file infos as returned from pspm_load_data.
@@ -44,7 +44,7 @@ function [sts, data_struct, infos, pos_of_channel, chantype_sts] = ...
 %   Written in 2019 by Eshref Yozdemir (University of Zurich)
 %   Updated in 2024 by Dominik Bach (University of Bonn)
 %   Introduced in PsPM 6.1.2
-% ● Developer's notes
+% ● Developer
 %   No checking of file and channel type here as this is done downstream in
 %   pspm_load_data
 

@@ -16,7 +16,7 @@ function [sts, import, sourceinfo] = pspm_get_labchartmat_ext(datafile, import)
 %   *        sts : status.
 %   *     import : the import structure.
 %   * sourceinfo : the source information structure.
-% ● Developer's Notes
+% ● Developer
 %   Tue Jun 08, 2010 12:25 am from
 %   http://www.adinstruments.com/forum/viewtopic.php?f=7&t=35&p=79#p79
 %   Export MATLAB writes the comment timestamps using the overall `tick rate`.
@@ -49,7 +49,7 @@ if isfield(labchart, 'data_block2')
 elseif ~isfield(labchart, 'data_block1')
   warning('This version of the export extension is not supported. Please contact PsPM developers.');
   return;
-end;
+end
 
 % retrieve sampling rate(s) ---
 for channel = 1:size(labchart.ticktimes_block1, 1)
@@ -59,8 +59,8 @@ for channel = 1:size(labchart.ticktimes_block1, 1)
     warning('Recording timestamps imprecise (> 5% deviation)'); return;
   else
     sr(channel) = mean(timestamps);
-  end;
-end;
+  end
+end
 
 % loop through import jobs
 % -------------------------------------------------------------------------
@@ -78,10 +78,10 @@ for k = 1:numel(import)
       channel = import{k}.channel;
     else
       channel = pspm_find_channel(cellstr(labchart.titles_block1), import{k}.type);
-      if channel < 1, return; end;
-    end;
+      if channel < 1, return; end
+    end
 
-    if channel > numel(cellstr(labchart.titles_block1)), warning('ID:channel_not_contained_in_file', 'Channel %02.0f not contained in file %s.\n', channel, datafile); return; end;
+    if channel > numel(cellstr(labchart.titles_block1)), warning('ID:channel_not_contained_in_file', 'Channel %02.0f not contained in file %s.\n', channel, datafile); return; end
 
     sourceinfo.channel{k, 1} = sprintf('Channel %02.0f: %s', channel, labchart.titles_block1(channel, :));
 
@@ -96,13 +96,13 @@ for k = 1:numel(import)
       samples = ~isnan(labchart.ticktimes_block1(1, :));
       % get sample rate ---
       import{k}.sr = 1/sr;
-    end;
+    end
     % get data
     import{k}.data = labchart.data_block1(channel, samples);
     % get units ---
     import{k}.units = labchart.units_block1(channel, :);
-  end;
-end;
+  end
+end
 
 sts = 1;
 return

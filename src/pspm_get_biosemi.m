@@ -32,7 +32,7 @@ sourceinfo = [];
 % -------------------------------------------------------------------------
 hdr = ft_read_header(datafile);
 indata = ft_read_data(datafile);
-try mrk = ft_read_event(datafile); catch, mrk = []; end;
+try mrk = ft_read_event(datafile); catch, mrk = []; end
 
 % extract individual channels
 % -------------------------------------------------------------------------
@@ -44,10 +44,10 @@ for k = 1:numel(import)
       channel = import{k}.channel;
     else
       channel = pspm_find_channel(hdr.label, import{k}.type);
-      if channel < 1, return; end;
-    end;
+      if channel < 1, return; end
+    end
 
-    if channel > size(indata, 1), warning('ID:channel_not_contained_in_file', 'Channel %02.0f not contained in file %s.\n', channel, datafile); return; end;
+    if channel > size(indata, 1), warning('ID:channel_not_contained_in_file', 'Channel %02.0f not contained in file %s.\n', channel, datafile); return; end
 
     sourceinfo.channel{k, 1} = sprintf('Channel %02.0f: %s', channel, hdr.label{channel});
 
@@ -71,10 +71,10 @@ for k = 1:numel(import)
       import{k}.marker = 'timestamps';
       import{k}.markerinfo.value = [];
       import{k}.markerinfo.name = [];
-    end;
-  end;
+    end
+  end
 
-end;
+end
 
 % clear path and return
 % -------------------------------------------------------------------------

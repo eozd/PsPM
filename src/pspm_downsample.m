@@ -11,7 +11,7 @@ function [sts, data, newsr] = pspm_downsample(data, sr,sr_down)
 %   *        sr:      original sampling rate of the input data.
 %   *        sr_down: targeted downsampling rate.
 %
-% ● Output
+% ● Outputs
 %   *       sts: -1 if the frequency ratio is not an integer
 % ● History
 %   Introduced in PsPM 3.0

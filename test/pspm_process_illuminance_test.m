@@ -6,7 +6,7 @@ classdef pspm_process_illuminance_test < matlab.unittest.TestCase
   properties
     testfile_prefix = 'testdata_process_illuminance';
     datafiles = {};
-  end;
+  end
   properties (TestParameter)
     % one file
     bf_dur = {0.1 10 100};
@@ -16,7 +16,7 @@ classdef pspm_process_illuminance_test < matlab.unittest.TestCase
     % multiple files
     n_times = {1, 8}
     mode = {'file', 'data', 'mixed'};
-  end;
+  end
   methods(TestMethodTeardown)
     %% Cleanup function
     function cleanup(this)
@@ -24,11 +24,11 @@ classdef pspm_process_illuminance_test < matlab.unittest.TestCase
         d = this.datafiles{i};
         if ~isempty(d) && exist(d, 'file')
           delete(d);
-        end;
-      end;
+        end
+      end
       this.datafiles = {''};
-    end;
-  end;
+    end
+  end
   methods
     %% Generate data
     function [data_list, sr_list] = generate_lx(this, sr, dur, n_times, mode)
@@ -36,10 +36,10 @@ classdef pspm_process_illuminance_test < matlab.unittest.TestCase
         data_list = repmat({'file'; 'data'}, fix(n_times/2), 1);
         if mod(n_times, 2) == 1
           data_list{end+1} = 'file';
-        end;
+        end
       else
         data_list = repmat({mode}, n_times, 1);
-      end;
+      end
       sr_list = cell(n_times,1);
       for i=1:n_times
         sr_list{i} = sr;
@@ -54,10 +54,10 @@ classdef pspm_process_illuminance_test < matlab.unittest.TestCase
             save(file_name, 'Lx');
           case 'data'
             data_list{i} = Lx;
-        end;
-      end;
-    end;
-  end;
+        end
+      end
+    end
+  end
   methods (Test)
     %% test options
     function test_options(this, sr, dur, bf_dur, bf_offset)
@@ -73,7 +73,7 @@ classdef pspm_process_illuminance_test < matlab.unittest.TestCase
         expect_warning = 'ID:invalid_input';
       else
         expect_warning = '';
-      end;
+      end
       if ~isempty(expect_warning)
         [sts, ~] = this.verifyWarning(@()pspm_process_illuminance(d_list, sr_list, o), expect_warning);
         this.verifyEqual(sts, -1);
@@ -81,8 +81,8 @@ classdef pspm_process_illuminance_test < matlab.unittest.TestCase
         [sts, out] = this.verifyWarningFree(@()pspm_process_illuminance(d_list, sr_list, o));
         this.verifyEqual(sts, 1);
         this.verifyEqual(size(out,1), size(d_list,1));
-      end;
-    end;
+      end
+    end
     %% test multi
     function test_multi(this, n_times, mode)
       [data, sr_list] = this.generate_lx(10, 100, n_times, mode);
@@ -93,8 +93,8 @@ classdef pspm_process_illuminance_test < matlab.unittest.TestCase
         this.verifyEqual(size(out,1), 10*100);
       else
         this.verifyEqual(size(out), size(data));
-      end;
-    end;
+      end
+    end
     %% test overwrite
     function test_overwrite(this)
       [fn_list, sr_list] = this.generate_lx(10, 100, 1, 'file');
@@ -114,9 +114,9 @@ classdef pspm_process_illuminance_test < matlab.unittest.TestCase
         %   this.verifyTrue(isnumeric(out));
         %   this.verifyTrue(isfield(d, 'Lx'));
         %   this.verifyEqual(size(d.Lx, 2), 1);
-        % end;
-    end;
-  end;
+        % end
+    end
+  end
   methods (Test)
     %% test for invalid input
     function invalid_input(this)
@@ -158,6 +158,6 @@ classdef pspm_process_illuminance_test < matlab.unittest.TestCase
       % fn not same format as ldata
       opt.fn = 'a';
       this.verifyWarning(@() pspm_process_illuminance({1:10}, {1}, opt), 'ID:invalid_input');
-    end;
-  end;
+    end
+  end
 end

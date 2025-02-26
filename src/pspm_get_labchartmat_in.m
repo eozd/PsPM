@@ -16,7 +16,7 @@ function [sts, import, sourceinfo] = pspm_get_labchartmat_in(datafile, import)
 %   *        sts : status.
 %   *     import : the import structure.
 %   * sourceinfo : the source information structure.
-% ● Developer's Notes
+% ● Developer
 %   * NOTE
 %     This info is inherited from the old labchart export code but I
 %     assume it's still valid
@@ -77,10 +77,10 @@ for blk = 1:blkno
         channel = import{blk}{k}.channel;
       else
         channel = pspm_find_channel(cellstr(labchart.titles), import{blk}{k}.type);
-        if channel < 1, return; end;
-      end;
+        if channel < 1, return; end
+      end
 
-      if channel > numel(cellstr(labchart.titles)), warning('ID:channel_not_contained_in_file', 'Channel %02.0f not contained in file %s.\n', channel, datafile); return; end;
+      if channel > numel(cellstr(labchart.titles)), warning('ID:channel_not_contained_in_file', 'Channel %02.0f not contained in file %s.\n', channel, datafile); return; end
 
       sourceinfo{blk}.channel{k, 1} = sprintf('Channel %02.0f: %s', channel, labchart.titles(channel, :));
 
@@ -89,9 +89,9 @@ for blk = 1:blkno
         labchart.data(labchart.datastart(channel, blk):labchart.dataend(channel, blk))];
       % get sample rate
       import{blk}{k}.sr = labchart.samplerate(channel, blk);
-    end;
-  end;
-end;
+    end
+  end
+end
 
 sts = 1;
 return

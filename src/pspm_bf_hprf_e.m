@@ -8,7 +8,7 @@ function [bf, x, b] = pspm_bf_hprf_e(varargin)
 % ● Arguments
 %   *       td : time resolution in second.
 %   *        b : number of basis functions. Default as 1:6.
-% ● Developer's Notes
+% ● Developer
 %   Basis functions will be orthogonalized using spm_orth by default. Onsets
 %   pspm_glm must be shifted by 5 s to account for the pre-event epoch.
 %   Put in values 1:6 for b in order to get following basis functions:
@@ -25,10 +25,10 @@ function [bf, x, b] = pspm_bf_hprf_e(varargin)
 
 %% input checks
 global settings;
-if isempty(settings), pspm_init; end;
+if isempty(settings), pspm_init; end
 if nargin < 1
   errmsg = 'No sampling interval stated'; warning('ID:invalid_input', errmsg); return;
-end;
+end
 varargin = cell2mat(varargin);
 if length(varargin)==1
   b=1:6;
@@ -48,7 +48,7 @@ if td > 50
   warning('ID:invalid_input', 'Time resolution is larger than duration of the function.'); return;
 elseif td == 0
   warning('ID:invalid_input', 'Time resolution must be larger than 0.'); return;
-end;
+end
 
 x = (0:td:50-td);
 bf=[];

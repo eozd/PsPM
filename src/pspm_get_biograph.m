@@ -13,9 +13,9 @@ function [sts, import, sourceinfo] = pspm_get_biograph(datafile, import)
 %   ├────────.sr : The sampling rate of the file.
 %   ├──────.data : The data read from the file.
 %   └────.marker : The type of marker, such as 'continuous'
-% ● Output
-%         import : The import struct that saves importing information
-%     sourceinfo : The struct that saves information of original data source
+% ● Outputs
+%   *      import : The import struct that saves importing information
+%   *  sourceinfo : The struct that saves information of original data source
 % ● History
 %   Introduced in PsPM 3.0
 %   Written in 2008-2015 Dominik R Bach (Wellcome Trust Centre for Neuroimaging)

@@ -42,7 +42,7 @@ function [sts, infos, data, filestruct] = pspm_load_data(fn, channel)
 %   ├───.posofmarker: position of the first marker channel
 %   │                 0 if no marker channel exists
 %   └─.posofchannels: number of the channels that were returned
-% ● Developer's Notes
+% ● Developer
 %   General structure of PsPM data files
 %   Each file contains two variables:
 %       infos - struct variable with general infos

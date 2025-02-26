@@ -8,7 +8,7 @@ function [bs, x] = pspm_bf_scrf(varargin)
 % ● Arguments
 %   *    td : Time resolution in second.
 %   *     d : Number of derivatives. Default as 0.
-% ● Reference
+% ● References
 %   Bach DR, Flandin G, Friston KJ, Dolan RJ (2010). Modelling event-related
 %   skin conductance responses. International Journal of Psychophysiology,
 %   75, 349-356.
@@ -19,11 +19,11 @@ function [bs, x] = pspm_bf_scrf(varargin)
 
 %% initialise
 global settings
-if isempty(settings), pspm_init; end;
+if isempty(settings), pspm_init; end
 %% check input arguments
 if nargin==0
   errmsg='No sampling interval stated'; warning('ID:invalid_input', errmsg); return;
-end;
+end
 td = varargin{1}(1);
 if numel(varargin{1}) == 1 && nargin == 1
   d = 0;
@@ -31,24 +31,24 @@ elseif numel(varargin{1}) == 2
   d = varargin{1}(2);
 else
   d = varargin{2}(1);
-end;
+end
 if td > 90
   warning('ID:invalid_input', 'Time resolution is larger than duration of the function.'); return;
 elseif td == 0
   warning('ID:invalid_input', 'Time resolution must be larger than 0.'); return;
-end;
-if (d<0)||(d>2), d=0; end;
+end
+if (d<0)||(d>2), d=0; end
 %% get parameters and basis function
 [bs(:, 1), p, x] = pspm_bf_scrf_f(td);
 if d>0
   bs(:, 2) = [0; diff(bs(:,1))];
   bs(:, 2) = bs(:,2)/sum(abs(bs(:,2)));
-end;
+end
 if d>1
   p(2) = 1.8 * p(2);
   bs(:, 3) = bs(:, 1) - pspm_bf_scrf_f(td, p);
   bs(:, 3) = bs(:, 3)/sum(abs(bs(:, 3)));
-end;
+end
 % orthogonalize
 bs=spm_orth(bs);
 % normalise

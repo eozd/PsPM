@@ -18,14 +18,14 @@ function [fx, dfdx, dfdP] = f_SCR(Xt, Theta, ut, in)
 % ● Format
 %   [fx, dfdx, dfdP] = f_SCR(Xt,Theta,ut,in)
 % ● Arguments
-%   Theta:  4 ER constants (3 ODE params + time)
+% * Theta:  4 ER constants (3 ODE params + time)
 %           3 SF constants (3 ODE params)
 %           3 values per aSCR (invsigma(peaktime), invsigma(std),
 %           log(amplitude))
 %           1 value  per eSCR (log(amplitude))
 %           2 values per SF (invsigma(peaktime), log(amplitude))
 %           2 values per SCL change (invsigma(time), amplitude)
-%      ut:  row 1 - time (after cue onset)
+% *    ut:  row 1 - time (after cue onset)
 %           row 2 - number of aSCR
 %           row 3 - number of eSCR
 %           row 4 - number of SF
@@ -89,15 +89,15 @@ if ut(2) > 0
         [s, dsdx(k)]  = sigm(aTheta(k, 2), sig);
         aTheta(k, 2) = s + sigma_offset;
         aTheta(k, 3) = exp(aTheta(k, 3));
-    end;
+    end
     if any(isinf(aTheta(:, 3)))
         aTheta(isinf(aTheta(:, 3)), 3) = 1e200; % an arbitrary value way below realmax
-    end;
+    end
     clear sig m s
 else
     aTheta = [];
     aSCR_s = 5;
-end;
+end
 
 % - event-related responses
 if ut(3) > 0
@@ -109,11 +109,11 @@ if ut(3) > 0
     eTheta(:, 3) = exp(Theta((Theta_n + 3 * ut(2)) + (1:ut(3))));
     if any(isinf(eTheta(:, 3)))
         eTheta(isinf(eTheta(:, 3)), 3) = 1e200;
-    end;
+    end
 else
     eTheta = [];
     eSCR_o = aSCR_s(end);
-end;
+end
 
 % - spontaneous fluctuations
 if ut(4) > 0
@@ -125,13 +125,13 @@ if ut(4) > 0
         sig.G0 = ut(SF_ub(k)) - ut(SF_lb(k));
         [t, dtdx(k)] = sigm(Theta(Theta_n + 3 * ut(2) + ut(3) + (k - 1) * 2 + 1), sig);
         sfTheta(k, 1) = ut(SF_lb(k)) + t; % lower bound plus parameter vaue
-    end;
+    end
     sfTheta(:, 2) = sigma;
     sfTheta(:, 3) = exp(Theta((Theta_n + 3 * ut(2) + ut(3)) + (2:2:(2 * ut(4)))));
 else
     sfTheta = [];
     SF_ub = eSCR_o;
-end;
+end
 
 % - SCL changes
 if ut(5) > 0
@@ -143,12 +143,12 @@ if ut(5) > 0
         sig.G0 = ut(SCL_ub(k)) - ut(SCL_lb(k));
         [t, dtscldx(k)] = sigm(Theta(Theta_n + 3 * ut(2) + ut(3) + 2 * ut(4) + (k - 1) * 2 + 1), sig);
         SCLtheta(k, 1) = ut(SCL_lb(k)) + t; % lower bound plus parameter vaue
-    end;
+    end
     SCLtheta(:, 2) = sigma_SCL;
     SCLtheta(:, 3) = Theta((Theta_n + 3 * ut(2) + ut(3)) + 2 * ut(4)  + (2:2:(2 * ut(5))));
 else
     SCLtheta = [];
-end;
+end
 
 % ODE
 % ------------------------------------------------------------------------
@@ -190,33 +190,33 @@ Jp(6, 5:7) = -Xt(4:6);
      Jp(3, 7 + (1:3:(3 * ut(2))))  = gu(ut(1), aTheta, 0) .* (ut(1) - aTheta(:, 1))    .* (aTheta(:, 2)).^-2 .* dmdx;
      Jp(3, 7 + (2:3:(3 * ut(2))))  = gu(ut(1), aTheta, 0) .* (ut(1) - aTheta(:, 1)).^2 .* (aTheta(:, 2)).^-3 .* dsdx;
      Jp(3, 7 + (3:3:(3 * ut(2))))  = gu(ut(1), aTheta, 0);
- end;
+ end
 
 if ~isempty(eTheta)
     Jp(3, (7 + 3 * ut(2)) + (1:ut(3)))  = gu(ut(1), eTheta, 0);
-end;
+end
 
 if ~(isempty(eTheta) && isempty(aTheta))
     allTheta = [eTheta; aTheta];
     Jp(3, 4) = sum(gu(ut(1), allTheta, 0) .* 1./(allTheta(:, 2).^2) .* (ut(1) - allTheta(:, 1)) .* exp(Theta(4)));
-end;
+end
 
 if ~isempty(sfTheta)
     Jp(6, (7 + 3 * ut(2) + ut(3)) + (1:2:(2 * ut(4)))) = gu(ut(1), sfTheta, 0) .* (ut(1) - sfTheta(:, 1)) .* sfTheta(:, 2).^-2 .* dtdx;
     Jp(6, (7 + 3 * ut(2) + ut(3)) + (2:2:(2 * ut(4)))) = gu(ut(1), sfTheta, 0);
-end;
+end
 
 if ~isempty(SCLtheta)
     Jp(7, (7 + 3 * ut(2) + ut(3)) + 2 * ut(4) + (1:2:(2 * ut(5)))) = gu(ut(1), SCLtheta, 0) .* 1./(sigma_SCL.^2) .* (ut(1) - SCLtheta(:, 1)) .* dtscldx;
     SCLtheta(:, 3) = 1; % we don't take the exp(amp) here, so dSCLdamp = gu for unit amplitude
     Jp(7, (7 + 3 * ut(2) + ut(3)) + 2 * ut(4) + (2:2:(2 * ut(5)))) = gu(ut(1), SCLtheta, 0);
-end;
+end
 
 dfdP = dt .* Jp';
 
-if any(isweird(fx(:))), error('Weird values in f_SCR'); end;
-if any(isweird(dfdx(:))), error('Weird values in f_SCR'); end;
-if any(isweird(dfdP(:))), error('Weird values in f_SCR'); end;
+if any(isweird(fx(:))), error('Weird values in f_SCR'); end
+if any(isweird(dfdx(:))), error('Weird values in f_SCR'); end
+if any(isweird(dfdP(:))), error('Weird values in f_SCR'); end
 
 
 return;
@@ -237,10 +237,10 @@ if ~isempty(theta)
     gu = a .* exp(-(ut - mu).^2 ./ (2 .* sigma.^2));
     if f
         gu = sum(gu);
-    end;
+    end
 else
     gu = 0;
-end;
+end
 return;
 
 % =========================================================================

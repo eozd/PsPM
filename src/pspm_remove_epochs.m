@@ -16,7 +16,7 @@ function [sts, outchannel] = pspm_remove_epochs(datafile, channel, epochfile, op
 %   │                  corresponding channels should be replaced. The default value is 'add'.
 %   └─.expand_epochs:  [pre, post]
 %                              
-% ● Output
+% ● Outputs
 %   * channel_index: index of channel containing the processed data
 % ● History
 %   Introduced in PsPM 4.0

@@ -13,17 +13,17 @@ function [fx, dfdx, dfdP] = f_SF(Xt, Theta, ut, in)
 % ● Format
 %   [fx, dfdx] = f_SF(Xt,Theta,ut,in)
 % ● Arguments
-%   Theta:  3 general constants
-%           2 value  per SF (time, log(amplitude))
-%      ut:  row 1 - time (after cue onset)
-%           row 2 - number of SF
+%   * Theta: 3 general constants
+%            2 value  per SF (time, log(amplitude))
+%   *    ut: row 1 - time (after cue onset)
+%            row 2 - number of SF
 % ● History
 %   Introduced in PsPM 3.0
 %   Written in 2008-2015 by Dominik R Bach (Wellcome Trust Centre for Neuroimaging)
 
 %% initialise
 global settings;
-if isempty(settings), pspm_init; end;
+if isempty(settings), pspm_init; end
 % settings
 Theta_n = 3;  % number of parameters for the peripheral function (the rest is for the neural function)
 try
@@ -45,10 +45,10 @@ if ut(2) > 0
         sfTheta(n, 1) = Theta((n - 1) * 2 + Theta_n + 1);
         sfTheta(n, 2) = sigma;
         sfTheta(n, 3) = exp(Theta((n - 1) * 2 + Theta_n + 2));
-    end;
+    end
 else
     sfTheta = [];
-end;
+end
 % ODE 3rd order + gaussian
 xdot = [Xt(2)
         Xt(3)
@@ -72,8 +72,8 @@ if ~isempty(theta)
     gu = a .* exp(-(ut - mu).^2 ./ (2 .* sigma.^2));
     if f
         gu = sum(gu);
-    end;
+    end
 else
     gu = 0;
-end;
+end
 return;

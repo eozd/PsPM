@@ -28,7 +28,7 @@ function job_id = pspm_jobman(varargin)
 %   *      job_id:  can be used to manipulate this job in cfg_util. Note that
 %                   changes to the job in cfg_util will not show up in cfg_ui
 %                   unless 'Update View' is called.
-% ● Developer's Notes
+% ● Developer
 %   This code is based on SPM8 and earlier versions by John Ashburner,
 %   Philippe Ciuciu and Guillaume Flandin.
 % ● History

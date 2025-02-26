@@ -1,8 +1,10 @@
 function out = pspm_help_init
-% pspm_help_init sets up the help texts for matlabbatch GUI. This is work
-% in progress.
+% ● Description
+%   pspm_help_init sets up the help texts for matlabbatch GUI. 
+% ● Developer
+%   This is work in progress.
 
-% get functions list
+%% get functions list
 [pth, fname, ext] = fileparts(mfilename('fullpath'));
 
 filelist = dir(fullfile(pth, '*.m'));

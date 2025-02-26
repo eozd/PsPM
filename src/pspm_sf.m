@@ -64,7 +64,9 @@ function [sts, sf] = pspm_sf(model, options)
 %   └─.missingthresh :  [numeric, default: 2] [unit: second]
 %                       Threshold value for controlling missing epochs.
 %                       (Used for DCM only).
-%
+% ● Outputs
+%   *            sts : Status flag.
+%   *             sf : Results structure.
 % ● References
 %   [1] DCM for SF:
 %       Bach DR, Daunizeau J, Kuelzow N, Friston KJ, Dolan RJ (2010). Dynamic
@@ -79,10 +81,10 @@ function [sts, sf] = pspm_sf(model, options)
 %       quantification of arousal from spontanaeous skin conductance
 %       fluctuations. International Journal of Psychophysiology, 76, 52-55.
 %
-% ● Developer's Note
+% ● Developer
 %   the output also contains a field .time that contains the inversion time
 %   in ms (for DCM and MP)
-% ● Copyright
+% ● History
 %   Introduced in PsPM 3.0
 %   Written in 2008-2015 by Dominik R Bach (WCHN, UCL and UZH)
 %   Maintained in 2022 by Teddy

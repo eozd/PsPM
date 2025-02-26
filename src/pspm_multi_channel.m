@@ -22,7 +22,7 @@ function [sts, channel_index] = pspm_multi_channel(fhandle, channels, varargin)
 %                     the specified channels exactly.
 %   *     argument1 : all input arguments for the pre-processing function
 %   *       options : must always be specified as the last input argument
-% ● Output
+% ● Outputs
 %   *           sts : Status determining whether the execution was
 %                     successful (sts == 1) or not (sts == -1)
 %   * channel_index : Index of the generated channels. Any unsuccesful pre-processing

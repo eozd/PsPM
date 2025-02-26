@@ -26,7 +26,7 @@ if nargin == 0
 elseif nargin == 1
   n_el = numel(varargin{1});
   td = varargin{1}(1);
-  if n_el > 1, soa = varargin{1}(2); else , soa=3.5; end;
+  if n_el > 1, soa = varargin{1}(2); else , soa=3.5; end
 elseif nargin > 1
   td = varargin{1};
   soa = varargin{2};
@@ -51,7 +51,7 @@ elseif soa < 2
 elseif soa > 8
   warning(['SOA longer than 8s is not recommended. ', ...
     'Use at own risk.']);
-end;
+end
 x = (0:td:stop-td)';
 bs = zeros(stop_idx,1);
 bs(start_idx:stop_idx) = 1;

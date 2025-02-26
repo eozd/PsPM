@@ -19,7 +19,7 @@ function [sts, out] = pspm_sf_mp(model, options)
 %               Add further diagnostics to the output. Is disabled if set to be false.
 %               If set to true this will add a further field 'D' to the output struct.
 %               Default is false.
-% ● Output
+% ● Outputs
 %   ┌─────out
 %   ├──────.n : number of responses above threshold
 %   ├──────.f : frequency of responses above threshold in Hz
@@ -72,9 +72,9 @@ elseif ~any(size(scr) == 1)
   errmsg = 'Input SCR is not a vector';
 else
   scr = scr(:);
-end;
+end
 
-if exist('errmsg') == 1, warning(errmsg); return; end;
+if exist('errmsg') == 1, warning(errmsg); return; end
 
 
 % options
@@ -111,13 +111,13 @@ for iSet = 1:numel(S.sfsets)
   Theta = [S.theta(1:3), S.sfsets{iSet}];
   for k = 1:(size(ut, 2) - 1)
     Xt(:, k + 1) = f_SF(Xt(:, k), Theta, ut(:, k), in);
-  end;
+  end
   % extract SF amplitude and normalise to 1 unit
   if iSet == 1
     sfa = max(Xt(1, :));
-  end;
+  end
   sf{iSet} = Xt(1, :)/sfa;
-end;
+end
 
 % initialise D.D ---
 D.D = zeros(numel(S.sfsets) * S.n + S.ntail + numel(S.tonicsets{1}) * numel(S.tonicsets{2}), S.n);
@@ -126,7 +126,7 @@ D.D = zeros(numel(S.sfsets) * S.n + S.ntail + numel(S.tonicsets{1}) * numel(S.to
 for k = 1:S.ntail
   D.D(k, 1:min(S.n, S.nsf - S.ntail + k - 1)) = sf{1}((S.ntail - k + 2):min(S.nsf, S.ntail - k + 1 + S.n));
   D.tindx(k) = 1 - (S.ntail - k + 1) .* S.dt;
-end;
+end
 Dindx = k;
 
 % model atoms for SF occuring in data segment --
@@ -135,9 +135,9 @@ for iSet = 1:numel(S.sfsets)
   for k = 1:maxn
     D.D(Dindx + k, k:min(k + S.nsf - 1, S.n)) = sf{iSet}(1:min(S.nsf, S.n - k + 1));
     D.tindx(Dindx + k) = 1 + (k - 1) .* S.dt;
-  end;
+  end
   Dindx = Dindx + k;
-end;
+end
 D.phasicterms = Dindx;
 
 Dindx = Dindx + 1;
@@ -149,8 +149,8 @@ for ia = 1:numel(S.tonicsets{1})
     D.D(Dindx + 1, :) = (S.tonicsets{1}(ia) + S.n * S.dt * S.tonicsets{2}(ib)) - (1:S.n) * S.dt * S.tonicsets{2}(ib);
     D.tindx(Dindx + (0:1)) = NaN;
     Dindx = Dindx + 2;
-  end;
-end;
+  end
+end
 
 % % normalise D.D and retain original amplitudes --
 % (this is to make inner product interpretable)
@@ -205,10 +205,10 @@ while S.cont
     % stopping criteria: smaller than threshold, maximum number of sf
     if sum(S.Yres.^2) < S.maxres || k >= S.maxsf
       S.cont = 0;
-    end;
+    end
     k = k + 1;
-  end;
-end;
+  end
+end
 
 S.diagnostics.num = numel(a); % number of iterations
 S.diagnostics.error = sum(S.Yres.^2); % error
@@ -247,7 +247,7 @@ out.S = S;
 % only add field D if options.diagnostics is set to true.
 if options.diagnostics
   out.D = D;
-end;
+end
 out.ind = ind;
 out.sortind = sortind;
 out.y = y;
@@ -265,4 +265,4 @@ if options.dispwin
   plot(y, 'k');
   plot(D.D(ind, :)', 'b');
   plot(Yhat, 'r');
-end;
+end

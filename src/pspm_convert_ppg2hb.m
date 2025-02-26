@@ -42,7 +42,7 @@ function [ sts, outchannel ] = pspm_convert_ppg2hb( fn , options )
 %   └───.python_path: [char] for method 'heartpy'
 %                     The path where python can be found. Mandatory if
 %                     python environment is not yet set up
-% ● Output
+% ● Outputs
 %   *  channel_index: index of channel containing the processed data
 % ● References
 %   [1] van Gent, P, Farah, H, van Nes, N, & van Arem, B. (2019) Heartpy: 

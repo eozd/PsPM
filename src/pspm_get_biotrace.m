@@ -11,9 +11,9 @@ function [sts, import, sourceinfo] = pspm_get_biotrace(datafile, import)
 %   ├────────.sr : The sampling rate of the file.
 %   ├──────.data : The data read from the file.
 %   └────.marker : The type of marker, such as 'continuous'
-% ● Output
-%         import : The import struct that saves importing information
-%     sourceinfo : The struct that saves information of original data source
+% ● Outputs
+%   *      import : The import struct that saves importing information
+%   *  sourceinfo : The struct that saves information of original data source
 % ● History
 %   Introduced in PsPM 3.0
 %   Written in 2008-2015 by Dominik R Bach (Wellcome Trust Centre for Neuroimaging)
@@ -44,7 +44,7 @@ if isempty(strfind(bio.header{1}{1}, 'RAW'))
 else
   foo = regexp(bio.header{1}{7}, '\s', 'split');
   sr = str2num(foo{3});
-end;
+end
 
 % retrieve recording channel, date and time ---
 foo = regexp(bio.header{1}{9}, ':', 'split');
@@ -66,8 +66,8 @@ for k = 1:numel(import)
   else
     import{k}.data = bio.data{1};
     import{k}.sr = sr;
-  end;
-end;
+  end
+end
 %% Return values
 sts = 1;
 return

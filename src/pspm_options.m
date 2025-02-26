@@ -1,10 +1,12 @@
 function options = pspm_options(options, FunName)
-% ● Definition
+% ● Description
 %   pspm_options automatically determine the fields of options for the
 %   corresponding function.
 % ● Arguments
-%   options:  a struct to be filled by the function
-%   FunName:  a string, the name of the function where option is used
+%   * options:  a struct to be filled by the function
+%   * FunName:  a string, the name of the function where option is used
+% ● Outputs
+%   * options:   a struct containing the options for the specified function.
 % ● History
 %   Introduced in PsPM 6.1
 %   Written in 2022 by Teddy

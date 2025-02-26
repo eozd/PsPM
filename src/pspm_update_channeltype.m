@@ -6,7 +6,7 @@ function [channeltype_new] = pspm_update_channeltype (channeltype_og, keyword)
 %   *         keyword : the keyword to update to accepted values, 'c', 'pp'.
 %                       (1) 'c': update the lateral keyword 'l' or 'r' to 'c'.
 %                       (2)'pp': update the channel type to be preprocessed.
-% ● Output
+% ● Outputs
 %   * channeltype_new : the new channel type with the updated keyword
 % ● History
 %   Introduced in PsPM 6.0.

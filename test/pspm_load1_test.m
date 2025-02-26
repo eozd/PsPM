@@ -66,10 +66,10 @@ classdef pspm_load1_test < matlab.unittest.TestCase
         delete(pspm_load1_test.fn);
       end
       for i=1:numel(this.modelfiles)
-        if exist(this.modelfiles{i}, 'file'), delete(this.modelfiles{i}); end;
+        if exist(this.modelfiles{i}, 'file'), delete(this.modelfiles{i}); end
       end
       for i=1:numel(this.dummyfiles)
-        if exist(this.dummyfiles{i}, 'file'), delete(this.dummyfiles{i}); end;
+        if exist(this.dummyfiles{i}, 'file'), delete(this.dummyfiles{i}); end
       end
     end
   end
@@ -173,7 +173,7 @@ classdef pspm_load1_test < matlab.unittest.TestCase
             dummy = dummy_backup;
             save(dfn, '-struct', 'dummy', mdltype);
             this.verifyWarning(@()pspm_load1(dfn, 'recon'), 'ID:invalid_input');
-        end;
+        end
         options.zscored = 1;
         if strcmpi(mdltype, 'dcm')
           this.verifyWarning(@()pspm_load1(dfn, 'none', {}, options), 'ID:invalid_input');
@@ -182,7 +182,7 @@ classdef pspm_load1_test < matlab.unittest.TestCase
         else
           this.verifyWarning(@()pspm_load1(dfn, 'cond', {}, options), 'ID:invalid_input');
         end
-      end;
+      end
     end
     function test_action_none(this)
       for i=1:numel(this.modelfiles)
@@ -218,8 +218,8 @@ classdef pspm_load1_test < matlab.unittest.TestCase
           otherwise
             this.verifyTrue(isfield(data, 'trlnames'), 'No ''trlnames'' returned.');
             this.verifyTrue(isfield(data, 'condnames'), 'No ''condnames'' returned.');
-        end;
-      end;
+        end
+      end
     end
     function test_action_recon(this)
       for i=1:numel(this.modelfiles)
@@ -236,7 +236,7 @@ classdef pspm_load1_test < matlab.unittest.TestCase
         end
         % non-linear alternative already checked in specific
         % structure test
-      end;
+      end
     end
     % run before con in order to create a con field
     function test_action_savecon(this)
@@ -253,7 +253,7 @@ classdef pspm_load1_test < matlab.unittest.TestCase
         this.verifyTrue(isfield(mdl.(mdltype), 'con'), 'No field ''con'' in model.');
         this.verifyTrue(isfield(mdl.(mdltype).con, 'test'), 'No field ''con.test'' in model.');
         this.verifyEqual(mdl.(mdltype).con.test, x, 'Test field does not contain the expected value.');
-      end;
+      end
     end
     function test_action_con(this)
       for i=1:numel(this.modelfiles)
@@ -264,8 +264,8 @@ classdef pspm_load1_test < matlab.unittest.TestCase
         % check for fields
         if isfield(mdl.(mdltype), 'con')
           this.verifyTrue(isfield(data, 'test'), 'No ''con'' returned.');
-        end;
-      end;
+        end
+      end
     end
     function test_action_all(this)
       for i=1:numel(this.modelfiles)

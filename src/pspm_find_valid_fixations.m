@@ -26,8 +26,8 @@ function [sts, pos_of_channel, fn] = pspm_find_valid_fixations(fn, varargin)
 %   perpendicular to the vector from the eye to the fixation point (which
 %   is approximately correct for large enough screen distance).
 % ● Format
-%   [sts, channel_index] = pspm_find_valid_fixations(fn, bitmap, options)
-%   [sts, channel_index] = pspm_find_valid_fixations(fn, circle_degree, distance, unit, options)
+%   [sts, channel_index, fn] = pspm_find_valid_fixations(fn, bitmap, options)
+%   [sts, channel_index, fn] = pspm_find_valid_fixations(fn, circle_degree, distance, unit, options)
 % ● Arguments
 %   *             fn : The actual data file containing the eyelink recording with gaze
 %                      data converted to cm.
@@ -74,10 +74,15 @@ function [sts, pos_of_channel, fn] = pspm_find_valid_fixations(fn, varargin)
 %                     mode "fixation" and distance or pixel units for mode
 %                     "bitmap".
 %                     Default is 'pupil'.
+% ● Outputs
+%   *             sts: Status flag: 1 = success, -1 = error
+%   *  pos_of_channel: Index/indices of modified or newly added channels
+%   *             fn : Unchanged if called with a filename (data is saved);
+%                      updated data structure if called with a data structure
 % ● References
 %   [1]  Korn CW & Bach DR (2016). A solid frame for the window on cognition:
 %        Modelling event-related pupil responses. Journal of Vision, 16:28,1-6.
-% ● Developer note
+% ● Developer
 %   Additional i/o options for recursive calls are not included in the help.
 %   (1) fn can be a data structure as permitted by pspm_load_data,
 %   (2) the output argument pos_of_channels is an index of the channel(s)

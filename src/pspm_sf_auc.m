@@ -14,10 +14,6 @@ function [sts, auc] = pspm_sf_auc(model, options)
 %   * options: the options struct (not used)
 % ● Outputs
 %   *     auc : The calculated area under the curve.
-% ● Reference
-%   Bach DR, Friston KJ, Dolan RJ (2010). Analytic measures for the
-%   quantification of arousal from spontanaeous skin conductance
-%   fluctuations. International Journal of Psychophysiology, 76, 52-55.
 % ● References
 %   [1] Bach DR, Friston KJ, Dolan RJ (2010). Analytic measures for the
 %       quantification of arousal from spontanaeous skin conductance
@@ -38,7 +34,7 @@ auc = [];
 %% check input arguments
 if nargin < 1
   warning('No data specified'); return;
-end;
+end
 try model.scr; catch, warning('Input data is not defined.'); return; end
 scr = model.scr;
 scr = scr - min(scr);

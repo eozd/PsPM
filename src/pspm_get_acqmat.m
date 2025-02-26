@@ -16,7 +16,7 @@ function [sts, import, sourceinfo] = pspm_get_acqmat(datafile, import)
 %   ├────────.sr : The sampling rate of the file.
 %   ├──────.data : The data read from the file.
 %   └────.marker : The type of marker, such as 'continuous'
-% ● Output
+% ● Outputs
 %   *     import : The import struct that saves importing information
 %   * sourceinfo : The struct that saves information of original data source
 % ● History
@@ -47,7 +47,7 @@ for k = 1:numel(import)
     if channel < 1, return; end
   end
 
-  if channel > size(inputdata.labels, 1), warning('ID:channel_not_contained_in_file', 'Channel %02.0f not contained in file %s.\n', channel, datafile); return; end;
+  if channel > size(inputdata.labels, 1), warning('ID:channel_not_contained_in_file', 'Channel %02.0f not contained in file %s.\n', channel, datafile); return; end
 
   sourceinfo.channel{k, 1} = sprintf('Channel %02.0f: %s', channel, inputdata.labels(channel, :));
 

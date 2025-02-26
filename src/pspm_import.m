@@ -60,13 +60,13 @@ function [sts, outfile] = pspm_import(datafile, datatype, import, options)
 %   └────────.overwrite : overwrite existing files by default. [logical] (0 or 1)
 %                         Define whether to overwrite existing output files or not.
 %                         Default value: determined by pspm_overwrite.
-% ● Output
+% ● Outputs
 %   *           outfile : [char] name of a .mat file on the input file path containing the
 %                         imported data. For datatypes that support multiple sessions
 %                         of non-contiguous data in one file (e.g. ADInstruments LabChart),
 %                         these will be saved separately, and outfile will be a cell
 %                         array of file names.
-% ● Developer notes
+% ● Developer
 %   Structure of PsPM import
 %     pspm_import is a general function for handling of import jobs. It checks
 %     the import job, calls a datatype-specific function to extract data from

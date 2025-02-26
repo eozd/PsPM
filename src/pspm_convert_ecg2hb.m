@@ -32,10 +32,10 @@ function [sts,outchannel,debug_info] = pspm_convert_ecg2hb(fn, options)
 %                     Defines whether the new channel should be added or
 %                     the previous outputs of this function should be replaced.
 %
-% ● Output
+% ● Outputs
 %   *  channel_index: index of channel containing the processed data
 %   *   quality_info: generated if options.debugmode == 1
-% ● Reference
+% ● References
 %   [1] Adjusted algorithm:
 %       Paulus PC, Castegnetti G, & Bach DR (2016). Modeling event-related
 %       heart period responses. Psychophysiology, 53, 837-846.
@@ -47,7 +47,7 @@ function [sts,outchannel,debug_info] = pspm_convert_ecg2hb(fn, options)
 %   Written in 2013-2015 Philipp C Paulus & Dominik R Bach
 %   (Technische Universitaet Dresden, University of Zurich)
 %   Updated in 2022 Teddy
-% ● Developer's Notes
+% ● Developer
 %   ▶︎ Changes from the original Pan & Tompkins algorithm
 %   filter:       P. & T. intend to achieve a pass band from 5-15 Hz with a
 %                 real-time filter. This function uses an offline second

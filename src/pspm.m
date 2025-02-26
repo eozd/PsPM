@@ -1,7 +1,7 @@
 function pspm(varargin)
 % ● Description
 %   pspm.m handles the main GUI for PsPM
-% ● Developer's notes
+% ● Developer
 %   PsPM will no longer support GUIDE and only use App Designer for UI.
 %   App Designer is available for MATLAB that is later than version R2016a (9.0).
 % ● History

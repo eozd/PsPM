@@ -8,7 +8,7 @@ function [ft, p, t] = pspm_bf_scrf_f(td, p)
 %   *  td : Time resolution in s.
 %   *   p : An array with variables as (1) Time to peak; (2) Variance of rise defining 
 %           gaussian; and (3--4) Decay constants.
-% ● Reference
+% ● References
 %   Bach DR, Flandin G, Friston KJ, Dolan RJ (2010). Modelling event-related skin
 %   conductance responses. International Journal of Psychophysiology, 75, 349-356.
 % ● History
@@ -17,7 +17,7 @@ function [ft, p, t] = pspm_bf_scrf_f(td, p)
 
 %% initialise
 global settings;
-if isempty(settings), pspm_init; end;
+if isempty(settings), pspm_init; end
 %% processing
 if nargin < 1
   errmsg='No sampling interval stated'; warning('ID:invalid_input', errmsg); return;

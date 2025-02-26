@@ -5,9 +5,9 @@ function [sts, hist_str] = pspm_format_history_from_file(fn)
 %   to <a href="matlab:help pspm_format_history">pspm_format_history</a>.
 % ● Format
 %   [sts, hist_str] = pspm_format_history_from_file(fn)
-% ● Argument
+% ● Arguments
 %   * fn: [string] Path to a PsPM file
-% ● Output
+% ● Outputs
 %   * hist_str: Formatted table string
 % ● History
 %   Written in 2019 by Eshref Yozdemir (UZH)

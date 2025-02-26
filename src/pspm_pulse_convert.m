@@ -2,7 +2,7 @@ function [sts, wavedata] = pspm_pulse_convert(pulsedata, resamplingrate, samplin
 % ● Description
 %   pspm_pulse_convert converts pulsed data into a data waveform, assuming
 %   milliseconds as time unit and a resamplingrate in Hz given as input argument
-% ● Developer's Notes
+% ● Developer
 %   This function is designed for data from CED spike, recorded by CED Micro
 %   1401. These data should not normally exceed pulse frequencies of 10 kHz,
 %   corresponding to a pulse time stamp difference of 0.1 ms. Smaller values

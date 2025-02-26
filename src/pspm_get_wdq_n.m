@@ -18,7 +18,7 @@ function [sts, import, sourceinfo]  = pspm_get_wdq_n(datafile, import)
 % ● Outputs
 %   *     import : Struct that includes data obtained from wdq files.
 %   * sourceinfo : Struct that includes source information
-% ● Developer's Notes
+% ● Developer
 %   This function does not use the ActiveX control elements provided by
 %   Dataq developers. Instead it reads the binary file according to the
 %   documentation published by dataq
@@ -53,15 +53,15 @@ for k = 1:numel(import)
   channel = import{k}.channel;
   if channel > size(inputdata, 2)
     warning('ID:channel_not_contained_in_file', 'Channel %1.0f does not exist in data file', channel); return;
-  end;
+  end
   import{k}.sr = inputinfo.sampleRatePerChannel; % sample rate per channel
   import{k}.data = inputdata{channel};     % data per channel
   import{k}.units = inputinfo.engineeringUnitsTag(channel, :);
   sourceinfo.channel{k, 1} = sprintf('Channel %02.0f', channel);
   if strcmpi(settings.channeltypes(import{k}.typeno).data, 'events')
     import{k}.marker = 'continuous';
-  end;
-end;
+  end
+end
 
 % clear path and return
 % -------------------------------------------------------------------------

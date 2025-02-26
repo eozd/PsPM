@@ -1,8 +1,10 @@
 function [gx,dgdx,dgdPhi] = g_SCR(Xt,Phi,ut,inG)
-% ● Description 
+% ● Description
 %   This is the SCR observation function required by the VBA toolbox. It 
 %   adds the three generative processes (phasic SCR, SF, SCL) modelled in
 %   f_SCR.
+% ● Format
+%   [gx,dgdx,dgdPhi] = g_SCR(Xt,Phi,ut,inG)
 % ● Arguments
 %     Xt: a 7-element vector
 %    Phi: input required by VBA, ignored

@@ -68,7 +68,7 @@ function tam = pspm_tam(model, options)
 %                   Default value: determined by pspm_overwrite.
 % ● Outputs
 %   * tam: a structure 'tam' which is also written to file
-% ● Reference
+% ● References
 %   [1] Model development:
 %       Korn CW & Bach DR (2016). A solid frame for the window on cognition:
 %       Modelling event-related pupil responses. Journal of Vision, 16:28,
@@ -83,7 +83,7 @@ function tam = pspm_tam(model, options)
 %   Introduced In PsPM 4.2
 %   Written in 2020 by Ivan Rojkov (University of Zurich)
 %   Maintained in 2022 by Teddy
-% ● Developer's Notes
+% ● Developer
 %   The fitting process is a residual least square minimisation where the
 %   predicted value is calculated as following:
 %     Y_predicted = input_function (*) basis_function
