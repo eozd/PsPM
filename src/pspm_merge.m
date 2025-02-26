@@ -23,6 +23,10 @@ function [sts, outfile] = pspm_merge(infile1, infile2, reference, options)
 %                       as a reference. Ignored if reference is specified 
 %                       as 'file'. If undefined or 0, the first marker 
 %                       channel of either file is used
+% ● Outputs
+%   *             sts : status flag (-1 or 1)
+%   *         outfile : path of the merged file (char).
+%                       Empty if not successfully merged.
 % ● History
 %   Introduced In PsPM 3.0
 %   Written in 2008-2015 by Dominik R Bach (UZH, WTCN)

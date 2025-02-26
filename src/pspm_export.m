@@ -6,7 +6,7 @@ function sts = pspm_export(modelfile, options)
 %   (first-level models) and columns for statistics (must be the same for all
 %   models). The output can be written to screen or to a text file. 
 % ● Format
-%   pspm_exp(modelfile, options)
+%   sts = pspm_exp(modelfile, options)
 % ● Arguments
 %   *       modelfile:  [string/cell_array] a filename, or cell array of filenames.
 %   ┌─────────options
@@ -31,6 +31,8 @@ function sts = pspm_export(modelfile, options)
 %                       values. This option can only be used for GLM files when
 %                       exclude_missing was set during model setup. Otherwise 
 %                       this argument is ignored.
+% ● Outputs
+%   *            sts : Status flag.
 % ● History
 %   Introduced in PsPM 3.0
 %   Written in 2009-2015 by Dominik R Bach (WTCN, UZH)
