@@ -12,13 +12,13 @@ function [fx, x, p] = pspm_bf_hprf_fc_f(td, soa, p)
 
 %% initialise
 global settings;
-if isempty(settings), pspm_init; end;
+if isempty(settings), pspm_init; end
 if nargin < 1
   errmsg = 'No sampling interval stated'; warning('ID:invalid_input',errmsg); return;
-end;
+end
 if nargin < 2
   soa = 3.5;
-end;
+end
 if nargin < 3
   % table 2 row 3 in Castegnetti et al. 2016
   %p=[43.2180170215633,0.195621916215104,-6.9671,81.0383536117737];
@@ -30,7 +30,7 @@ if nargin < 3
   % before
   % amplitude does not matter because it will be downscaled to 1 by the
   % calling function
-end;
+end
 x0 = p(3);
 b = p(2);
 a = p(1);
@@ -49,7 +49,7 @@ elseif soa < 2
 elseif soa > 8
   warning(['SOA longer than 8s is not recommended. ', ...
     'Use at own risk.']);
-end;
+end
 shift = soa + x0;
 x = (start:td:stop-td)';
 % try not to use stats toolbox, but stats toolbox has very good

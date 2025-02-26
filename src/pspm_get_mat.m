@@ -34,7 +34,7 @@ if ~isfield(data, 'data')
 elseif isnumeric(data.data)
   for k = 1:size(data.data, 2)
     foo{k} = data.data(:, k);
-  end;
+  end
   data = foo;
   channeltype = 'column';
 elseif iscell(data.data)
@@ -47,14 +47,14 @@ elseif iscell(data.data)
   channeltype = 'cell';
 else
   warning('ID:invalid_data_structure', 'Variable ''data'' in file %s must be a cell or numeric.\n', datafile); return;
-end;
+end
 
 % select desired channels
 % -------------------------------------------------------------------------
 for k = 1:numel(import)
   channel = import{k}.channel;
 
-  if channel > numel(data), warning('ID:channel_not_contained_in_file', 'Channel %02.0f not contained in file %s.\n', channel, datafile); return; end;
+  if channel > numel(data), warning('ID:channel_not_contained_in_file', 'Channel %02.0f not contained in file %s.\n', channel, datafile); return; end
 
   import{k}.data = data{channel};
   if strcmpi(settings.channeltypes(import{k}.typeno).data, 'events') && ~isfield(import{k}, 'marker')
@@ -65,7 +65,7 @@ for k = 1:numel(import)
     end
   end
   sourceinfo.channel{k} = sprintf('Data %s %02.0', channeltype, channel);
-end;
+end
 
 sts = 1;
 return

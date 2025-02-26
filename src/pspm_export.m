@@ -53,7 +53,7 @@ if nargin < 1
 elseif nargin < 2
   %if no options are given, built options struct with default values
   options = struct();
-end;
+end
 
 options = pspm_options(options, 'exp');
 if options.invalid
@@ -70,7 +70,7 @@ if ischar(modelfile)
 elseif ~iscell(modelfile)
   warning('ID:invalid_input', 'Model file must be a cell array of char, or char.');
   return;
-end;
+end
 
 % check target --
 if ~ischar(target)
@@ -92,8 +92,8 @@ else
 
     % open or create file for reading and writing, discard contents
     fid = fopen(target, 'w+');
-    if fid == -1, warning('Output file (%s) could not be opened.', target); return; end;
-end;
+    if fid == -1, warning('Output file (%s) could not be opened.', target); return; end
+end
 
 % check statstype --
 if ~ischar(statstype)
@@ -104,18 +104,18 @@ elseif strcmpi(statstype, 'param')
 elseif ~strcmpi(statstype, {'cond', 'recon'})
   warning('ID:invalid_input', 'Unknown Stats type (%s)', statstype);
   return;
-end;
+end
 
 % check delimiter --
 if ~ischar(delim)
   warning('ID:invalid_input', 'Delimiter must be a char'); return;
-end;
+end
 
 % check exclude_missing --
 if exclude_missing~=0 && exclude_missing~=1
   warning('ID:invalid_input', ['The value of options.exclude_missing ',...
     'must be either 0 or 1']); return;
-end;
+end
 
 % get data
 % -------------------------------------------------------------------------
@@ -124,7 +124,7 @@ usenames = 1;
 excl_stats_contained = false(numel(modelfile),1);
 for iFile = 1:numel(modelfile)
   [lsts, data(iFile), modeltype{iFile}] = pspm_load1(modelfile{iFile}, statstype);
-  if lsts < 1, return; end;
+  if lsts < 1, return; end
   % set flag to indicate if exclude statistics are contained
   if isfield(data(iFile),'stats_exclude') && isfield(data(iFile),'stats_missing')
     excl_stats_contained(iFile) = true;
@@ -140,9 +140,9 @@ for iFile = 1:numel(modelfile)
     elseif ~(numel(data(iFile).names) == numel(data(1).names)) || ...
         ~all(strcmpi(data(iFile).names, data(1).names));
       usenames = 0;
-    end;
-  end;
-end;
+    end
+  end
+end
 
 % create output names --
 if ~usenames
@@ -154,16 +154,16 @@ else
     trlnames = data(1).trlnames;
   elseif strcmpi(statstype, 'cond')
     trlnames = data(1).condnames;
-  end;
+  end
   % combine with measure names
   cName = 1;
   for iMsr = 1:size(data(1).stats, 2)
     for iTrl = 1:size(data(1).stats, 1)
       outnames{cName} = sprintf('%s - %s', trlnames{iTrl}, data(1).names{iMsr});
       cName = cName + 1;
-    end;
-  end;
-end;
+    end
+  end
+end
 
 % create output data --
 % if exclude_missing & any exclude stats available: set condition stats to NaN
@@ -200,7 +200,7 @@ elseif strcmpi(statstype, 'recon')
   statstypechar = 'Reconstructed response amplitude per condition';
 else
   warning('No valid data type'); return;
-end;
+end
 
 
 % output --
@@ -209,20 +209,20 @@ fprintf(fid, 'Statistics for models of type ''%s'' (statistics type: %s) \n', mo
 % variable names -
 for iName = 1:numel(outnames)
   fprintf(fid, sprintf('%s%s', outnames{iName}, delim));
-end;
+end
 fprintf(fid, '\n');
 % data -
 for iRow = 1:size(outdata, 1)
   for iCol = 1:size(outdata, 2)
     fprintf(fid, sprintf('%8.8f%s', outdata(iRow, iCol), delim));
-  end;
+  end
   fprintf(fid, '\n');
-end;
+end
 fprintf(fid, '\n');
 % close file -
 if fid ~= 1
   fclose(fid);
-end;
+end
 
 %% Return values
 sts = 1;

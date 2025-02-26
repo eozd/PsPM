@@ -19,11 +19,11 @@ function [bs, x] = pspm_bf_rarf_e(varargin)
 
 %% initialise
 global settings
-if isempty(settings), pspm_init; end;
+if isempty(settings), pspm_init; end
 %% check input arguments
 if nargin==0
   errmsg='No sampling interval stated'; warning('ID:invalid_input', errmsg); return;
-end;
+end
 %% load arguments/parameters
 td = varargin{1}(1);
 if numel(varargin{1}) == 1 && nargin == 1
@@ -32,11 +32,11 @@ elseif numel(varargin{1}) == 2
   bf_type = varargin{1}(2);
 else
   bf_type = varargin{2}(1);
-end;
+end
 %% fix value of bf_type
 if (bf_type<0)||(bf_type>1)
   bf_type = 1;
-end;
+end
 %% other variables
 mu = 8.07;
 sigma = 3.74;
@@ -48,12 +48,12 @@ if td > stop
 elseif td == 0
   warning('ID:invalid_input', 'Time resolution must be larger than 0.');
   return;
-end;
+end
 x = (start:td:stop-td)';
 bs = exp(-(x-mu).^2./(2*sigma^2));
 if bf_type == 1
   bs = [bs [diff(bs); 0]];
-end;
+end
 %% orthogonalise
 bs = spm_orth(bs);
 % normalise

@@ -41,7 +41,7 @@ end
 
 hdr = ft_read_header(datafile, 'headerformat', headerformat);
 indata = ft_read_data(datafile, 'headerformat', headerformat, 'dataformat', headerformat);
-try mrk = ft_read_event(datafile, 'headerformat', headerformat, 'dataformat', headerformat, 'eventformat', headerformat); catch, mrk = []; end;
+try mrk = ft_read_event(datafile, 'headerformat', headerformat, 'dataformat', headerformat, 'eventformat', headerformat); catch, mrk = []; end
 
 % extract individual channels
 % -------------------------------------------------------------------------

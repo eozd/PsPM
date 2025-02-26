@@ -6,7 +6,7 @@ classdef pspm_butter_test < matlab.unittest.TestCase
   methods (Test)
     function invalid_input(this)
       global settings;
-      if isempty(settings), pspm_init; end;
+      if isempty(settings), pspm_init; end
       settings.signal = 0;
       % Verify not enough input
       this.verifyWarning(@() pspm_butter(), 'ID:invalid_input');

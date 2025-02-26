@@ -24,7 +24,7 @@ classdef pspm_get_acq_bioread_test < pspm_get_superclass
       this.testcases{3}.pth = 'ImportTestData/acq/calibration2015-12-06T20_22_38_bioread.mat';
       this.testcases{3}.import{1} = struct('type', 'ecg'   , 'channel', 1);
       this.testcases{3}.import{2} = struct('type', 'marker'   , 'channel', 2);
-    end;
+    end
   end
   methods (Test)
     function invalid_datafile(this)

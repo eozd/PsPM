@@ -19,24 +19,24 @@ function [bs, t] = pspm_bf_spsrf_gamma(varargin)
 
 %% initialize
 global settings
-if isempty(settings), pspm_init; end;
+if isempty(settings), pspm_init; end
 %% check input arguments
 if nargin==0
   errmsg='No sampling interval stated'; warning('ID:invalid_input', errmsg); return;
 elseif nargin == 1
   n_el = numel(varargin{1});
   td = varargin{1}(1);
-  if n_el > 1, soa = varargin{1}(2); else , soa=3.5; end;
-  if n_el > 2, p = varargin{1}(3:end); else , p = NaN; end;
+  if n_el > 1, soa = varargin{1}(2); else , soa=3.5; end
+  if n_el > 2, p = varargin{1}(3:end); else , p = NaN; end
 elseif nargin > 1
   td = varargin{1};
   soa = varargin{2};
-  if nargin > 2, p = varargin{3}; else , p=NaN; end;
-end;
+  if nargin > 2, p = varargin{3}; else , p=NaN; end
+end
 %% Check td
 if td > 10
   warning('ID:invalid_input', 'Time resolution is larger than duration of the function.'); return;
-end;
+end
 %% Check soa
 if ~isnumeric(soa)
   warning('The SOA should be a numeric value.'); return;
@@ -50,7 +50,7 @@ end
 if ~isnan(p)
   p = varargin{3};
   errmsg = 'Basis function parameter must be a numeric vector with 4 elements.';
-  if ~isnumeric(p) || numel(p)~=4, warning('ID:invalid_input', errmsg); return; end;
+  if ~isnumeric(p) || numel(p)~=4, warning('ID:invalid_input', errmsg); return; end
 else
   % parameters obtained by fitting a gamma function to smoothed test data
   p = [-0.00953999201164847,-1.90202591900308,10.0912982464000,0.421253777432825];
