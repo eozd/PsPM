@@ -13,7 +13,7 @@ classdef (Abstract) pspm_get_superclass < pspm_testcase
   methods (Static)
     function import = assign_chantype_number(import)
       global settings;
-      if isempty(settings), pspm_init; end;
+      if isempty(settings), pspm_init; end
       for m = 1:numel(import)
         import{m}.typeno = find(strcmpi(import{m}.type, {settings.channeltypes.type}));
       end
@@ -23,7 +23,7 @@ classdef (Abstract) pspm_get_superclass < pspm_testcase
     function init(this)
       define_testcases(this);
       global settings
-      if isempty(settings), pspm_init; end;
+      if isempty(settings), pspm_init; end
       % assign channel type number
       for k = 1:numel(this.testcases)
         for m = 1:numel(this.testcases{k}.import)
@@ -53,7 +53,7 @@ classdef (Abstract) pspm_get_superclass < pspm_testcase
           sourceinfo = {sourceinfo};
         end
         for blk = 1:blkno
-          if blkno > 1, fprintf('\n\tProcess block %i. ', blk); end;
+          if blkno > 1, fprintf('\n\tProcess block %i. ', blk); end
           this.verifyNumElements(import{blk}, numel(this.testcases{k}.import), ...
           	sprintf('The number of elements of ''import'' does not match in testcase %i', k));
           for m = 1:numel(this.testcases{k}.import)

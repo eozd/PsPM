@@ -45,7 +45,7 @@ classdef pspm_load_data_ui_test < matlab.unittest.TestCase
       [sts, infos, data] = pspm_load_data(scr_load_data_test.fn, chan); % load
       save.data = data;
       save.infos = infos;
-      if exist(fn2), delete(fn2); end;
+      if exist(fn2), delete(fn2); end
       sts = pspm_load_data(fn2, save);
     end
   end

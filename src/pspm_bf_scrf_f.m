@@ -17,7 +17,7 @@ function [ft, p, t] = pspm_bf_scrf_f(td, p)
 
 %% initialise
 global settings;
-if isempty(settings), pspm_init; end;
+if isempty(settings), pspm_init; end
 %% processing
 if nargin < 1
   errmsg='No sampling interval stated'; warning('ID:invalid_input', errmsg); return;

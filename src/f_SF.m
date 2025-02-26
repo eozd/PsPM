@@ -23,7 +23,7 @@ function [fx, dfdx, dfdP] = f_SF(Xt, Theta, ut, in)
 
 %% initialise
 global settings;
-if isempty(settings), pspm_init; end;
+if isempty(settings), pspm_init; end
 % settings
 Theta_n = 3;  % number of parameters for the peripheral function (the rest is for the neural function)
 try
@@ -45,10 +45,10 @@ if ut(2) > 0
         sfTheta(n, 1) = Theta((n - 1) * 2 + Theta_n + 1);
         sfTheta(n, 2) = sigma;
         sfTheta(n, 3) = exp(Theta((n - 1) * 2 + Theta_n + 2));
-    end;
+    end
 else
     sfTheta = [];
-end;
+end
 % ODE 3rd order + gaussian
 xdot = [Xt(2)
         Xt(3)
@@ -72,8 +72,8 @@ if ~isempty(theta)
     gu = a .* exp(-(ut - mu).^2 ./ (2 .* sigma.^2));
     if f
         gu = sum(gu);
-    end;
+    end
 else
     gu = 0;
-end;
+end
 return;

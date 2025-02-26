@@ -30,7 +30,7 @@ scl = [];
 % check input arguments
 if nargin < 1
   warning('No data specified'); return;
-end;
+end
 try model.scr; catch, warning('Input data is not defined.'); return; end
 scl = mean(model.scr);
 sts = 1;

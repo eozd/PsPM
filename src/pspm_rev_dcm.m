@@ -37,7 +37,7 @@ if isempty(settings)
 end
 sts = -1;
 
-try, sn; catch, sn = 1; end;
+try, sn; catch, sn = 1; end
 
 if ischar(dcm)
     [~, dcm, ~] = pspm_load1(dcm, 'all');
@@ -54,7 +54,7 @@ else
     warning('Session %1.0f does not exist', sn); return;
   elseif strcmpi(job, 'inv') && numel(dcm.sn{sn}.u) < trl
     warning('Trial %1.0f in session %1.0f does not exist', trl, sn); return;
-  end;
+  end
 end
 
 
@@ -89,7 +89,7 @@ switch job
         win = floor(sr * ((trlstart(n)):(1/sr):(trlstart(n + 1))));
       else
         win = floor(sr * ((trlstart(n)):(1/sr):(numel(yhat)/sr)));
-      end;
+      end
       win(win == 0) = [];
       data = [y(win), yhat(win)];
       subplot(f.r, f.c, n);
@@ -97,7 +97,7 @@ switch job
       xt = get(gca, 'XTick');
       set(gca, 'XTickLabel', xt / dcm.input.sr);
       set(gca, 'YLim', [min(yhat), max(yhat)]);
-    end;
+    end
     % display scrf
     % ---------------------------------------------------------------------
   case 'scrf'
@@ -112,7 +112,7 @@ switch job
     Theta = [dcm.sn{sn}.prior.theta 1];
     for x = 1:size(ut, 2)
       xt(x + 1, :) = f_SCR(xt(x, :), Theta, ut(:, x), in);
-    end;
+    end
     figure; plot(xt(:, 1));
     set(gca, 'YTick', [], 'XTick', 0:50:300, 'XTickLabel', 0:5:30, 'FontWeight', 'Bold', 'FontSize', 12);
     set(get(gca, 'Title'), 'String', 'Skin conductance response function', 'FontWeight', 'Bold', 'FontSize', 16);
@@ -120,19 +120,19 @@ switch job
     fprintf('Trial names for %s:\n---------------------------------------\n', dcm.dcmname);
     for n=1:numel(dcm.trlnames)
       fprintf('Trial %d: %s\n',n,dcm.trlnames{n});
-    end;
+    end
     fprintf('---------------------------------------\n');
     fprintf('Condition names for %s:\n---------------------------------------\n', dcm.dcmname);
     for n=1:numel(dcm.condnames)
       fprintf('Condition %d: %s\n',n,dcm.condnames{n});
-    end;
+    end
     fprintf('---------------------------------------\n');
   case 'seg'
          
     options = struct('plot', 1);
     [ssts, segments] = pspm_extract_segments('model', dcm, options);
 
-end;
+end
 
 sts = 1;
 return

@@ -41,7 +41,7 @@ for k = 1:numel(import)
       if channel < 1, return; end
     end
 
-    if channel > size({vario.channel.name}, 2), warning('ID:channel_not_contained_in_file', 'Channel %02.0f not contained in file %s.\n', channel, datafile); return; end;
+    if channel > size({vario.channel.name}, 2), warning('ID:channel_not_contained_in_file', 'Channel %02.0f not contained in file %s.\n', channel, datafile); return; end
 
     sourceinfo.channel{k, 1} = sprintf('Channel %02.0f: %s', channel, vario.channel(channel).name);
 

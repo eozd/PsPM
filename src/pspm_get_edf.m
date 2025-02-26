@@ -27,14 +27,14 @@ w_state = warning('query');
 warning('off', 'all'); % unfortunately the warning is not issued with an ID
 hdr = ft_read_header(datafile);
 indata = ft_read_data(datafile);
-try mrk = ft_read_event(datafile, 'detectflank', []); catch, mrk = []; end;
+try mrk = ft_read_event(datafile, 'detectflank', []); catch, mrk = []; end
 warning(w_state);
 
 
 % convert 3 dim to 2 dim (collapse all trials into continuous data)
 if numel(size(indata)) == 3,
   indata = indata(:,:);
-end;
+end
 
 % extract individual channels
 % -------------------------------------------------------------------------
@@ -46,10 +46,10 @@ for k = 1:numel(import)
       channel = import{k}.channel;
     else
       channel = pspm_find_channel(hdr.label, import{k}.type);
-      if channel < 1, return; end;
-    end;
+      if channel < 1, return; end
+    end
 
-    if channel > size(indata, 1), warning('ID:channel_not_contained_in_file', 'Channel %02.0f not contained in file %s.\n', channel, datafile); return; end;
+    if channel > size(indata, 1), warning('ID:channel_not_contained_in_file', 'Channel %02.0f not contained in file %s.\n', channel, datafile); return; end
 
     sourceinfo.channel{k, 1} = sprintf('Channel %02.0f: %s', channel, hdr.label{channel});
 
@@ -71,10 +71,10 @@ for k = 1:numel(import)
     else
       warning('ID:channel_not_contained_in_file', ...
         'Marker channel not contained in file %s.\n', datafile); return;
-    end;
-  end;
+    end
+  end
 
-end;
+end
 
 % clear path and return
 % -------------------------------------------------------------------------

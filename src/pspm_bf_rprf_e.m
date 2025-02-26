@@ -21,11 +21,11 @@ function [bs, x] = pspm_bf_rprf_e(varargin)
 
 %% initialise
 global settings
-if isempty(settings), pspm_init; end;
+if isempty(settings), pspm_init; end
 %% check input arguments
 if nargin==0
   errmsg='No sampling interval stated'; warning('ID:invalid_input', errmsg); return;
-end;
+end
 %% load arguments/parameters
 td = varargin{1}(1);
 if numel(varargin{1}) == 1 && nargin == 1
@@ -34,11 +34,11 @@ elseif numel(varargin{1}) == 2
   bf_type = varargin{1}(2);
 else
   bf_type = varargin{2}(1);
-end;
+end
 %% fix value of bf_type
 if (bf_type<0)||(bf_type>1)
   bf_type = 0;
-end;
+end
 %% other variables
 mu = 4.2;
 sigma = 1.65;
